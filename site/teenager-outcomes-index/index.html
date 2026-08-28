@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teenager Outcomes Index V3 — Denominator</title>
+<meta name="description" content="125 countries, 18 indicators, 1.24 billion adolescents. Adolescent outcomes scored per country and per teenager.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/brand.css">
+<style>
+.toi-hero{padding:clamp(52px,8vw,96px) 0 var(--stack-3)}
+.toi-hero h1{font-size:clamp(40px,7.2vw,92px);max-width:16ch}
+.toi-hero h1 em{font-style:normal;-webkit-text-decoration:underline 3px var(--s2);text-decoration:underline 3px var(--s2);text-underline-offset:9px}
+.toi-hero .lede{font-size:clamp(18px,2vw,23px);max-width:60ch;margin-top:var(--stack-2);color:var(--ink-2);font-weight:300;line-height:1.5}
+.ribbonbox{margin-top:var(--stack-4);border-top:1px solid var(--rule);padding-top:var(--stack-2)}
+.ribbonhead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.toggle{display:inline-flex;border:1px solid var(--ink)}
+.toggle button{font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:none;border:0;padding:10px 15px;cursor:pointer;color:var(--ink)}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+#ribbon{width:100%;height:132px;display:block;cursor:crosshair;touch-action:none}
+.axis{display:flex;justify-content:space-between;font-family:var(--fm);font-size:10.5px;color:var(--ink-2);margin-top:8px;letter-spacing:.06em}
+.readout{margin-top:var(--stack-2);border-top:1px solid var(--rule);padding-top:18px;display:grid;grid-template-columns:minmax(190px,1.2fr) repeat(4,minmax(80px,1fr));gap:16px;align-items:baseline}
+.readout .rc{font-family:var(--fd);font-weight:700;font-size:25px;letter-spacing:-.02em}
+.readout .rv{font-family:var(--fm);font-size:19px;font-weight:500}
+.readout .rl{display:block;font-family:var(--fm);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:3px}
+.duo{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink)}
+.duo>div{padding:34px 30px 36px}
+.duo>div+div{border-left:1px solid var(--ink)}
+.duo .big{font-family:var(--fd);font-weight:800;font-size:clamp(56px,10vw,124px);line-height:.86;letter-spacing:-.045em;font-variant-numeric:tabular-nums;margin-top:14px}
+.duo .cap{margin-top:18px;font-size:16px;color:var(--ink-2);max-width:40ch}
+.duo .sel{background:var(--ink);color:var(--paper)}
+.duo .sel .eyebrow{color:var(--paper-3)}
+.duo .sel .cap{color:var(--paper-2)}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.wcell{background:var(--paper);padding:22px 20px 24px}
+.wcell .n{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);line-height:1.5}
+.wcell .w{font-family:var(--fd);font-weight:800;font-size:40px;letter-spacing:-.03em;margin-top:6px}
+.wcell .i{font-size:14.5px;color:var(--ink-2);margin-top:8px;line-height:1.5}
+.blockmark{display:inline-block;font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;padding:2px 6px;border:1px solid var(--ink-3);color:var(--ink-3);margin-left:8px;vertical-align:2px}
+.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.tools input,.tools select{font-family:var(--fm);font-size:12.5px;padding:9px 11px;border:1px solid var(--rule);background:var(--paper);color:var(--ink)}
+.tblwrap{border-top:1px solid var(--ink)}
+table.grid{border-collapse:collapse;width:100%;font-family:var(--fm);font-size:13px}
+table.grid th{text-align:right;font-weight:500;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding:12px 9px;border-bottom:1px solid var(--rule);cursor:pointer;white-space:nowrap;position:sticky;top:0;background:var(--paper);z-index:2}
+table.grid th:first-child,table.grid th:nth-child(2){text-align:left}
+table.grid th[aria-sort="descending"]:after{content:"\25BC";font-size:8px;margin-left:5px}
+table.grid th[aria-sort="ascending"]:after{content:"\25B2";font-size:8px;margin-left:5px}
+table.grid td{text-align:right;padding:9px;border-bottom:1px solid var(--paper-2);white-space:nowrap}
+table.grid td:first-child,table.grid td:nth-child(2){text-align:left}
+table.grid td:nth-child(2){font-family:var(--fb);font-size:15px}
+table.grid tr.ind td{background:var(--ink);color:var(--paper);font-weight:600}
+table.grid tbody tr.row{cursor:pointer}
+table.grid tr:hover td{background:var(--paper-2)}
+table.grid tr.ind:hover td{background:var(--ink)}
+table.grid tr.detail td{padding:0;border-bottom:1px solid var(--rule);white-space:normal}
+table.grid tr.detail[hidden]{display:none}
+.car{display:inline-block;width:9px;font-size:9px;color:var(--ink-3);margin-right:7px;transition:transform .15s}
+tr.row.open .car{transform:rotate(90deg)}
+tr.row.open td{background:var(--paper-2)}
+tr.ind.open td{background:var(--ink)}
+.rowdetail{display:flex;flex-wrap:wrap;gap:26px;padding:20px 9px 6px;background:var(--paper-2)}
+.rowdetail .rl{display:block;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+.rowdetail .rv{font-family:var(--fm);font-size:16px;font-weight:500}
+.rowdetail .agg{margin-left:auto;padding-left:26px;border-left:1px solid var(--rule)}
+.rowdetail .agg .rv{font-family:var(--fd);font-weight:800;font-size:23px}
+.rowdetail-formula{width:100%;margin:0 0 16px;padding:0 9px;font-family:var(--fm);font-size:10.5px;color:var(--ink-3);letter-spacing:.03em}
+.chip{display:inline-block;width:34px;height:11px;vertical-align:-1px;margin-right:4px}
+.ledger{height:60px;display:flex;border:1px solid var(--ink);overflow:hidden}
+.ledger>div{display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11.5px;letter-spacing:.05em}
+.lg-b{background:var(--s2);color:#fff}.lg-i{background:var(--ink);color:var(--paper)}.lg-a{background:var(--s5);color:#fff}
+.lgkey{display:flex;gap:28px;flex-wrap:wrap;margin-top:16px;font-family:var(--fm);font-size:11.5px;color:var(--ink-2)}
+.lgkey b{color:var(--ink);font-weight:600}
+.tip{display:none}
+@media(max-width:820px){
+.tblwrap{overflow-x:auto}
+table.grid th{position:static}
+.readout{grid-template-columns:1fr 1fr;gap:12px}
+.readout .rc{font-size:20px}
+.duo{grid-template-columns:1fr}
+.duo>div+div{border-left:0;border-top:1px solid var(--ink)}
+.duo>div{padding:26px 20px 28px}
+}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="wrap mast">
+<a class="brand" href="/"><span class="rule-bar"></span><span class="wordmark">Denominator</span></a>
+<nav>
+<a href="/">Home</a>
+<a href="#thesis">Two rankings</a><a href="#build">How it's built</a><a href="#table">All 125</a>
+<a href="#india">India</a><a href="#ledger">The ledger</a><a href="#within">Within India</a><a href="#trust">Trust</a>
+</nav>
+</div></header>
+<div class="wrap toi-hero">
+<h1>A billion teenagers, sorted by <em>what happens to them</em>.</h1>
+<p class="lede">Eighteen indicators across seven dimensions, scored for 125 countries. Then the same result counted twice &mdash; once per country, once per teenager. The two answers disagree, and the disagreement is the point.</p>
+<div class="ribbonbox">
+<div class="ribbonhead">
+<div>
+<div class="eyebrow">The cohort ribbon</div>
+<div class="note" style="margin-top:6px;font-size:15px">Every segment is a country, ordered worst to best. Drag or hover to read any point.</div>
+</div>
+<div class="toggle" role="group" aria-label="Ribbon scale">
+<button id="tgPop" aria-pressed="true">Width = teenagers</button>
+<button id="tgCty" aria-pressed="false">Width = countries</button>
+</div>
+</div>
+<canvas id="ribbon" height="132"></canvas>
+<div class="axis"><span id="axL">Worst outcomes</span><span id="axM"></span><span id="axR">Best outcomes</span></div>
+<div class="readout">
+<div><span class="rl">Country</span><span class="rc" id="roC">India</span></div>
+<div><span class="rl">Index</span><span class="rv mono" id="roT">55.6</span></div>
+<div><span class="rl">Teens (m)</span><span class="rv mono" id="roP">253.0</span></div>
+<div><span class="rl">Country pct</span><span class="rv mono" id="roR">35.5</span></div>
+<div><span class="rl">Population pct</span><span class="rv mono" id="roW">42.9</span></div>
+</div>
+</div>
+</div>
+<section id="thesis"><div class="wrap">
+<div class="sechead"><span class="eyebrow">01 / The disagreement</span><h2>India, counted two ways</h2></div>
+<div class="duo">
+<div><div class="eyebrow">One country, one vote</div><div class="big">35.5</div>
+<div class="cap">India ranks 81st of 125 countries. Denmark, with 600,000 teenagers, counts the same as India with 253 million.</div></div>
+<div class="sel"><div class="eyebrow">One teenager, one vote</div><div class="big">42.9</div>
+<div class="cap">Weight every country by its 10&ndash;19 population and India rises seven points, because the countries it outranks are demographically enormous.</div></div>
+</div>
+<p class="note" style="margin-top:26px">Both numbers are correct. The first answers <strong>&ldquo;how does India compare to other states?&rdquo;</strong> The second answers <strong>&ldquo;how does an Indian teenager compare to other teenagers?&rdquo;</strong> Most published country rankings quietly answer the first while being read as the second.</p>
+</div></section>
+<section id="build"><div class="wrap">
+<div class="sechead"><span class="eyebrow">02 / Construction</span><h2>Seven dimensions, split evenly between now and next</h2></div>
+<p class="note" style="margin-bottom:26px">Four dimensions measure the conditions of adolescence itself and total 50 points. Three measure the launchpad into adulthood and total the other 50. Indicators are normalised against the 5th and 95th percentile of the sample, so a single outlier cannot flatten the distribution.</p>
+<div class="wgrid" id="wgrid"></div>
+<p class="note" style="margin-top:22px">Index = 0.5 &times; Life Score + 0.5 &times; Future Score. Percentile = share of the sample at or below.</p>
+</div></section>
+<section id="table"><div class="wrap">
+<div class="sechead"><span class="eyebrow">03 / The index</span><h2>All 125 countries</h2></div>
+<div class="tools">
+<input id="q" type="search" placeholder="Search country" aria-label="Search country">
+<select id="reg" aria-label="Filter by region"><option value="">All regions</option></select>
+<span class="eyebrow" id="count"></span>
+</div>
+<div class="tblwrap"><table class="grid" id="tbl">
+<thead><tr>
+<th data-k="Rank">#</th><th data-k="country">Country</th><th data-k="region">Region</th>
+<th data-k="pop1019_m">Teens m</th><th data-k="LifeScore">Life</th><th data-k="FutureScore">Future</th>
+<th data-k="TOI">Index</th><th data-k="Percentile">Ctry pct</th><th data-k="pop_pct">Pop pct</th>
+</tr></thead><tbody></tbody>
+</table></div>
+</div></section>
+<section id="india"><div class="wrap">
+<div class="sechead"><span class="eyebrow">04 / The case</span><h2>Five dimensions at the median. Two in freefall.</h2></div>
+<div class="two">
+<div>
+<div class="eyebrow" style="margin-bottom:14px">India by dimension &mdash; bar is India, hairline is the sample median</div>
+<div class="bars" id="dimbars"></div>
+</div>
+<div>
+<p class="note">India&rsquo;s Living, Safety, Health, Education and Digital scores sit between the 42nd and 50th percentile &mdash; unremarkable for its income level, and improving. Mental &amp; social wellbeing ranks 113th of 125. Economic future ranks 122nd.</p>
+<blockquote>Remove those two dimensions and India is a median country. They are the entire deficit.</blockquote>
+<p class="note" style="margin-top:22px">Youth NEET of 39% sits at the winsorisation ceiling. The 32-point gap between female and male NEET exceeds the clipping bound, so India scores a literal zero on it. Together those two indicators forfeit 22 of 22.5 available points. The index cannot represent India as worse than this &mdash; the floor is holding the score up.</p>
+</div>
+</div>
+<div style="margin-top:52px">
+<div class="eyebrow" style="margin-bottom:14px">Where the Future Score goes &mdash; points earned of points available</div>
+<div class="bars" id="futbars"></div>
+<p class="note" style="margin-top:18px">Completion earns 85% of its available credit; learning outcome earns 33%. India moves adolescents through lower secondary at above-median rates and gets below-median cognitive output. Separating the two is what the framework exists to do.</p>
+</div>
+</div></section>
+<section id="ledger"><div class="wrap">
+<div class="sechead"><span class="eyebrow">05 / The ledger</span><h2>404 million below, 581 million above</h2></div>
+<div class="ledger">
+<div class="lg-b" style="width:32.6%">32.6%</div><div class="lg-i" style="width:20.4%">India 20.4%</div><div class="lg-a" style="width:46.9%">46.9%</div>
+</div>
+<div class="lgkey">
+<span><b>404.3m</b> in 44 countries scoring below</span><span><b>253.0m</b> in India</span><span><b>581.3m</b> in 80 countries scoring above</span>
+</div>
+<div class="two" style="margin-top:44px">
+<div><div class="eyebrow" style="margin-bottom:12px">What India clears</div><table class="kv" id="tblBelow"></table>
+<p class="note" style="margin-top:14px;font-size:15px">Nigeria and Pakistan alone supply a quarter of it. Africa contributes 21.3 of the 32.6 points.</p></div>
+<div><div class="eyebrow" style="margin-bottom:12px">What clears India</div><table class="kv" id="tblAbove"></table>
+<p class="note" style="margin-top:14px;font-size:15px">China alone is 12.9 of the 46.9 points. Only six African countries and one South Asian country score above India.</p></div>
+</div>
+<blockquote style="margin-top:40px">Only 120 of the 581 million above India live in rich countries. The rest are in China and in middle-income peers &mdash; Indonesia, the Philippines, Brazil, Mexico, Egypt, Vietnam, Iran, Uzbekistan. India is not being outranked by wealth. It is being outranked at its own income level.</blockquote>
+</div></section>
+<section id="within"><div class="wrap">
+<div class="sechead"><span class="eyebrow">06 / Disaggregation</span><h2>Where the top of India actually lands</h2></div>
+<p class="note" style="margin-bottom:30px">Split India by household wealth using domestic survey gradients, score each stratum on the same global scale, and drop the strata back into the world distribution. A claim like &ldquo;Indian teenagers do better than 70% of the world&rdquo; can then be tested rather than asserted.</p>
+<div class="two">
+<div><div class="eyebrow" style="margin-bottom:14px">India by wealth decile &mdash; world percentile reached</div><div class="bars" id="decbars"></div></div>
+<div><div class="eyebrow" style="margin-bottom:14px">What is true, and for how many</div><table class="kv" id="tblClaim"></table>
+<p class="note" style="margin-top:18px">No Indian wealth stratum clears the 75th world percentile. Wealth buys health, connectivity, schooling and safety; it does not buy out the Economic Future constraint, and youth unemployment actually <em>rises</em> with wealth and education in India. The richest decile still scores 79.1 on Life against 67.6 on Future.</p></div>
+</div>
+<div style="margin-top:52px">
+<div class="eyebrow" style="margin-bottom:14px">India by state &mdash; world percentile reached</div>
+<div class="bars" id="stbars"></div>
+<p class="note" style="margin-top:18px">State spread runs 48 to 68; wealth spread runs 35 to 73. A state average pools all classes, so geography understates the real dispersion. No Indian state reaches the world&rsquo;s 62nd percentile.</p>
+</div>
+</div></section>
+<section id="trust"><div class="wrap">
+<div class="sechead"><span class="eyebrow">07 / Trust</span><h2>What this is, and what it isn't</h2></div>
+<div class="two">
+<div>
+<h3 style="font-size:20px;margin-bottom:10px">Sensitivity</h3>
+<p class="note" style="font-size:15.5px;margin-bottom:14px">India&rsquo;s country percentile under nine specifications.</p>
+<table class="kv" id="tblSens"></table>
+<p class="note" style="margin-top:14px;font-size:15px">Range 27&ndash;40, point estimate 35&ndash;36. The result is not an artefact of weight choices.</p>
+</div>
+<div>
+<h3 style="font-size:20px;margin-bottom:10px">Provenance</h3>
+<p class="note" style="font-size:15.5px">Harmonised learning outcomes are published values (Altinok, Angrist &amp; Patrinos; World Bank HLO) for 96 of 125 countries; 29 are imputed by regression on mortality, literacy, completion and internet use, R&sup2; 0.87, and flagged in the workbook.</p>
+<p class="note" style="font-size:15.5px">The other 17 indicators are compiled from UNICEF, WHO, UNESCO UIS, UN Population Division, UNODC, ILO, ITU and the World Happiness Report, vintage 2022&ndash;2024. They are reconstructions at approximately correct level and ordering, not a verified extract from one source database. Treat individual cells as approximate and the distribution as usable.</p>
+<p class="note" style="font-size:15.5px">Mental &amp; social wellbeing is the weakest dimension: suicide mortality and adult life evaluation are proxies, and no adolescent-specific mental-health series has global country coverage. Bullying, school violence and digital-skills indicators were dropped for lack of coverage. Internet and electricity are population-level proxies. Within-India gradients are encoded from published NFHS-5 and PLFS patterns, not a microdata reanalysis; bands above the 90th wealth percentile are extrapolated.</p>
+<p class="note" style="font-size:15.5px">Sample covers 1.239 billion adolescents, about 95% of the world&rsquo;s 10&ndash;19 population. Percentiles are within-sample.</p>
+</div>
+</div>
+</div></section>
+<footer class="site-foot"><div class="wrap cols">
+<div>
+<a class="brand" href="/" style="margin-bottom:14px"><span class="rule-bar"></span><span class="wordmark">Denominator</span></a>
+<p style="max-width:46ch">Teenager Outcomes Index V3 &mdash; 125 countries, 18 indicators, 7 dimensions, 1.239 billion adolescents. Every figure is computed from the workbook behind it, in which all inputs are editable and all scores recalculate.</p>
+</div>
+<div><h4>This index</h4><ul>
+<li><a href="#build">How it&rsquo;s built</a></li><li><a href="#table">All 125 countries</a></li>
+<li><a href="#within">Within India</a></li><li><a href="#trust">Sensitivity &amp; provenance</a></li></ul></div>
+<div><h4>Denominator</h4><ul>
+<li><a href="/">Home</a></li><li><a href="/#principles">Principles</a></li>
+<li><a href="/#method">Method</a></li><li><a href="/#catalogue">Catalogue</a></li></ul></div>
+</div></footer>
+<div class="tip" id="tip"></div>
+<script>
+fetch('/toi.json').then(r=>r.json()).then(D=>{
+const K=['country','region','pop1019_m','LifeScore','FutureScore','TOI','Rank','Percentile','pop_pct'];
+const ALL=D.rows.map(r=>{const o={};K.forEach((k,i)=>o[k]=r[i]);
+const band=(D.bands||{})[o.country];if(band){o.toiLow=band[0];o.toiHigh=band[1]}
+return o});
+D.countries=ALL;
+D.indDims=D.indiaDims;D.medDims=D.medians;
+const C=ALL.slice().sort((a,b)=>a.TOI-b.TOI);   // ascending
+const RAMP=['#4B1D3F','#8E3536','#C06A34','#C9A94E','#6F9A6B','#2A6C63','#134B4C'];
+function col(t){const x=Math.max(0,Math.min(1,(t-10)/86))*(RAMP.length-1);
+const i=Math.floor(x),f=x-i,a=hx(RAMP[i]),b=hx(RAMP[Math.min(i+1,RAMP.length-1)]);
+return`rgb(${a.map((v,k)=>Math.round(v+(b[k]-v)*f)).join(',')})`}
+function hx(h){return[1,3,5].map(i=>parseInt(h.slice(i,i+2),16))}
+const IND=C.find(c=>c.country==='India');
+const cv=document.getElementById('ribbon'),cx=cv.getContext('2d');
+let mode='pop',segs=[],hoverX=null;
+function layout(){
+const W=cv.width/devicePixelRatio;
+const tot=mode==='pop'?C.reduce((s,c)=>s+c.pop1019_m,0):C.length;
+let x=0;segs=C.map(c=>{const w=(mode==='pop'?c.pop1019_m:1)/tot*W;const s={c,x,w};x+=w;return s});
+}
+function draw(){
+const W=cv.width/devicePixelRatio,H=cv.height/devicePixelRatio;
+cx.clearRect(0,0,W,H);
+segs.forEach(s=>{
+cx.fillStyle=col(s.c.TOI);cx.fillRect(s.x,0,Math.max(s.w,.4),H-24);
+if(s.c.country==='India'){cx.strokeStyle='#E3E7E1';cx.lineWidth=2;cx.strokeRect(s.x+1,1,s.w-2,H-26);
+cx.fillStyle='#141B17';cx.fillRect(s.x,H-24,s.w,3);
+if(s.w>54){cx.fillStyle='#E3E7E1';cx.font='600 11px "IBM Plex Mono",monospace';cx.textAlign='center';cx.fillText('INDIA',s.x+s.w/2,H/2-6)}}
+});
+cx.fillStyle='#141B17';cx.font='400 9.5px "IBM Plex Mono",monospace';cx.textAlign='left';
+[0,25,50,75,100].forEach(p=>{const px=p/100*W;cx.fillRect(px===W?W-1:px,H-20,1,7);
+cx.textAlign=p===0?'left':p===100?'right':'center';cx.fillText(p+'%',px,H-6)});
+if(hoverX!==null){const s=segs.find(s=>hoverX>=s.x&&hoverX<s.x+s.w);
+if(s){cx.strokeStyle='#141B17';cx.lineWidth=1;cx.beginPath();cx.moveTo(hoverX,0);cx.lineTo(hoverX,H-24);cx.stroke()}}
+}
+function resize(){const r=cv.getBoundingClientRect();cv.width=r.width*devicePixelRatio;cv.height=132*devicePixelRatio;
+cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);layout();draw()}
+function readout(c){
+roC.textContent=c.country;roT.textContent=c.TOI.toFixed(1);roP.textContent=c.pop1019_m.toFixed(1);
+roR.textContent=c.Percentile.toFixed(1);roW.textContent=c.pop_pct.toFixed(1)}
+function pick(e){const r=cv.getBoundingClientRect();const x=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+hoverX=x;const s=segs.find(s=>x>=s.x&&x<s.x+s.w);if(s)readout(s.c);draw()}
+cv.addEventListener('mousemove',pick);cv.addEventListener('touchmove',e=>{e.preventDefault();pick(e)},{passive:false});
+cv.addEventListener('mouseleave',()=>{hoverX=null;readout(IND);draw()});
+tgPop.onclick=()=>setMode('pop');tgCty.onclick=()=>setMode('cty');
+function setMode(m){mode=m;tgPop.setAttribute('aria-pressed',m==='pop');tgCty.setAttribute('aria-pressed',m==='cty');
+axM.textContent=m==='pop'?'1,238.6m teenagers':'125 countries';layout();draw()}
+addEventListener('resize',resize);
+const WD=[['Education & learning',25,'Future','Completion · learning outcome · youth literacy'],
+['Health & survival',15,'Life','Under-5 mortality · adolescent fertility · stunting'],
+['Mental & social wellbeing',15,'Life','Suicide mortality · life evaluation'],
+['Safety & protection',15,'Life','Homicide · child marriage · child labour'],
+['Economic future',15,'Future','Youth NEET · youth unemployment · NEET gender gap'],
+['Digital & opportunity',10,'Future','Internet use · mobile broadband'],
+['Living environment',5,'Life','Basic water · electricity']];
+wgrid.innerHTML=WD.map(([n,w,b,i])=>`<div class="wcell"><div class="n">${n}<span class="blockmark">${b}</span></div><div class="w">${w}</div><div class="i">${i}</div></div>`).join('');
+const tb=document.querySelector('#tbl tbody');let sk='TOI',sd=-1;
+[...new Set(D.countries.map(c=>c.region))].sort().forEach(r=>reg.add(new Option(r,r)));
+function rows(){
+const t=q.value.toLowerCase(),rg=reg.value;
+let r=D.countries.filter(c=>c.country.toLowerCase().includes(t)&&(!rg||c.region===rg));
+r.sort((a,b)=>(typeof a[sk]==='string')?sd*a[sk].localeCompare(b[sk]):sd*(a[sk]-b[sk]));
+count.textContent=r.length+' of 125';
+tb.innerHTML=r.map(c=>`<tr class="row${c.country==='India'?' ind':''}"><td><span class="car">&#9656;</span>${c.Rank}</td>
+<td><span class="chip" style="background:${col(c.TOI)}"></span> ${c.country}</td><td>${c.region}</td>
+<td>${c.pop1019_m.toFixed(1)}</td><td>${c.LifeScore.toFixed(1)}</td><td>${c.FutureScore.toFixed(1)}</td>
+<td><b>${c.TOI.toFixed(1)}</b></td><td>${c.Percentile.toFixed(1)}</td><td>${c.pop_pct.toFixed(1)}</td></tr>
+<tr class="detail" hidden><td colspan="9">
+<div class="rowdetail">
+<div><span class="rl">Teens (m)</span><span class="rv">${c.pop1019_m.toFixed(1)}</span></div>
+<div><span class="rl">Life score</span><span class="rv">${c.LifeScore.toFixed(1)}</span></div>
+<div><span class="rl">Future score</span><span class="rv">${c.FutureScore.toFixed(1)}</span></div>
+<div><span class="rl">Country pct</span><span class="rv">${c.Percentile.toFixed(1)}</span></div>
+<div><span class="rl">Population pct</span><span class="rv">${c.pop_pct.toFixed(1)}</span></div>
+<div class="agg"><span class="rl">Aggregate score</span><span class="rv">${c.TOI.toFixed(1)}${c.toiLow!=null?` <span style="font-size:13px;color:var(--ink-3)">[${c.toiLow.toFixed(1)}&ndash;${c.toiHigh.toFixed(1)}]</span>`:''}</span></div>
+</div>
+<p class="rowdetail-formula">Index = 0.5 &times; Life Score + 0.5 &times; Future Score, each built from the seven weighted dimensions in &sect;02.${c.toiLow!=null?' The bracketed range is the published band across every indicator’s most- and least-favourable sourced value — see docs/CONTESTED.md.':''}</p>
+</td></tr>`).join('');
+}
+tb.addEventListener('click',e=>{
+const tr=e.target.closest('tr.row');
+if(!tr)return;
+tr.classList.toggle('open');
+const det=tr.nextElementSibling;
+if(det&&det.classList.contains('detail'))det.hidden=!det.hidden;
+});
+document.querySelectorAll('#tbl th').forEach(th=>th.onclick=()=>{
+const k=th.dataset.k;sd=(sk===k)?-sd:(k==='country'||k==='region'?1:-1);sk=k;
+document.querySelectorAll('#tbl th').forEach(o=>o.removeAttribute('aria-sort'));
+th.setAttribute('aria-sort',sd===1?'ascending':'descending');rows()});
+q.oninput=rows;reg.onchange=rows;
+function bars(el,items){el.innerHTML=items.map(i=>`<div class="bar"><span class="lab">${i.l}</span>
+<span class="track"><span class="fill" style="width:${Math.max(i.v,0)}%;background:${i.c||col(i.v)}"></span>
+${i.m!=null?`<span class="med" style="left:${i.m}%"></span>`:''}</span>
+<span class="val">${i.t}</span></div>`).join('')}
+bars(dimbars,[['living','Living env.'],['safety','Safety'],['health','Health'],['education','Education'],['digital','Digital'],['mental','Mental & social'],['economic','Economic']].map(([k,l])=>
+({l,v:D.indDims[k],m:D.medDims[k],t:D.indDims[k].toFixed(1)})));
+const FUT=[['Lower-sec completion',14.9,17.5],['Youth literacy',11.4,12.5],['Learning outcome',6.7,20.0],
+['Internet use',9.0,14.0],['Mobile broadband',3.3,6.0],['Youth unemployment',3.6,7.5],['Youth NEET',0.4,15.0],['NEET gender gap',0.0,7.5]];
+bars(futbars,FUT.map(([l,e,a])=>({l,v:e/a*100,t:e.toFixed(1)+' / '+a.toFixed(1),c:col(e/a*100)})));
+bars(decbars,D.deciles.slice().reverse().map(([k,toi,wp])=>({l:k==='D10'?'D10 richest':k==='D1'?'D1 poorest':k,v:wp,t:wp.toFixed(1),c:col(toi)})));
+bars(stbars,D.states.slice().sort((a,b)=>b[2]-a[2]).map(([k,toi,mid])=>({l:k,v:mid,t:mid.toFixed(1),c:col(toi)})));
+function kv(el,rows,hl){el.innerHTML=rows.map(r=>`<tr class="${r[0]===hl?'hl':''}"><td>${r[0]}</td><td class="mono">${r[1]}</td><td class="mono">${r[2]}</td></tr>`).join('')}
+const below=C.filter(c=>c.TOI<IND.TOI).sort((a,b)=>b.pop1019_m-a.pop1019_m);
+const above=C.filter(c=>c.TOI>IND.TOI).sort((a,b)=>b.pop1019_m-a.pop1019_m);
+const T=1238.6;let cum=0;
+kv(tblBelow,below.slice(0,10).map(c=>{cum+=c.pop1019_m;return[c.country,c.pop1019_m.toFixed(0)+'m',(cum/T*100).toFixed(1)+'%']})
+.concat([['+ 34 more countries','109m','32.6%']]));
+cum=0;
+kv(tblAbove,above.slice(0,10).map(c=>{cum+=c.pop1019_m;return[c.country,c.pop1019_m.toFixed(0)+'m',(cum/T*100).toFixed(1)+'%']})
+.concat([['+ 70 more countries','207m','46.9%']]));
+kv(tblClaim,[['Better than 25% of world teens','top 80%','202m'],['Better than 40%','top 50%','126m'],
+['Better than 50%','top 30%','76m'],['Better than 60%','top 15%','38m'],['Better than 70%','top 5%','13m'],
+['Better than 75%','nobody','0']],'Better than 70%');
+kv(tblSens,[['V3 baseline','35.5','81'],['Equal dimension weights','34.7','82'],['Economic 15→25, Education 25→15','27.4','91'],
+['Economic 15→5, Education 25→35','39.5','76'],['Mental dimension dropped','38.7','77'],['Life Score only','35.5','81'],
+['Future Score only','35.5','81'],['No winsorisation','37.9','78'],['Z-score normalisation','35.5','81']],'V3 baseline');
+setMode('pop');resize();rows();readout(IND);
+document.querySelector('#tbl th[data-k="TOI"]').setAttribute('aria-sort','descending');
+
+});
+</script>
+</body></html>

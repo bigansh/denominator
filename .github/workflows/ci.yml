@@ -1,0 +1,28 @@
+name: validate and build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pandas
+      - name: validate data
+        run: python build/validate.py
+      - name: build index
+        run: python build/build.py
+      - name: fail if generated output is stale
+        run: |
+          git diff --exit-code -- site/toi.json dist/ \
+            || (echo "::error::Generated output is out of date. Run 'python build/build.py' and commit the result."; exit 1)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: index-output
+          path: dist/

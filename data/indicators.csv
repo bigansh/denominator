@@ -1,0 +1,19 @@
+indicator_id,label,dimension_id,sub_weight,direction,unit,confidence_tier,canonical_source,caveat
+u5mr,Under-5 mortality rate,health,0.4,negative,"deaths per 1,000 live births",A,UN IGME,Survival proxy for the adolescent cohort; not adolescent-specific.
+adol_fert,Adolescent fertility rate,health,0.35,negative,"births per 1,000 women 15-19",A,UN Population Division / World Bank SP.ADO.TFRT,
+stunting,"Stunting prevalence, under-5",health,0.25,negative,% of children under 5,A,UNICEF/WHO/World Bank JME (NFHS-5 for India),India value disputed against Poshan Tracker administrative data. See docs/CONTESTED.md.
+suicide,Suicide mortality rate,mental,0.45,negative,"deaths per 100,000",A,WHO Global Health Estimates; NCRB for India,Registration completeness varies; under-reporting likely where suicide is stigmatised or criminalised.
+ladder,Life evaluation (Cantril ladder),mental,0.55,positive,mean 0-10,C,Gallup World Poll via World Happiness Report,"One perceptual question, ~1,000 respondents per country-year, 3-year mean, adults not adolescents. Construct validity contested. See docs/CONTESTED.md."
+homicide,Intentional homicide rate,safety,0.4,negative,"per 100,000",A,UNODC,
+child_marriage,Child marriage,safety,0.35,negative,% women 20-24 married before 18,A,UNICEF; DHS/MICS,
+child_labour,Child labour,safety,0.25,negative,% of children 5-17,B,ILO/UNICEF,Definitions differ across surveys; unpaid household work inconsistently captured.
+water,Basic drinking water access,living,0.5,positive,% of population,A,WHO/UNICEF JMP,Population-level proxy.
+electricity,Access to electricity,living,0.5,positive,% of population,A,World Bank / IEA,Population-level proxy. Connection is not reliable supply.
+lsec_comp,Lower-secondary completion rate,education,0.35,positive,%,A,UNESCO UIS,
+hlo,Harmonised learning outcome,education,0.4,positive,score 300-625,B,"Altinok, Angrist & Patrinos (2018) / World Bank HLO","Vintage 2005-2015. Imputed for 29 countries. China derives from PISA-participating provinces, not the national population."
+youth_lit,Youth literacy rate 15-24,education,0.25,positive,%,A,UNESCO UIS,Self- or proxy-reported in several censuses.
+neet,Youth NEET rate,economic,0.5,negative,% aged 15-24,B,ILOSTAT / national LFS (PLFS for India),Subsistence and unpaid family work counted as employment in low-income settings depresses measured NEET.
+y_unemp,Youth unemployment rate,economic,0.25,negative,% of labour force 15-24,B,ILOSTAT,"Denominator is the labour force, so it rises where participation rises."
+neet_gap,NEET gender gap,economic,0.25,negative,"percentage points, female minus male",B,Derived from ILOSTAT / national LFS,Inherits the comparability limits of the NEET series.
+internet,Individuals using the internet,digital,0.7,positive,% of population,A,ITU / World Bank,Population-level proxy.
+mobile_bb,Active mobile broadband subscriptions,digital,0.3,positive,per 100 inhabitants,B,ITU,"Subscriptions, not users; multi-SIM inflates this in some markets."

@@ -1,0 +1,8 @@
+dimension_id,label,block,weight_points,core_question
+health,Health & survival,life,15,Is the adolescent physically healthy and likely to reach adulthood?
+mental,Mental & social wellbeing,life,15,Is adolescence psychologically and socially healthy?
+safety,Safety & protection,life,15,"Is the adolescent protected from violence, abuse and exploitation?"
+living,Living environment,life,5,Are basic living conditions supportive of development?
+education,Education & learning,future,25,Is the adolescent actually acquiring useful capabilities?
+economic,Economic future,future,15,Can the adolescent realistically become economically independent?
+digital,Digital & opportunity access,future,10,Can the adolescent reach the modern information economy?

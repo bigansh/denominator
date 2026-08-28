@@ -1,0 +1,6 @@
+{
+  "buildCommand": "pip install pandas && python build/build.py",
+  "outputDirectory": "site",
+  "cleanUrls": true,
+  "framework": null
+}
