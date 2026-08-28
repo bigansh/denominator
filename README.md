@@ -1,18 +1,55 @@
 # Denominator
 
-Open composite indexes of human outcomes. Every index is published twice — once
-counting countries, once counting people — because those two rankings disagree,
-and the disagreement is usually the finding.
+An open, sourced-data platform, not a single dataset. Two things live here
+under the same rule — nothing published that wasn't computed from a file you
+can open and check:
 
-**Live site:** [denominator.biglabs.group](https://denominator.biglabs.group)
+1. **Composite indexes of human outcomes**, each published twice — once
+   counting countries, once counting people — because those two rankings
+   disagree, and the disagreement is usually the finding.
+2. **A ground-truth data commons for India** — sourced observations that don't
+   fit an index at all (street and urban infrastructure measurements, for a
+   start), collected from local conditions instead of imported standards.
 
-Currently one index:
+**Live site:** [denominator.fyi](https://denominator.fyi)
+
+## What's published
+
+**Indexes**
 
 | Index | Coverage | Status |
 |---|---|---|
 | Teenager Outcomes Index (TOI) V3 | 125 countries · 18 indicators · 1.24bn adolescents | Published |
 
+**India dataset commons**
+
+Nothing yet. This is the newer, slower half of the project — see
+[Beyond the index](#beyond-the-index) below for what it's for and how a
+dataset gets added. The rest of this document, past that section, describes
+the Teenager Outcomes Index specifically.
+
 ---
+
+## Beyond the index
+
+The Teenager Outcomes Index counts people. There's a second, slower line of
+work sitting alongside it: building the same kind of sourced, checkable
+dataset for things that don't fit an index at all — India-specific urban and
+infrastructure observations (footpath widths, vehicle density, and similar)
+that are usually measured against standards imported from elsewhere rather
+than the conditions actually on the ground. No dataset in that line exists in
+this repository yet. When one does, it lands in its own top-level folder next
+to `data/`, follows the same rule as the TOI data — every row sourced, every
+source checkable, nothing asserted that wasn't computed — and gets its own
+entry in the table above. See [CONTRIBUTING.md](CONTRIBUTING.md#adding-an-india-specific-dataset-outside-the-index)
+for the shape a new dataset is expected to take.
+
+---
+
+## Teenager Outcomes Index
+
+Everything from here down is specific to the TOI — the one index currently
+published.
 
 ## The data is the product
 
@@ -102,18 +139,6 @@ Read these before quoting anything.
   within-sample and cover about 95% of the world's 10–19 population.
 - **Within-India strata are gradients**, encoded from published NFHS-5 and PLFS
   patterns, not a microdata reanalysis.
-
-## Beyond the index
-
-The Teenager Outcomes Index counts people. There's a second, slower line of
-work sitting behind it: building the same kind of sourced, checkable dataset
-for things that don't fit an index at all — India-specific urban and
-infrastructure observations (footpath widths, vehicle density, and similar)
-that are usually measured against standards imported from elsewhere rather
-than the conditions actually on the ground. No dataset in that line exists in
-this repository yet. When one does, it will follow the same rule as the TOI
-data: every row sourced, every source checkable, nothing asserted that wasn't
-computed.
 
 ## Contributing
 

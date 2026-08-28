@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pip install pandas && python build/build.py",
+  "buildCommand": "pip install --break-system-packages pandas && python build/build.py",
   "outputDirectory": "site",
   "cleanUrls": true,
   "framework": null
