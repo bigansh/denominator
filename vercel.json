@@ -2,5 +2,8 @@
   "buildCommand": "pip install --break-system-packages pandas && python indexes/teenager-outcomes/build.py",
   "outputDirectory": "site",
   "cleanUrls": true,
-  "framework": null
+  "framework": null,
+  "redirects": [
+    { "source": "/teenager-outcomes-index/:path*", "destination": "/indexes/teenager-outcomes/:path*", "permanent": true }
+  ]
 }
