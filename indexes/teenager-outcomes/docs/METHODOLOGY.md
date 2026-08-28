@@ -81,7 +81,7 @@ India's country percentile under nine alternative specifications:
 
 | Specification | Percentile | Rank |
 |---|---|---|
-| V3 baseline | 35.5 | 81 |
+| Baseline | 35.5 | 81 |
 | Equal dimension weights | 34.7 | 82 |
 | Economic 15→25, Education 25→15 | 27.4 | 91 |
 | Economic 15→5, Education 25→35 | 39.5 | 76 |

@@ -1,6 +1,6 @@
 ---
 name: Data correction
-about: A value in data/observations.csv is wrong
+about: A value in indexes/teenager-outcomes/data/observations.csv is wrong
 labels: data
 ---
 
@@ -16,5 +16,5 @@ number, access date)
 **Confidence range** — if the source publishes an interval, or if credible
 sources disagree, give the low and high
 
-**Effect** — run `python build/build.py` before and after and paste any country
-that moves more than one rank
+**Effect** — run `python indexes/teenager-outcomes/build.py` before and after and
+paste any country that moves more than one rank

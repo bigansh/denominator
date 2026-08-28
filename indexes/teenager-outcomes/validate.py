@@ -5,7 +5,7 @@ Denominator — data validation.
 Runs on every pull request. A contribution that breaks any check below fails CI
 and cannot be merged. Run it locally before you open a PR:
 
-    python build/validate.py
+    python indexes/teenager-outcomes/validate.py
 """
 from __future__ import annotations
 import pathlib
@@ -13,7 +13,7 @@ import sys
 
 import pandas as pd
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parent
 DATA = ROOT / "data"
 TIERS = {"A", "B", "C"}
 DIRECTIONS = {"positive", "negative"}

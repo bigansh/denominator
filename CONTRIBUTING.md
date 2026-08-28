@@ -7,7 +7,7 @@ not need to write code to contribute anything useful here.
 
 ### 1. Fix a number (most valuable)
 
-The great majority of values in `data/observations.csv` were compiled by a model
+The great majority of values in `indexes/teenager-outcomes/data/observations.csv` were compiled by a model
 and are right in level and ordering but were not pulled cell-by-cell from
 primary sources. Replacing one with a cited value from the actual source is the
 highest-value thing you can do.
@@ -36,8 +36,8 @@ Rules:
 ### 2. Add a country
 
 You need all 18 indicators. A partial row fails CI, by design. Add a line to
-`data/countries.csv` including an adolescent population, then 18 lines to
-`data/observations.csv`.
+`indexes/teenager-outcomes/data/countries.csv` including an adolescent population, then 18 lines to
+`indexes/teenager-outcomes/data/observations.csv`.
 
 ### 3. Argue about the framework
 
@@ -46,7 +46,7 @@ may be better than ours. Open an **issue**, not a pull request, and say:
 
 - what you would change and to what,
 - the reasoning,
-- which countries move and by how much (run `build/build.py` before and after —
+- which countries move and by how much (run `indexes/teenager-outcomes/build.py` before and after —
   a proposal without the before/after table is hard to evaluate).
 
 We do not accept weight changes that are motivated by the ranking they produce
@@ -54,28 +54,29 @@ for a particular country. Argue from the construct, not the result.
 
 ### 4. Improve a tier or a caveat
 
-If an indicator is more contested than `indicators.csv` admits, or less, change
+If an indicator is more contested than `indexes/teenager-outcomes/data/indicators.csv` admits, or less, change
 the `confidence_tier` and the `caveat` column and explain in the PR. Tier C
 indicators are capped in the validator; if your change pushes perceptual weight
 above 12 of 100 points, you will get a warning to address.
 
-## Adding an India-specific dataset outside the index
+## Adding a dataset that isn't an index
 
-`data/` today is the Teenager Outcomes Index's matrix and nothing else — every
-file in it is read by `build/build.py`, so an unrelated dataset doesn't belong
-there. A new, India-specific dataset (street measurements, urban density, and
-similar) that doesn't fit an index should propose its own top-level folder,
-following the same discipline as this one: every value sourced, a schema
-documented the way `docs/DATA_DICTIONARY.md` documents this one, and nothing
-merged without a citation. Open an issue first to agree the shape before
-sending a large PR.
+Every index lives self-contained under `indexes/<slug>/` — its own `data/`,
+its own build and validate scripts, its own `docs/` — so a second index never
+inherits the first one's schema or build pipeline. A new, India-specific
+dataset that doesn't reduce to a score at all (street measurements, urban
+density, and similar) doesn't need a build pipeline, but does need the same
+discipline: its own top-level folder, every value sourced, a schema documented
+the way `indexes/teenager-outcomes/docs/DATA_DICTIONARY.md` documents this
+one, and nothing merged without a citation. Open an issue first to agree the
+shape before sending a large PR.
 
 ## Before you open a pull request
 
 ```bash
 pip install pandas
-python build/validate.py     # must exit 0
-python build/build.py        # must run clean
+python indexes/teenager-outcomes/validate.py     # must exit 0
+python indexes/teenager-outcomes/build.py        # must run clean
 ```
 
 CI runs exactly these two commands. If validation fails, the PR cannot merge.
@@ -112,13 +113,13 @@ choice between them.
 ## Contributing code
 
 The site is plain HTML/CSS/JS with no client-side build step, sharing one
-stylesheet (`site/brand.css`) across pages, and reading its data from the
-generated `site/toi.json`. Match the existing style of whichever file you're
+stylesheet (`site/assets/brand.css`) across pages, and reading its data from the
+generated `site/indexes/teenager-outcomes/toi.json`. Match the existing style of whichever file you're
 editing rather than introducing a new pattern. Small, focused PRs preferred.
 
 ## Reporting a problem with an existing number
 
-Open an issue with a link to the row in `data/observations.csv` and the source
+Open an issue with a link to the row in `indexes/teenager-outcomes/data/observations.csv` and the source
 that contradicts it. If you can, propose the fix as a PR directly.
 
 ## Governance

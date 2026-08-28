@@ -3,18 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Teenager Outcomes Index V3 — Denominator</title>
+<title>Teenager Outcomes Index — Denominator</title>
 <meta name="description" content="125 countries, 18 indicators, 1.24 billion adolescents. Adolescent outcomes scored per country and per teenager.">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/brand.css">
+<link rel="stylesheet" href="/assets/brand.css">
 <style>
 .toi-hero{padding:clamp(52px,8vw,96px) 0 var(--stack-3)}
 .toi-hero h1{font-size:clamp(40px,7.2vw,92px);max-width:16ch}
 .toi-hero h1 em{font-style:normal;-webkit-text-decoration:underline 3px var(--s2);text-decoration:underline 3px var(--s2);text-underline-offset:9px}
 .toi-hero .lede{font-size:clamp(18px,2vw,23px);max-width:60ch;margin-top:var(--stack-2);color:var(--ink-2);font-weight:300;line-height:1.5}
+.jumpnav{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:22px}
+.jumpnav a{font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);text-decoration:none;border-bottom:1px solid transparent}
+.jumpnav a:hover{color:var(--ink);border-color:var(--ink)}
 .ribbonbox{margin-top:var(--stack-4);border-top:1px solid var(--rule);padding-top:var(--stack-2)}
 .ribbonhead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:18px}
 .toggle{display:inline-flex;border:1px solid var(--ink)}
@@ -61,12 +64,24 @@ table.grid tr.detail[hidden]{display:none}
 tr.row.open .car{transform:rotate(90deg)}
 tr.row.open td{background:var(--paper-2)}
 tr.ind.open td{background:var(--ink)}
-.rowdetail{display:flex;flex-wrap:wrap;gap:26px;padding:20px 9px 6px;background:var(--paper-2)}
-.rowdetail .rl{display:block;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
-.rowdetail .rv{font-family:var(--fm);font-size:16px;font-weight:500}
-.rowdetail .agg{margin-left:auto;padding-left:26px;border-left:1px solid var(--rule)}
-.rowdetail .agg .rv{font-family:var(--fd);font-weight:800;font-size:23px}
-.rowdetail-formula{width:100%;margin:0 0 16px;padding:0 9px;font-family:var(--fm);font-size:10.5px;color:var(--ink-3);letter-spacing:.03em}
+.rowdetail{padding:18px 9px 20px;background:var(--paper-2)}
+.rowdetail .aggline{display:flex;flex-wrap:wrap;gap:24px;padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--ink)}
+.rowdetail .aggline .rl{display:block;font-family:var(--fm);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);margin-bottom:3px}
+.rowdetail .aggline .rv{font-family:var(--fd);font-weight:800;font-size:19px}
+.rowdetail .aggline .rv b{font-weight:400;font-size:13px;color:var(--ink-3);font-family:var(--fm)}
+.obsdim{font-family:var(--fd);font-weight:700;font-size:13px;margin:16px 0 6px;letter-spacing:-.01em}
+.obsdim:first-of-type{margin-top:0}
+.obsdim .pts{font-family:var(--fm);font-weight:400;font-size:9.5px;color:var(--ink-3);letter-spacing:.06em;margin-left:8px}
+.obsrow{display:grid;grid-template-columns:minmax(140px,1.4fr) minmax(120px,1fr) 30px minmax(140px,1.3fr);gap:12px;padding:6px 0;border-bottom:1px solid var(--rule);font-size:12px;align-items:baseline}
+.obsrow .lab{color:var(--ink)}
+.obsrow .val{font-family:var(--fm);text-align:right;font-variant-numeric:tabular-nums;color:var(--ink)}
+.obsrow .val small{color:var(--ink-3);font-size:10px}
+.obsrow .tier{font-family:var(--fm);font-size:9px;text-align:center;border:1px solid var(--ink-3);color:var(--ink-3);padding:1px 0;align-self:center}
+.obsrow .tier.c{border-color:var(--s2);color:var(--s2)}
+.obsrow .src{font-family:var(--fm);font-size:10px;color:var(--ink-2);line-height:1.5}
+.obsrow .note{grid-column:1/-1;font-family:var(--fb);font-size:11.5px;font-style:italic;color:var(--ink-3);margin-top:2px}
+.rowdetail-formula{margin-top:14px;font-family:var(--fm);font-size:10.5px;color:var(--ink-3);letter-spacing:.03em;line-height:1.6}
+@media(max-width:640px){.obsrow{grid-template-columns:1fr 90px 24px;}.obsrow .src{grid-column:1/-1;margin-top:2px}}
 .chip{display:inline-block;width:34px;height:11px;vertical-align:-1px;margin-right:4px}
 .ledger{height:60px;display:flex;border:1px solid var(--ink);overflow:hidden}
 .ledger>div{display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:11.5px;letter-spacing:.05em}
@@ -74,6 +89,20 @@ tr.ind.open td{background:var(--ink)}
 .lgkey{display:flex;gap:28px;flex-wrap:wrap;margin-top:16px;font-family:var(--fm);font-size:11.5px;color:var(--ink-2)}
 .lgkey b{color:var(--ink);font-weight:600}
 .tip{display:none}
+.case{border-top:1px solid var(--rule);padding:26px 0}
+.case:first-of-type{border-top:0;padding-top:0}
+.case-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:10px}
+.case-h .ind{font-family:var(--fd);font-weight:700;font-size:20px;letter-spacing:-.01em}
+.case-h .tier{font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--ink-2);color:var(--ink-2);padding:2px 7px}
+.case-h .tier.c{border-color:var(--s2);color:var(--s2)}
+.tierlegend{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:18px}
+.tierlegend>div{background:var(--paper);padding:18px 18px 20px}
+.tierlegend .t{font-family:var(--fd);font-weight:800;font-size:26px}
+.tierlegend .m{font-size:14px;color:var(--ink-2);margin-top:6px;line-height:1.45}
+.linkrow{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.linkrow a{font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--ink);padding:10px 16px;color:var(--ink);text-decoration:none}
+.linkrow a:hover{background:var(--ink);color:var(--paper)}
+@media(max-width:820px){.tierlegend{grid-template-columns:1fr}}
 @media(max-width:820px){
 .tblwrap{overflow-x:auto}
 table.grid th{position:static}
@@ -89,14 +118,20 @@ table.grid th{position:static}
 <header class="site-head"><div class="wrap mast">
 <a class="brand" href="/"><span class="rule-bar"></span><span class="wordmark">Denominator</span></a>
 <nav>
-<a href="/">Home</a>
-<a href="#thesis">Two rankings</a><a href="#build">How it's built</a><a href="#table">All 125</a>
-<a href="#india">India</a><a href="#ledger">The ledger</a><a href="#within">Within India</a><a href="#trust">Trust</a>
+<a href="/#catalogue">Published</a>
+<a href="/#principles">Principles</a>
+<a href="/#method">Method</a>
+<a href="https://github.com/bigansh/denominator">GitHub&nbsp;↗</a>
 </nav>
 </div></header>
 <div class="wrap toi-hero">
 <h1>A billion teenagers, sorted by <em>what happens to them</em>.</h1>
 <p class="lede">Eighteen indicators across seven dimensions, scored for 125 countries. Then the same result counted twice &mdash; once per country, once per teenager. The two answers disagree, and the disagreement is the point.</p>
+<div class="jumpnav">
+<a href="#thesis">Two rankings</a><a href="#build">Construction</a><a href="#table">All 125</a>
+<a href="#india">The India case</a><a href="#ledger">The ledger</a><a href="#within">Within India</a>
+<a href="#method">Method</a><a href="#contested">Contested</a><a href="#sources">Sources &amp; limits</a><a href="#contribute">Contribute</a>
+</div>
 <div class="ribbonbox">
 <div class="ribbonhead">
 <div>
@@ -199,39 +234,94 @@ table.grid th{position:static}
 <p class="note" style="margin-top:18px">State spread runs 48 to 68; wealth spread runs 35 to 73. A state average pools all classes, so geography understates the real dispersion. No Indian state reaches the world&rsquo;s 62nd percentile.</p>
 </div>
 </div></section>
-<section id="trust"><div class="wrap">
-<div class="sechead"><span class="eyebrow">07 / Trust</span><h2>What this is, and what it isn't</h2></div>
+<section id="method"><div class="wrap">
+<div class="sechead"><span class="eyebrow">07 / Method</span><h2>How a score gets computed</h2></div>
 <div class="two">
 <div>
-<h3 style="font-size:20px;margin-bottom:10px">Sensitivity</h3>
-<p class="note" style="font-size:15.5px;margin-bottom:14px">India&rsquo;s country percentile under nine specifications.</p>
-<table class="kv" id="tblSens"></table>
-<p class="note" style="margin-top:14px;font-size:15px">Range 27&ndash;40, point estimate 35&ndash;36. The result is not an artefact of weight choices.</p>
+<p class="note">Each indicator is clipped at its sample&rsquo;s 5th and 95th percentile, rescaled 0&ndash;100, and inverted where lower is better. The bounds are frozen on the central values, so a low/high run moves a country against a fixed scale rather than reshaping the scale underneath it:</p>
+<table class="kv" style="margin-top:14px">
+<tr><td>positive indicator</td><td class="mono" colspan="2">100 &times; (clip(x) &minus; p05) / (p95 &minus; p05)</td></tr>
+<tr><td>negative indicator</td><td class="mono" colspan="2">100 &times; (p95 &minus; clip(x)) / (p95 &minus; p05)</td></tr>
+</table>
+<p class="note" style="margin-top:18px">Indicators roll into seven dimensions by fixed sub-weights (&sect;02). Dimensions roll into <strong>Life Score</strong> (health, mental, safety, living &mdash; 50&nbsp;pts) and <strong>Future Score</strong> (education, economic, digital &mdash; 50&nbsp;pts), kept apart and averaged evenly so a comfortable present can&rsquo;t hide a poor launchpad.</p>
+<p class="note" style="margin-top:14px">Every observation carries a <code>value_low</code>/<code>value_high</code>. The build runs the whole index three times &mdash; central, every country at its most favourable defensible value, every country at its least &mdash; and publishes the spread as the country&rsquo;s band. That band is how a contested indicator (&sect;08) gets handled: dropping it smuggles in a judgement, keeping it silent pretends to a precision the data doesn&rsquo;t have.</p>
+<p class="note" style="margin-top:14px">Two percentiles are published for every country &mdash; one country, one unit; one teenager, one unit (&sect;01). For a demographically enormous country the population percentile uses the midpoint convention: the share of adolescents scoring strictly below, plus half the share tied in the country&rsquo;s own block. Full derivation, including why the midpoint and not the endpoints, in <a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/METHODOLOGY.md">the full derivation&nbsp;↗</a>.</p>
 </div>
 <div>
-<h3 style="font-size:20px;margin-bottom:10px">Provenance</h3>
-<p class="note" style="font-size:15.5px">Harmonised learning outcomes are published values (Altinok, Angrist &amp; Patrinos; World Bank HLO) for 96 of 125 countries; 29 are imputed by regression on mortality, literacy, completion and internet use, R&sup2; 0.87, and flagged in the workbook.</p>
-<p class="note" style="font-size:15.5px">The other 17 indicators are compiled from UNICEF, WHO, UNESCO UIS, UN Population Division, UNODC, ILO, ITU and the World Happiness Report, vintage 2022&ndash;2024. They are reconstructions at approximately correct level and ordering, not a verified extract from one source database. Treat individual cells as approximate and the distribution as usable.</p>
-<p class="note" style="font-size:15.5px">Mental &amp; social wellbeing is the weakest dimension: suicide mortality and adult life evaluation are proxies, and no adolescent-specific mental-health series has global country coverage. Bullying, school violence and digital-skills indicators were dropped for lack of coverage. Internet and electricity are population-level proxies. Within-India gradients are encoded from published NFHS-5 and PLFS patterns, not a microdata reanalysis; bands above the 90th wealth percentile are extrapolated.</p>
-<p class="note" style="font-size:15.5px">Sample covers 1.239 billion adolescents, about 95% of the world&rsquo;s 10&ndash;19 population. Percentiles are within-sample.</p>
+<h3 style="font-size:20px;margin-bottom:10px">Sensitivity</h3>
+<p class="note" style="font-size:15.5px;margin-bottom:14px">India&rsquo;s country percentile under nine alternative specifications.</p>
+<table class="kv" id="tblSens"></table>
+<p class="note" style="margin-top:14px;font-size:15px">Range 27&ndash;40, point estimate 35&ndash;36. The headline is not an artefact of weight choices.</p>
 </div>
+</div>
+</div></section>
+<section id="contested"><div class="wrap">
+<div class="sechead"><span class="eyebrow">08 / Contested</span><h2>Four indicators, argued in the open</h2></div>
+<p class="note" style="margin-bottom:8px">A contested indicator is a reason to publish a range, not a reason to drop the indicator or the conclusion it points to. Dropping it silently smuggles in a judgement &mdash; usually the loudest one. Full policy and worked cases in <a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/CONTESTED.md">the contested-indicators policy&nbsp;↗</a>.</p>
+<div class="case">
+<div class="case-h"><span class="ind">Life evaluation (Cantril ladder)</span><span class="tier c">Tier C</span></div>
+<p class="note">India scores far below its income level on this single Gallup World Poll question &mdash; an adult measure, not an adolescent one, and one where scale use and rising aspirations both plausibly depress the number as conditions actually improve. Handled with a &plusmn;20% band spanning WHR 2024&ndash;2026 (4.054&ndash;4.536).</p>
+<table class="kv" style="margin-top:12px">
+<tr><td>Central, as published</td><td class="mono">55.6</td><td class="mono">rank 81</td></tr>
+<tr><td>Ladder forced to the sample median</td><td class="mono">57.8</td><td class="mono">rank 80</td></tr>
+<tr><td>Ladder deleted from the index entirely</td><td class="mono">56.0</td><td class="mono">rank 85</td></tr>
+</table>
+<p class="note" style="margin-top:10px;font-size:13.5px">Deleting the indicator makes India&rsquo;s rank <em>worse</em>, not better &mdash; the mental dimension then rests solely on suicide mortality, where India is also below median. The conclusion survives the dispute.</p>
+</div>
+<div class="case">
+<div class="case-h"><span class="ind">Stunting prevalence</span><span class="tier">Tier A</span></div>
+<p class="note">The Government of India has rejected the Global Hunger Index in successive editions and cites Poshan Tracker administrative data showing lower wasting. This index doesn&rsquo;t use the GHI &mdash; it uses NFHS-5 directly, India&rsquo;s own probability-sample survey. The government&rsquo;s objection is to the GHI&rsquo;s construction, not to NFHS anthropometry; Poshan Abhiyaan is itself built around reducing the same measure, and the Tracker is a self-selected administrative census, not a substitute for a probability sample. A &plusmn;6% band spans the residual disagreement.</p>
+</div>
+<div class="case">
+<div class="case-h"><span class="ind">Youth NEET &amp; the NEET gender gap</span><span class="tier">Tier B</span></div>
+<p class="note">Comparability, not accuracy: in low-income settings, subsistence farming and unpaid family work count as employment, which mechanically depresses measured NEET elsewhere. India&rsquo;s value sits at the winsorisation ceiling and the gender gap exceeds the clipping bound outright, so India scores a literal zero on it &mdash; the floor is holding the index up, not the dispute pulling it down. &plusmn;5% band; the caveat is printed alongside the value rather than buried.</p>
+</div>
+<div class="case">
+<div class="case-h"><span class="ind">Harmonised learning outcome</span><span class="tier c">Tier B, C where imputed</span></div>
+<p class="note">Vintage 2005&ndash;2015, imputed for 29 of 125 countries by regression on under-5 mortality, youth literacy, completion and internet use (R&sup2; 0.87). China&rsquo;s value derives from PISA-participating provinces, not the national population, and mainland China produced no PISA 2022 result at all. Imputed cells drop to tier C with a &plusmn;6% band. Replacing this series with something current is the single highest-value upgrade available to this repository.</p>
+</div>
+</div></section>
+<section id="sources"><div class="wrap">
+<div class="sechead"><span class="eyebrow">09 / Sources &amp; limits</span><h2>What&rsquo;s measured, what&rsquo;s modelled, what&rsquo;s missing</h2></div>
+<p class="note">Every one of the 2,250 observations behind this index carries a source and a confidence tier. Open any row in the table above to see an individual country&rsquo;s sources; the tier legend and the caveats that apply across the board are below.</p>
+<div class="tierlegend">
+<div><div class="t">A</div><div class="m">Physically counted or measured, nationally sourced, not seriously disputed &mdash; under-5 mortality, stunting, electricity access, homicide.</div></div>
+<div><div class="t">B</div><div class="m">Measured, but with real comparability problems across countries &mdash; youth NEET, child labour, learning outcomes, mobile broadband.</div></div>
+<div><div class="t">C</div><div class="m">Perceptual or modelled &mdash; the Cantril life evaluation, and any indicator imputed rather than observed.</div></div>
+</div>
+<p class="note" style="margin-top:26px">Sources are organisation-level today &mdash; UN IGME, UNICEF/WHO/World Bank JME, WHO Global Health Estimates and NCRB for India, UNODC, ILO/UNICEF, WHO/UNICEF JMP, World Bank/IEA, UNESCO&nbsp;UIS, Altinok, Angrist &amp; Patrinos via World Bank HLO, ILOSTAT, ITU, and the World Happiness Report &mdash; correctly attributed but not yet a specific series ID and access date on every row. Tightening those 2,250 citations is open work; see &sect;10.</p>
+<p class="note" style="margin-top:14px">Mental &amp; social wellbeing is the weakest dimension: suicide mortality and adult life evaluation are both proxies, and no adolescent-specific mental-health series has global country coverage. Bullying, school violence and digital-skills indicators were dropped for lack of coverage. Internet and electricity access are population-level proxies, not adolescent-specific. Within-India gradients are encoded from published NFHS-5 and PLFS patterns, not a microdata reanalysis, and bands above the 90th wealth percentile are extrapolated.</p>
+<p class="note" style="margin-top:14px">Sample covers 1.239 billion adolescents, about 95% of the world&rsquo;s 10&ndash;19 population, in 125 of 194 countries &mdash; inclusion requires a complete row, so partial coverage means exclusion rather than imputation. Percentiles are within-sample. Full column-by-column schema in <a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/DATA_DICTIONARY.md">the data dictionary&nbsp;↗</a>.</p>
+</div></section>
+<section id="contribute"><div class="wrap">
+<div class="sechead"><span class="eyebrow">10 / Contribute</span><h2>Fix a number, argue a weight, add a country</h2></div>
+<p class="note">Corrections are the point of this repository, and you don&rsquo;t need to touch any code to make one. Find a row in <code>data/observations.csv</code>, replace the value with a cited figure from the actual source, open a pull request. CI checks the schema and rebuilds this page from it. A weight or framework objection goes through an issue instead, with the before/after table for whichever countries move.</p>
+<div class="linkrow">
+<a href="https://github.com/bigansh/denominator">Repository&nbsp;↗</a>
+<a href="https://github.com/bigansh/denominator/blob/master/CONTRIBUTING.md">How to contribute&nbsp;↗</a>
+<a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/METHODOLOGY.md">Methodology&nbsp;↗</a>
+<a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/CONTESTED.md">Contested indicators&nbsp;↗</a>
+<a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/DATA_DICTIONARY.md">Data dictionary&nbsp;↗</a>
+<a href="https://github.com/bigansh/denominator/blob/master/LICENSE">Licence&nbsp;↗</a>
 </div>
 </div></section>
 <footer class="site-foot"><div class="wrap cols">
 <div>
 <a class="brand" href="/" style="margin-bottom:14px"><span class="rule-bar"></span><span class="wordmark">Denominator</span></a>
-<p style="max-width:46ch">Teenager Outcomes Index V3 &mdash; 125 countries, 18 indicators, 7 dimensions, 1.239 billion adolescents. Every figure is computed from the workbook behind it, in which all inputs are editable and all scores recalculate.</p>
+<p style="max-width:46ch">Teenager Outcomes Index &mdash; 125 countries, 18 indicators, 7 dimensions, 1.239 billion adolescents. Every figure traces to a sourced, editable row.</p>
 </div>
 <div><h4>This index</h4><ul>
 <li><a href="#build">How it&rsquo;s built</a></li><li><a href="#table">All 125 countries</a></li>
-<li><a href="#within">Within India</a></li><li><a href="#trust">Sensitivity &amp; provenance</a></li></ul></div>
+<li><a href="#method">Method</a></li><li><a href="#contested">Contested</a></li>
+<li><a href="#sources">Sources &amp; limits</a></li><li><a href="#contribute">Contribute</a></li></ul></div>
 <div><h4>Denominator</h4><ul>
 <li><a href="/">Home</a></li><li><a href="/#principles">Principles</a></li>
-<li><a href="/#method">Method</a></li><li><a href="/#catalogue">Catalogue</a></li></ul></div>
+<li><a href="/#method">Method</a></li><li><a href="/#catalogue">Published</a></li>
+<li><a href="https://github.com/bigansh/denominator">GitHub</a></li></ul></div>
 </div></footer>
 <div class="tip" id="tip"></div>
 <script>
-fetch('/toi.json').then(r=>r.json()).then(D=>{
+fetch('toi.json').then(r=>r.json()).then(D=>{
 const K=['country','region','pop1019_m','LifeScore','FutureScore','TOI','Rank','Percentile','pop_pct'];
 const ALL=D.rows.map(r=>{const o={};K.forEach((k,i)=>o[k]=r[i]);
 const band=(D.bands||{})[o.country];if(band){o.toiLow=band[0];o.toiHigh=band[1]}
@@ -301,15 +391,34 @@ tb.innerHTML=r.map(c=>`<tr class="row${c.country==='India'?' ind':''}"><td><span
 <td><b>${c.TOI.toFixed(1)}</b></td><td>${c.Percentile.toFixed(1)}</td><td>${c.pop_pct.toFixed(1)}</td></tr>
 <tr class="detail" hidden><td colspan="9">
 <div class="rowdetail">
-<div><span class="rl">Teens (m)</span><span class="rv">${c.pop1019_m.toFixed(1)}</span></div>
+<div class="aggline">
 <div><span class="rl">Life score</span><span class="rv">${c.LifeScore.toFixed(1)}</span></div>
 <div><span class="rl">Future score</span><span class="rv">${c.FutureScore.toFixed(1)}</span></div>
-<div><span class="rl">Country pct</span><span class="rv">${c.Percentile.toFixed(1)}</span></div>
-<div><span class="rl">Population pct</span><span class="rv">${c.pop_pct.toFixed(1)}</span></div>
-<div class="agg"><span class="rl">Aggregate score</span><span class="rv">${c.TOI.toFixed(1)}${c.toiLow!=null?` <span style="font-size:13px;color:var(--ink-3)">[${c.toiLow.toFixed(1)}&ndash;${c.toiHigh.toFixed(1)}]</span>`:''}</span></div>
+<div><span class="rl">Aggregate score</span><span class="rv">${c.TOI.toFixed(1)}${c.toiLow!=null?` <b>[${c.toiLow.toFixed(1)}&ndash;${c.toiHigh.toFixed(1)}]</b>`:''}</span></div>
 </div>
-<p class="rowdetail-formula">Index = 0.5 &times; Life Score + 0.5 &times; Future Score, each built from the seven weighted dimensions in &sect;02.${c.toiLow!=null?' The bracketed range is the published band across every indicator’s most- and least-favourable sourced value — see docs/CONTESTED.md.':''}</p>
+${renderObs(c)}
+<p class="rowdetail-formula">Index = 0.5 &times; Life Score + 0.5 &times; Future Score, each built from the seven weighted dimensions above.${c.toiLow!=null?' The bracketed range is the published band across every indicator&rsquo;s sourced low/high value':''} &mdash; see &sect;07 Method. Tier A = counted/undisputed &middot; B = measured with comparability limits &middot; C = perceptual or modelled &mdash; see &sect;09 Sources &amp; limits.</p>
+</div>
 </td></tr>`).join('');
+}
+function renderObs(c){
+const obs=(D.observations||{})[c.country]||{};
+const byDim={};
+Object.keys(D.indicators).forEach(id=>{
+const m=D.indicators[id];(byDim[m.dimension]=byDim[m.dimension]||[]).push(id);
+});
+return Object.keys(D.dimensions).map(d=>{
+const dim=D.dimensions[d],ids=byDim[d]||[];
+if(!ids.length)return'';
+const rows=ids.map(id=>{
+const m=D.indicators[id],o=obs[id];
+if(!o)return'';
+const band=(o.low!=null&&o.high!=null&&o.low!==o.high)?` <small>[${o.low}&ndash;${o.high}]</small>`:'';
+const note=o.note?`<div class="note">${o.note}</div>`:'';
+return`<div class="obsrow"><span class="lab">${m.label}</span><span class="val">${o.value} <small>${m.unit}</small>${band}</span><span class="tier${o.tier==='C'?' c':''}">${o.tier}</span><span class="src">${o.source}</span>${note}</div>`;
+}).join('');
+return`<div class="obsdim">${dim.label}<span class="pts">${dim.weight} pts</span></div>${rows}`;
+}).join('');
 }
 tb.addEventListener('click',e=>{
 const tr=e.target.closest('tr.row');
@@ -346,9 +455,9 @@ kv(tblAbove,above.slice(0,10).map(c=>{cum+=c.pop1019_m;return[c.country,c.pop101
 kv(tblClaim,[['Better than 25% of world teens','top 80%','202m'],['Better than 40%','top 50%','126m'],
 ['Better than 50%','top 30%','76m'],['Better than 60%','top 15%','38m'],['Better than 70%','top 5%','13m'],
 ['Better than 75%','nobody','0']],'Better than 70%');
-kv(tblSens,[['V3 baseline','35.5','81'],['Equal dimension weights','34.7','82'],['Economic 15→25, Education 25→15','27.4','91'],
+kv(tblSens,[['Baseline','35.5','81'],['Equal dimension weights','34.7','82'],['Economic 15→25, Education 25→15','27.4','91'],
 ['Economic 15→5, Education 25→35','39.5','76'],['Mental dimension dropped','38.7','77'],['Life Score only','35.5','81'],
-['Future Score only','35.5','81'],['No winsorisation','37.9','78'],['Z-score normalisation','35.5','81']],'V3 baseline');
+['Future Score only','35.5','81'],['No winsorisation','37.9','78'],['Z-score normalisation','35.5','81']],'Baseline');
 setMode('pop');resize();rows();readout(IND);
 document.querySelector('#tbl th[data-k="TOI"]').setAttribute('aria-sort','descending');
 

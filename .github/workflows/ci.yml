@@ -3,7 +3,7 @@ name: validate and build
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [master]
 
 jobs:
   data:
@@ -15,14 +15,14 @@ jobs:
           python-version: "3.12"
       - run: pip install pandas
       - name: validate data
-        run: python build/validate.py
+        run: python indexes/teenager-outcomes/validate.py
       - name: build index
-        run: python build/build.py
+        run: python indexes/teenager-outcomes/build.py
       - name: fail if generated output is stale
         run: |
-          git diff --exit-code -- site/toi.json dist/ \
-            || (echo "::error::Generated output is out of date. Run 'python build/build.py' and commit the result."; exit 1)
+          git diff --exit-code -- site/indexes/teenager-outcomes/toi.json indexes/teenager-outcomes/dist/ \
+            || (echo "::error::Generated output is out of date. Run 'python indexes/teenager-outcomes/build.py' and commit the result."; exit 1)
       - uses: actions/upload-artifact@v4
         with:
-          name: index-output
-          path: dist/
+          name: teenager-outcomes-index-output
+          path: indexes/teenager-outcomes/dist/

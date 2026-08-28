@@ -2,10 +2,15 @@
 """
 Denominator — Teenager Outcomes Index build.
 
-Reads everything from data/. Writes dist/. No hidden constants: every weight,
+Reads everything from data/. Writes dist/, and a copy of the generated JSON
+into the site page that reads it. No hidden constants: every weight,
 direction and value comes out of a CSV that a contributor can edit.
 
-    python build/build.py
+    python indexes/teenager-outcomes/build.py
+
+This index is self-contained under indexes/teenager-outcomes/ — its own
+data/, its own build/validate scripts, its own docs/ — so a second index can
+sit next to it later without the two sharing a schema or a build pipeline.
 """
 from __future__ import annotations
 import json
@@ -14,8 +19,10 @@ import sys
 
 import pandas as pd
 
-ROOT = pathlib.Path(__file__).resolve().parent.parent
+ROOT = pathlib.Path(__file__).resolve().parent
+REPO_ROOT = ROOT.parent.parent
 DATA, DIST = ROOT / "data", ROOT / "dist"
+SITE_PAGE = REPO_ROOT / "site" / "indexes" / "teenager-outcomes"
 WINSOR_LOW, WINSOR_HIGH = 0.05, 0.95
 
 
@@ -142,13 +149,48 @@ def main() -> int:
             ["stratum", "TOI", "world_pct"]].values.tolist(),
         "states": pd.read_csv(DATA / "india_states.csv")[
             ["state", "TOI", "mid"]].values.tolist(),
+        # Per-indicator registry and the full observation matrix, keyed by
+        # country name, so the site can show what an index is actually built
+        # from — not just re-display the aggregates already in the table.
+        "indicators": {
+            r.indicator_id: {
+                "label": r.label,
+                "dimension": r.dimension_id,
+                "direction": r.direction,
+                "unit": r.unit,
+                "subWeight": r.sub_weight,
+                "tier": r.confidence_tier,
+                "source": r.canonical_source,
+                "caveat": r.caveat if isinstance(r.caveat, str) else "",
+            }
+            for r in ind.itertuples()
+        },
+        "observations": {
+            iso_name: {
+                r.indicator_id: {
+                    "value": r.value,
+                    "low": r.value_low,
+                    "high": r.value_high,
+                    "year": int(r.year),
+                    "tier": r.confidence_tier,
+                    "source": r.source,
+                    "note": r.note if isinstance(r.note, str) else "",
+                }
+                for r in grp.itertuples()
+            }
+            for iso_name, grp in obs.assign(
+                country=obs.iso3.map(cty.set_index("iso3").name)
+            ).groupby("country")
+        },
     }
     blob = json.dumps(payload, separators=(",", ":"))
     (DIST / "toi.json").write_text(blob)
-    # the site is served straight out of site/, so drop a copy there too
-    (ROOT / "site" / "toi.json").write_text(blob)
+    # co-located with the page that fetches it, not loose at the site root —
+    # so a second index's generated JSON never collides with this one's.
+    (SITE_PAGE / "toi.json").write_text(blob)
 
-    print(f"built {len(res)} countries, {len(ind)} indicators -> dist/")
+    print(f"built {len(res)} countries, {len(ind)} indicators -> "
+          f"{DIST.relative_to(REPO_ROOT)}/")
     print(res[["name", "life", "future", "toi", "toi_low", "toi_high",
                "rank", "country_pct", "pop_pct"]].head(5).to_string(index=False))
     ind_row = res[res.name == "India"]

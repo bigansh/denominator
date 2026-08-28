@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Denominator — indexes that count people</title>
-<meta name="description" content="Denominator builds composite indexes of human outcomes and publishes every one twice: once per country, once per person. The Teenager Outcomes Index is the first.">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<title>Denominator — sourced, computed, published in the open</title>
+<meta name="description" content="Denominator publishes sourced, computed data on human outcomes and lets anyone check where a number came from. The Teenager Outcomes Index is the first thing out.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/brand.css">
+<link rel="stylesheet" href="/assets/brand.css">
 <style>
 .home-hero{padding:clamp(56px,9vw,110px) 0 var(--stack-4)}
 .home-hero h1{font-size:clamp(42px,7.4vw,96px);max-width:15ch}
@@ -61,15 +61,15 @@ padding:3px 8px;border:1px solid var(--ink-2);color:var(--ink-2);margin-bottom:1
 <header class="site-head"><div class="wrap mast">
 <a class="brand" href="/"><span class="rule-bar"></span><span class="wordmark">Denominator</span></a>
 <nav>
-<a href="#catalogue">Indexes</a>
+<a href="#catalogue">Published</a>
 <a href="#principles">Principles</a>
 <a href="#method">Method</a>
-<a href="/teenager-outcomes-index/">Teenager Outcomes Index</a>
+<a href="https://github.com/bigansh/denominator">GitHub&nbsp;↗</a>
 </nav>
 </div></header>
 <div class="wrap home-hero">
 <h1>Every ranking has a <em>denominator</em>. Most don&rsquo;t tell you theirs.</h1>
-<p class="lede">We build composite indexes of human outcomes, then publish each one twice &mdash; once counting countries, once counting people. When the two answers disagree, that disagreement is the finding.</p>
+<p class="lede">We publish sourced, computed data on human outcomes &mdash; nothing goes out until the matrix behind it exists in a file you can open and check. The first thing that took: a composite score, published twice, once counting countries and once counting people. When the two answers disagree, that disagreement is the finding.</p>
 <div class="split">
 <div class="splitrow">
 <span class="cap">One country<br>one unit</span>
@@ -85,7 +85,7 @@ padding:3px 8px;border:1px solid var(--ink-2);color:var(--ink-2);margin-bottom:1
 <section id="principles"><div class="wrap">
 <div class="sechead">
 <span class="eyebrow">What we hold to</span>
-<h2>Three rules, applied to every index we publish</h2>
+<h2>Three rules, applied to everything we publish</h2>
 </div>
 <div class="principles">
 <div class="principle">
@@ -101,19 +101,19 @@ padding:3px 8px;border:1px solid var(--ink-2);color:var(--ink-2);margin-bottom:1
 <div class="principle">
 <span class="num">RULE 03</span>
 <h3>Ship the workings</h3>
-<p>Every index comes with the live workbook behind it &mdash; inputs editable, weights adjustable, all scores and ranks recalculating. Provenance is stated per indicator, including which values are published data and which are modelled.</p>
+<p>Everything comes with the live data behind it &mdash; inputs editable, sources attached, results recalculating from the file itself. Provenance is stated per value, including which are published data and which are modelled.</p>
 </div>
 </div>
 </div></section>
 <section id="catalogue"><div class="wrap">
 <div class="sechead">
 <span class="eyebrow">The catalogue</span>
-<h2>Indexes</h2>
-<p class="sub">One published. The programme is deliberately slow: an index goes out when the data will carry it, not when the framework is finished.</p>
+<h2>What&rsquo;s published</h2>
+<p class="sub">One thing published so far. The programme is deliberately slow: nothing goes out until the data will carry it, whatever form that data takes &mdash; a composite score today, a sourced dataset with no score at all when one is ready.</p>
 </div>
 <div class="cat">
-<a class="entry" href="/teenager-outcomes-index/">
-<span class="code">TOI &middot; V3<br>2026</span>
+<a class="entry" href="/indexes/teenager-outcomes/">
+<span class="code">TOI<br>2026</span>
 <div>
 <span class="status live">Published</span>
 <h3>Teenager Outcomes Index</h3>
@@ -130,8 +130,8 @@ padding:3px 8px;border:1px solid var(--ink-2);color:var(--ink-2);margin-bottom:1
 <span class="code">&mdash;<br>&mdash;</span>
 <div>
 <span class="status">Not started</span>
-<h3>Next index</h3>
-<p class="desc">Subject undecided. The constraint is coverage: a composite is only worth building where the underlying indicators exist for enough of the world&rsquo;s people to make a population percentile meaningful.</p>
+<h3>What&rsquo;s next</h3>
+<p class="desc">Subject and shape both undecided &mdash; the next thing published here doesn&rsquo;t have to be a composite score. The constraint is the same either way: nothing goes out until enough of it can be sourced and checked.</p>
 </div>
 <div class="stats"></div>
 </div>
@@ -140,8 +140,8 @@ padding:3px 8px;border:1px solid var(--ink-2);color:var(--ink-2);margin-bottom:1
 <section id="method"><div class="wrap">
 <div class="sechead">
 <span class="eyebrow">Shared method</span>
-<h2>How a Denominator index is built</h2>
-<p class="sub">The same six steps run behind every index, so results are comparable across the catalogue and any one of them can be re-derived from the published workbook.</p>
+<h2>How a Denominator score gets built</h2>
+<p class="sub">The same six steps run behind every composite score, so results are comparable across the catalogue and any one of them can be re-derived from the published data. A dataset that isn&rsquo;t a score still follows the three rules above &mdash; sourced, checkable, nothing asserted &mdash; without necessarily this exact pipeline.</p>
 </div>
 <div class="two-wide">
 <div class="steps">
@@ -183,18 +183,19 @@ padding:3px 8px;border:1px solid var(--ink-2);color:var(--ink-2);margin-bottom:1
 <footer class="site-foot"><div class="wrap cols">
 <div>
 <a class="brand" href="/" style="margin-bottom:14px"><span class="rule-bar"></span><span class="wordmark">Denominator</span></a>
-<p style="max-width:44ch">Composite indexes of human outcomes, published with their workings, their weights and both of their denominators.</p>
+<p style="max-width:44ch">Sourced, computed data on human outcomes, published with the workings, the weights and every denominator attached.</p>
 </div>
 <div>
-<h4>Indexes</h4>
-<ul><li><a href="/teenager-outcomes-index/">Teenager Outcomes Index V3</a></li></ul>
+<h4>Published</h4>
+<ul><li><a href="/indexes/teenager-outcomes/">Teenager Outcomes Index</a></li></ul>
 </div>
 <div>
-<h4>On this site</h4>
+<h4>Denominator</h4>
 <ul>
 <li><a href="#principles">Principles</a></li>
 <li><a href="#method">Method</a></li>
-<li><a href="#catalogue">Catalogue</a></li>
+<li><a href="#catalogue">Published</a></li>
+<li><a href="https://github.com/bigansh/denominator">GitHub</a></li>
 </ul>
 </div>
 </div></footer>

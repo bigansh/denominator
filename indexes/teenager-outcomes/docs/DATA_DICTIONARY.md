@@ -56,7 +56,11 @@ direction; contributors should not pre-invert anything.
 Generated. One row per country: dimension scores, `life`, `future`, `toi`,
 `toi_low`, `toi_high`, `rank`, `country_pct`, `pop_pct`.
 
-## dist/toi.json and site/toi.json
+## dist/toi.json and site/indexes/teenager-outcomes/toi.json
 Generated. The payload the site reads. Same content as `results.csv` plus
 dimension metadata, sample medians, India's dimension profile, and the
-within-India strata.
+within-India strata — and the full indicator-level detail behind every
+country: `indicators` (the 18-row registry, keyed by `indicator_id`) and
+`observations` (every country's 18 values, sourced and tiered, keyed by
+country name then `indicator_id`). This is what the per-row toggle on the
+site's table reads — it is not derivable from `results.csv` alone.
