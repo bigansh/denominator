@@ -11,22 +11,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/brand.css">
 <style>
-.home-hero{padding:clamp(56px,9vw,110px) 0 var(--stack-4)}
+.home-hero{padding-top:clamp(56px,9vw,110px);padding-bottom:var(--stack-4)}
 .home-hero h1{font-size:clamp(42px,7.4vw,96px);max-width:15ch}
 .home-hero h1 em{font-style:normal;-webkit-text-decoration:underline 3px var(--s2);
 text-decoration:underline 3px var(--s2);text-underline-offset:10px}
 .home-hero .lede{font-size:clamp(18px,2.1vw,24px);max-width:58ch;margin-top:var(--stack-2);
 color:var(--ink-2);font-weight:300;line-height:1.5}
-.split{margin-top:var(--stack-4);border-top:1px solid var(--rule);padding-top:var(--stack-2)}
-.splitrow{display:grid;grid-template-columns:minmax(128px,168px) 1fr;gap:20px;align-items:center;margin-bottom:14px}
-.splitrow .cap{font-family:var(--fm);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-2);line-height:1.35}
 .strip{display:flex;height:42px;border:1px solid var(--ink);overflow:hidden}
 .strip span{display:block;height:100%}
-.strip .me{position:relative;box-shadow:inset 0 0 0 2px var(--paper)}
-.splitnote{font-family:var(--fm);font-size:11.5px;color:var(--ink-2);margin-top:12px;letter-spacing:.03em;line-height:1.7}
-.splitnote b{color:var(--ink);font-weight:600}
-@media(max-width:820px){.splitrow{grid-template-columns:1fr;gap:8px}}
-@media(max-width:420px){.home-hero h1{font-size:clamp(32px,10.5vw,42px)}}
+.mosaic{margin-top:var(--stack-4);border:1px solid var(--ink);display:grid;grid-template-columns:repeat(32,1fr);
+height:clamp(180px,26vw,320px)}
+.mosaic div{}
+.mosaiccap{font-family:var(--fm);font-size:11.5px;color:var(--ink-2);margin-top:14px;letter-spacing:.03em}
+@media(max-width:420px){.home-hero h1{font-size:clamp(32px,10.5vw,42px)}.mosaic{grid-template-columns:repeat(16,1fr)}}
 .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
 .principle{background:var(--paper);padding:28px 26px 30px}
 .principle .num{font-family:var(--fm);font-size:10.5px;letter-spacing:.16em;color:var(--ink-3);display:block;margin-bottom:16px}
@@ -78,18 +75,9 @@ height:clamp(220px,30vw,380px)}
 </div></header>
 <div class="wrap home-hero">
 <h1>Every ranking has a <em>denominator</em>. Most don&rsquo;t tell you theirs.</h1>
-<p class="lede">We publish sourced, computed data on human outcomes &mdash; nothing goes out until the matrix behind it exists in a file you can open and check. The first thing that took: a composite score, published twice, once counting countries and once counting people. When the two answers disagree, that disagreement is the finding.</p>
-<div class="split">
-<div class="splitrow">
-<span class="cap">One country<br>one unit</span>
-<div class="strip" id="stripC"></div>
-</div>
-<div class="splitrow">
-<span class="cap">One teenager<br>one unit</span>
-<div class="strip" id="stripP"></div>
-</div>
-<p class="splitnote">Same 125 countries, same scores, ordered worst to best. India outlined in both. Counting countries it sits at the <b>35.5th percentile</b>; counting teenagers, the <b>42.9th</b>. Denmark is the same width as India in the top strip and 1/420th of it in the bottom one.</p>
-</div>
+<p class="lede">We publish sourced, computed data on human outcomes &mdash; nothing goes out until the matrix behind it exists in a file you can open and check.</p>
+<div class="mosaic" id="heroMosaic"></div>
+<p class="mosaiccap">One colour ramp, one rule &mdash; sourced, computed, checkable &mdash; carried across every score and every dataset published here.</p>
 </div>
 <section id="principles"><div class="wrap">
 <div class="sechead">
@@ -225,13 +213,10 @@ function hx(h){return[1,3,5].map(i=>parseInt(h.slice(i,i+2),16))}
 function col(t){const x=Math.max(0,Math.min(1,(t-10)/86))*(RAMP.length-1);
 const i=Math.floor(x),f=x-i,a=hx(RAMP[i]),b=hx(RAMP[Math.min(i+1,RAMP.length-1)]);
 return`rgb(${a.map((v,k)=>Math.round(v+(b[k]-v)*f)).join(',')})`}
-const S=[[13.0,3.0,0],[13.3,1.3,0],[15.7,4.0,0],[16.7,4.0,0],[18.1,6.5,0],[22.4,3.2,0],[23.1,5.5,0],[25.5,5.5,0],[26.6,8.0,0],[27.0,0.5,0],[27.7,25.0,0],[27.8,7.0,0],[28.3,10.0,0],[28.8,10.0,0],[30.4,55.0,0],[31.2,3.2,0],[31.3,6.5,0],[32.0,8.0,0],[32.0,2.2,0],[32.6,5.0,0],[33.7,30.0,0],[34.8,12.0,0],[37.0,4.0,0],[37.2,2.6,0],[38.1,6.5,0],[38.2,5.0,0],[39.3,15.0,0],[39.5,6.5,0],[42.1,51.0,0],[44.2,5.0,0],[45.6,3.0,0],[47.2,0.6,0],[48.6,1.5,0],[48.8,4.0,0],[50.0,12.0,0],[50.3,0.5,0],[50.7,2.1,0],[52.4,11.0,0],[52.7,4.3,0],[52.9,0.33,0],[53.3,6.0,0],[53.5,9.0,0],[54.9,30.0,0],[55.0,9.0,0],[55.6,253.0,1],[56.6,1.3,0],[58.3,7.0,0],[58.8,5.0,0],[58.8,3.3,0],[60.4,1.9,0],[61.8,20.0,0],[64.6,8.0,0],[65.3,1.2,0],[66.1,30.0,0],[66.4,2.4,0],[66.4,1.2,0],[66.4,6.0,0],[66.6,2.2,0],[66.8,7.0,0],[67.1,0.9,0],[67.1,3.0,0],[67.5,2.3,0],[67.9,2.7,0],[68.3,0.5,0],[68.5,1.6,0],[68.6,1.4,0],[69.3,21.0,0],[69.6,22.0,0],[69.8,5.5,0],[69.9,0.4,0],[70.9,45.0,0],[71.0,11.0,0],[72.9,0.5,0],[73.1,0.7,0],[73.6,4.0,0],[74.3,1.1,0],[74.4,7.0,0],[74.8,0.45,0],[75.3,12.0,0],[75.9,0.36,0],[76.2,1.3,0],[79.4,8.0,0],[79.9,2.5,0],[80.9,0.65,0],[80.9,1.9,0],[81.8,6.5,0],[81.8,14.0,0],[82.3,0.65,0],[82.4,4.5,0],[82.7,15.0,0],[83.9,0.95,0],[84.1,5.0,0],[85.3,0.37,0],[85.5,2.8,0],[85.6,1.0,0],[86.1,0.95,0],[86.7,1.0,0],[87.2,8.0,0],[87.3,5.5,0],[87.3,4.4,0],[88.1,4.5,0],[88.5,42.0,0],[88.9,160.0,0],[89.0,0.2,0],[89.1,3.5,0],[89.2,1.3,0],[89.4,0.13,0],[90.0,0.63,0],[90.5,10.5,0],[90.5,0.9,0],[91.0,4.0,0],[91.2,0.85,0],[91.3,1.0,0],[91.4,1.2,0],[91.9,8.0,0],[92.1,3.0,0],[92.2,7.5,0],[92.2,0.6,0],[93.2,1.35,0],[94.1,0.65,0],[94.3,0.65,0],[95.0,0.9,0],[95.2,2.0,0],[95.4,0.42,0],[95.4,0.65,0]];
-function build(el,weighted){
-const tot=weighted?S.reduce((a,c)=>a+c[1],0):S.length;
-el.innerHTML=S.map(c=>`<span class="${c[2]?'me':''}" style="width:${(weighted?c[1]:1)/tot*100}%;background:${col(c[0])}"></span>`).join('');
-}
-build(document.getElementById('stripC'),false);
-build(document.getElementById('stripP'),true);
+const mosaic=document.getElementById('heroMosaic');
+const MW=32,MH=6;let cells='';
+for(let i=0;i<MW*MH;i++){const v=(Math.sin(i*0.31)+Math.sin(i*0.11+2)*0.6+1.6)/3.2;cells+=`<div style="background:${col(v*100)}"></div>`}
+mosaic.innerHTML=cells;
 document.getElementById('stripRamp').innerHTML=
 Array.from({length:120},(_,i)=>`<span style="width:${100/120}%;background:${col(i/119*100)}"></span>`).join('');
 </script>
