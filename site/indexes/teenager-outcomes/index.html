@@ -104,14 +104,21 @@ tr.ind.open td{background:var(--ink)}
 .linkrow a:hover{background:var(--ink);color:var(--paper)}
 @media(max-width:820px){.tierlegend{grid-template-columns:1fr}}
 @media(max-width:820px){
-.tblwrap{overflow-x:auto}
 table.grid th{position:static}
+table.grid th:nth-child(3),table.grid td:nth-child(3),
+table.grid th:nth-child(4),table.grid td:nth-child(4),
+table.grid th:nth-child(5),table.grid td:nth-child(5),
+table.grid th:nth-child(6),table.grid td:nth-child(6),
+table.grid th:nth-child(8),table.grid td:nth-child(8),
+table.grid th:nth-child(9),table.grid td:nth-child(9){display:none}
+table.grid td:nth-child(2){white-space:normal}
 .readout{grid-template-columns:1fr 1fr;gap:12px}
 .readout .rc{font-size:20px}
 .duo{grid-template-columns:1fr}
 .duo>div+div{border-left:0;border-top:1px solid var(--ink)}
 .duo>div{padding:26px 20px 28px}
 }
+@media(max-width:420px){.toi-hero h1{font-size:clamp(32px,10.5vw,40px)}}
 </style>
 </head>
 <body>
@@ -128,9 +135,9 @@ table.grid th{position:static}
 <h1>A billion teenagers, sorted by <em>what happens to them</em>.</h1>
 <p class="lede">Eighteen indicators across seven dimensions, scored for 125 countries. Then the same result counted twice &mdash; once per country, once per teenager. The two answers disagree, and the disagreement is the point.</p>
 <div class="jumpnav">
-<a href="#thesis">Two rankings</a><a href="#build">Construction</a><a href="#table">All 125</a>
-<a href="#india">The India case</a><a href="#ledger">The ledger</a><a href="#within">Within India</a>
-<a href="#method">Method</a><a href="#contested">Contested</a><a href="#sources">Sources &amp; limits</a><a href="#contribute">Contribute</a>
+<a href="#build">Construction</a><a href="#method">Method</a><a href="#sources">Sources &amp; limits</a><a href="#contested">Contested</a>
+<a href="#table">All 125</a><a href="#thesis">India, two rankings</a><a href="#india">The India case</a>
+<a href="#ledger">The ledger</a><a href="#within">Within India</a><a href="#contribute">Contribute</a>
 </div>
 <div class="ribbonbox">
 <div class="ribbonhead">
@@ -154,88 +161,14 @@ table.grid th{position:static}
 </div>
 </div>
 </div>
-<section id="thesis"><div class="wrap">
-<div class="sechead"><span class="eyebrow">01 / The disagreement</span><h2>India, counted two ways</h2></div>
-<div class="duo">
-<div><div class="eyebrow">One country, one vote</div><div class="big">35.5</div>
-<div class="cap">India ranks 81st of 125 countries. Denmark, with 600,000 teenagers, counts the same as India with 253 million.</div></div>
-<div class="sel"><div class="eyebrow">One teenager, one vote</div><div class="big">42.9</div>
-<div class="cap">Weight every country by its 10&ndash;19 population and India rises seven points, because the countries it outranks are demographically enormous.</div></div>
-</div>
-<p class="note" style="margin-top:26px">Both numbers are correct. The first answers <strong>&ldquo;how does India compare to other states?&rdquo;</strong> The second answers <strong>&ldquo;how does an Indian teenager compare to other teenagers?&rdquo;</strong> Most published country rankings quietly answer the first while being read as the second.</p>
-</div></section>
 <section id="build"><div class="wrap">
-<div class="sechead"><span class="eyebrow">02 / Construction</span><h2>Seven dimensions, split evenly between now and next</h2></div>
+<div class="sechead"><span class="eyebrow">01 / Construction</span><h2>Seven dimensions, split evenly between now and next</h2></div>
 <p class="note" style="margin-bottom:26px">Four dimensions measure the conditions of adolescence itself and total 50 points. Three measure the launchpad into adulthood and total the other 50. Indicators are normalised against the 5th and 95th percentile of the sample, so a single outlier cannot flatten the distribution.</p>
 <div class="wgrid" id="wgrid"></div>
 <p class="note" style="margin-top:22px">Index = 0.5 &times; Life Score + 0.5 &times; Future Score. Percentile = share of the sample at or below.</p>
 </div></section>
-<section id="table"><div class="wrap">
-<div class="sechead"><span class="eyebrow">03 / The index</span><h2>All 125 countries</h2></div>
-<div class="tools">
-<input id="q" type="search" placeholder="Search country" aria-label="Search country">
-<select id="reg" aria-label="Filter by region"><option value="">All regions</option></select>
-<span class="eyebrow" id="count"></span>
-</div>
-<div class="tblwrap"><table class="grid" id="tbl">
-<thead><tr>
-<th data-k="Rank">#</th><th data-k="country">Country</th><th data-k="region">Region</th>
-<th data-k="pop1019_m">Teens m</th><th data-k="LifeScore">Life</th><th data-k="FutureScore">Future</th>
-<th data-k="TOI">Index</th><th data-k="Percentile">Ctry pct</th><th data-k="pop_pct">Pop pct</th>
-</tr></thead><tbody></tbody>
-</table></div>
-</div></section>
-<section id="india"><div class="wrap">
-<div class="sechead"><span class="eyebrow">04 / The case</span><h2>Five dimensions at the median. Two in freefall.</h2></div>
-<div class="two">
-<div>
-<div class="eyebrow" style="margin-bottom:14px">India by dimension &mdash; bar is India, hairline is the sample median</div>
-<div class="bars" id="dimbars"></div>
-</div>
-<div>
-<p class="note">India&rsquo;s Living, Safety, Health, Education and Digital scores sit between the 42nd and 50th percentile &mdash; unremarkable for its income level, and improving. Mental &amp; social wellbeing ranks 113th of 125. Economic future ranks 122nd.</p>
-<blockquote>Remove those two dimensions and India is a median country. They are the entire deficit.</blockquote>
-<p class="note" style="margin-top:22px">Youth NEET of 39% sits at the winsorisation ceiling. The 32-point gap between female and male NEET exceeds the clipping bound, so India scores a literal zero on it. Together those two indicators forfeit 22 of 22.5 available points. The index cannot represent India as worse than this &mdash; the floor is holding the score up.</p>
-</div>
-</div>
-<div style="margin-top:52px">
-<div class="eyebrow" style="margin-bottom:14px">Where the Future Score goes &mdash; points earned of points available</div>
-<div class="bars" id="futbars"></div>
-<p class="note" style="margin-top:18px">Completion earns 85% of its available credit; learning outcome earns 33%. India moves adolescents through lower secondary at above-median rates and gets below-median cognitive output. Separating the two is what the framework exists to do.</p>
-</div>
-</div></section>
-<section id="ledger"><div class="wrap">
-<div class="sechead"><span class="eyebrow">05 / The ledger</span><h2>404 million below, 581 million above</h2></div>
-<div class="ledger">
-<div class="lg-b" style="width:32.6%">32.6%</div><div class="lg-i" style="width:20.4%">India 20.4%</div><div class="lg-a" style="width:46.9%">46.9%</div>
-</div>
-<div class="lgkey">
-<span><b>404.3m</b> in 44 countries scoring below</span><span><b>253.0m</b> in India</span><span><b>581.3m</b> in 80 countries scoring above</span>
-</div>
-<div class="two" style="margin-top:44px">
-<div><div class="eyebrow" style="margin-bottom:12px">What India clears</div><table class="kv" id="tblBelow"></table>
-<p class="note" style="margin-top:14px;font-size:15px">Nigeria and Pakistan alone supply a quarter of it. Africa contributes 21.3 of the 32.6 points.</p></div>
-<div><div class="eyebrow" style="margin-bottom:12px">What clears India</div><table class="kv" id="tblAbove"></table>
-<p class="note" style="margin-top:14px;font-size:15px">China alone is 12.9 of the 46.9 points. Only six African countries and one South Asian country score above India.</p></div>
-</div>
-<blockquote style="margin-top:40px">Only 120 of the 581 million above India live in rich countries. The rest are in China and in middle-income peers &mdash; Indonesia, the Philippines, Brazil, Mexico, Egypt, Vietnam, Iran, Uzbekistan. India is not being outranked by wealth. It is being outranked at its own income level.</blockquote>
-</div></section>
-<section id="within"><div class="wrap">
-<div class="sechead"><span class="eyebrow">06 / Disaggregation</span><h2>Where the top of India actually lands</h2></div>
-<p class="note" style="margin-bottom:30px">Split India by household wealth using domestic survey gradients, score each stratum on the same global scale, and drop the strata back into the world distribution. A claim like &ldquo;Indian teenagers do better than 70% of the world&rdquo; can then be tested rather than asserted.</p>
-<div class="two">
-<div><div class="eyebrow" style="margin-bottom:14px">India by wealth decile &mdash; world percentile reached</div><div class="bars" id="decbars"></div></div>
-<div><div class="eyebrow" style="margin-bottom:14px">What is true, and for how many</div><table class="kv" id="tblClaim"></table>
-<p class="note" style="margin-top:18px">No Indian wealth stratum clears the 75th world percentile. Wealth buys health, connectivity, schooling and safety; it does not buy out the Economic Future constraint, and youth unemployment actually <em>rises</em> with wealth and education in India. The richest decile still scores 79.1 on Life against 67.6 on Future.</p></div>
-</div>
-<div style="margin-top:52px">
-<div class="eyebrow" style="margin-bottom:14px">India by state &mdash; world percentile reached</div>
-<div class="bars" id="stbars"></div>
-<p class="note" style="margin-top:18px">State spread runs 48 to 68; wealth spread runs 35 to 73. A state average pools all classes, so geography understates the real dispersion. No Indian state reaches the world&rsquo;s 62nd percentile.</p>
-</div>
-</div></section>
 <section id="method"><div class="wrap">
-<div class="sechead"><span class="eyebrow">07 / Method</span><h2>How a score gets computed</h2></div>
+<div class="sechead"><span class="eyebrow">02 / Method</span><h2>How a score gets computed</h2></div>
 <div class="two">
 <div>
 <p class="note">Each indicator is clipped at its sample&rsquo;s 5th and 95th percentile, rescaled 0&ndash;100, and inverted where lower is better. The bounds are frozen on the central values, so a low/high run moves a country against a fixed scale rather than reshaping the scale underneath it:</p>
@@ -243,20 +176,32 @@ table.grid th{position:static}
 <tr><td>positive indicator</td><td class="mono" colspan="2">100 &times; (clip(x) &minus; p05) / (p95 &minus; p05)</td></tr>
 <tr><td>negative indicator</td><td class="mono" colspan="2">100 &times; (p95 &minus; clip(x)) / (p95 &minus; p05)</td></tr>
 </table>
-<p class="note" style="margin-top:18px">Indicators roll into seven dimensions by fixed sub-weights (&sect;02). Dimensions roll into <strong>Life Score</strong> (health, mental, safety, living &mdash; 50&nbsp;pts) and <strong>Future Score</strong> (education, economic, digital &mdash; 50&nbsp;pts), kept apart and averaged evenly so a comfortable present can&rsquo;t hide a poor launchpad.</p>
-<p class="note" style="margin-top:14px">Every observation carries a <code>value_low</code>/<code>value_high</code>. The build runs the whole index three times &mdash; central, every country at its most favourable defensible value, every country at its least &mdash; and publishes the spread as the country&rsquo;s band. That band is how a contested indicator (&sect;08) gets handled: dropping it smuggles in a judgement, keeping it silent pretends to a precision the data doesn&rsquo;t have.</p>
-<p class="note" style="margin-top:14px">Two percentiles are published for every country &mdash; one country, one unit; one teenager, one unit (&sect;01). For a demographically enormous country the population percentile uses the midpoint convention: the share of adolescents scoring strictly below, plus half the share tied in the country&rsquo;s own block. Full derivation, including why the midpoint and not the endpoints, in <a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/METHODOLOGY.md">the full derivation&nbsp;↗</a>.</p>
+<p class="note" style="margin-top:18px">Indicators roll into seven dimensions by fixed sub-weights (&sect;01). Dimensions roll into <strong>Life Score</strong> (health, mental, safety, living &mdash; 50&nbsp;pts) and <strong>Future Score</strong> (education, economic, digital &mdash; 50&nbsp;pts), kept apart and averaged evenly so a comfortable present can&rsquo;t hide a poor launchpad.</p>
+<p class="note" style="margin-top:14px">Every observation carries a <code>value_low</code>/<code>value_high</code>. The build runs the whole index three times &mdash; central, every country at its most favourable defensible value, every country at its least &mdash; and publishes the spread as the country&rsquo;s band. That band is how a contested indicator (&sect;04) gets handled: dropping it smuggles in a judgement, keeping it silent pretends to a precision the data doesn&rsquo;t have.</p>
+<p class="note" style="margin-top:14px">Two percentiles are published for every country &mdash; one country, one unit; one teenager, one unit (worked through with India as the example in &sect;06). For a demographically enormous country the population percentile uses the midpoint convention: the share of adolescents scoring strictly below, plus half the share tied in the country&rsquo;s own block. Full derivation, including why the midpoint and not the endpoints, in <a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/METHODOLOGY.md">the full derivation&nbsp;↗</a>.</p>
 </div>
 <div>
 <h3 style="font-size:20px;margin-bottom:10px">Sensitivity</h3>
-<p class="note" style="font-size:15.5px;margin-bottom:14px">India&rsquo;s country percentile under nine alternative specifications.</p>
+<p class="note" style="font-size:15.5px;margin-bottom:14px">India&rsquo;s country percentile under nine alternative specifications &mdash; used here because it&rsquo;s the case studied in depth from &sect;06 on, not because the method is India-specific.</p>
 <table class="kv" id="tblSens"></table>
 <p class="note" style="margin-top:14px;font-size:15px">Range 27&ndash;40, point estimate 35&ndash;36. The headline is not an artefact of weight choices.</p>
 </div>
 </div>
 </div></section>
+<section id="sources"><div class="wrap">
+<div class="sechead"><span class="eyebrow">03 / Sources &amp; limits</span><h2>What&rsquo;s measured, what&rsquo;s modelled, what&rsquo;s missing</h2></div>
+<p class="note">Every one of the 2,250 observations behind this index carries a source and a confidence tier. Open any row in the table (&sect;05) to see an individual country&rsquo;s sources; the tier legend and the caveats that apply across the board are below.</p>
+<div class="tierlegend">
+<div><div class="t">A</div><div class="m">Physically counted or measured, nationally sourced, not seriously disputed &mdash; under-5 mortality, stunting, electricity access, homicide.</div></div>
+<div><div class="t">B</div><div class="m">Measured, but with real comparability problems across countries &mdash; youth NEET, child labour, learning outcomes, mobile broadband.</div></div>
+<div><div class="t">C</div><div class="m">Perceptual or modelled &mdash; the Cantril life evaluation, and any indicator imputed rather than observed.</div></div>
+</div>
+<p class="note" style="margin-top:26px">Sources are organisation-level today &mdash; UN IGME, UNICEF/WHO/World Bank JME, WHO Global Health Estimates and NCRB for India, UNODC, ILO/UNICEF, WHO/UNICEF JMP, World Bank/IEA, UNESCO&nbsp;UIS, Altinok, Angrist &amp; Patrinos via World Bank HLO, ILOSTAT, ITU, and the World Happiness Report &mdash; correctly attributed but not yet a specific series ID and access date on every row. Tightening those 2,250 citations is open work; see &sect;10.</p>
+<p class="note" style="margin-top:14px">Mental &amp; social wellbeing is the weakest dimension: suicide mortality and adult life evaluation are both proxies, and no adolescent-specific mental-health series has global country coverage. Bullying, school violence and digital-skills indicators were dropped for lack of coverage. Internet and electricity access are population-level proxies, not adolescent-specific. Within-India gradients (&sect;09) are encoded from published NFHS-5 and PLFS patterns, not a microdata reanalysis, and bands above the 90th wealth percentile are extrapolated.</p>
+<p class="note" style="margin-top:14px">Sample covers 1.239 billion adolescents, about 95% of the world&rsquo;s 10&ndash;19 population, in 125 of 194 countries &mdash; inclusion requires a complete row, so partial coverage means exclusion rather than imputation. Percentiles are within-sample. Full column-by-column schema in <a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/DATA_DICTIONARY.md">the data dictionary&nbsp;↗</a>.</p>
+</div></section>
 <section id="contested"><div class="wrap">
-<div class="sechead"><span class="eyebrow">08 / Contested</span><h2>Four indicators, argued in the open</h2></div>
+<div class="sechead"><span class="eyebrow">04 / Contested</span><h2>Four indicators, argued in the open</h2></div>
 <p class="note" style="margin-bottom:8px">A contested indicator is a reason to publish a range, not a reason to drop the indicator or the conclusion it points to. Dropping it silently smuggles in a judgement &mdash; usually the loudest one. Full policy and worked cases in <a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/CONTESTED.md">the contested-indicators policy&nbsp;↗</a>.</p>
 <div class="case">
 <div class="case-h"><span class="ind">Life evaluation (Cantril ladder)</span><span class="tier c">Tier C</span></div>
@@ -281,17 +226,80 @@ table.grid th{position:static}
 <p class="note">Vintage 2005&ndash;2015, imputed for 29 of 125 countries by regression on under-5 mortality, youth literacy, completion and internet use (R&sup2; 0.87). China&rsquo;s value derives from PISA-participating provinces, not the national population, and mainland China produced no PISA 2022 result at all. Imputed cells drop to tier C with a &plusmn;6% band. Replacing this series with something current is the single highest-value upgrade available to this repository.</p>
 </div>
 </div></section>
-<section id="sources"><div class="wrap">
-<div class="sechead"><span class="eyebrow">09 / Sources &amp; limits</span><h2>What&rsquo;s measured, what&rsquo;s modelled, what&rsquo;s missing</h2></div>
-<p class="note">Every one of the 2,250 observations behind this index carries a source and a confidence tier. Open any row in the table above to see an individual country&rsquo;s sources; the tier legend and the caveats that apply across the board are below.</p>
-<div class="tierlegend">
-<div><div class="t">A</div><div class="m">Physically counted or measured, nationally sourced, not seriously disputed &mdash; under-5 mortality, stunting, electricity access, homicide.</div></div>
-<div><div class="t">B</div><div class="m">Measured, but with real comparability problems across countries &mdash; youth NEET, child labour, learning outcomes, mobile broadband.</div></div>
-<div><div class="t">C</div><div class="m">Perceptual or modelled &mdash; the Cantril life evaluation, and any indicator imputed rather than observed.</div></div>
+<section id="table"><div class="wrap">
+<div class="sechead"><span class="eyebrow">05 / The index</span><h2>All 125 countries</h2></div>
+<div class="tools">
+<input id="q" type="search" placeholder="Search country" aria-label="Search country">
+<select id="reg" aria-label="Filter by region"><option value="">All regions</option></select>
+<span class="eyebrow" id="count"></span>
 </div>
-<p class="note" style="margin-top:26px">Sources are organisation-level today &mdash; UN IGME, UNICEF/WHO/World Bank JME, WHO Global Health Estimates and NCRB for India, UNODC, ILO/UNICEF, WHO/UNICEF JMP, World Bank/IEA, UNESCO&nbsp;UIS, Altinok, Angrist &amp; Patrinos via World Bank HLO, ILOSTAT, ITU, and the World Happiness Report &mdash; correctly attributed but not yet a specific series ID and access date on every row. Tightening those 2,250 citations is open work; see &sect;10.</p>
-<p class="note" style="margin-top:14px">Mental &amp; social wellbeing is the weakest dimension: suicide mortality and adult life evaluation are both proxies, and no adolescent-specific mental-health series has global country coverage. Bullying, school violence and digital-skills indicators were dropped for lack of coverage. Internet and electricity access are population-level proxies, not adolescent-specific. Within-India gradients are encoded from published NFHS-5 and PLFS patterns, not a microdata reanalysis, and bands above the 90th wealth percentile are extrapolated.</p>
-<p class="note" style="margin-top:14px">Sample covers 1.239 billion adolescents, about 95% of the world&rsquo;s 10&ndash;19 population, in 125 of 194 countries &mdash; inclusion requires a complete row, so partial coverage means exclusion rather than imputation. Percentiles are within-sample. Full column-by-column schema in <a href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/DATA_DICTIONARY.md">the data dictionary&nbsp;↗</a>.</p>
+<div class="tblwrap"><table class="grid" id="tbl">
+<thead><tr>
+<th data-k="Rank">#</th><th data-k="country">Country</th><th data-k="region">Region</th>
+<th data-k="pop1019_m">Teens m</th><th data-k="LifeScore">Life</th><th data-k="FutureScore">Future</th>
+<th data-k="TOI">Index</th><th data-k="Percentile">Ctry pct</th><th data-k="pop_pct">Pop pct</th>
+</tr></thead><tbody></tbody>
+</table></div>
+</div></section>
+<section id="thesis"><div class="wrap">
+<div class="sechead"><span class="eyebrow">06 / The disagreement</span><h2>India, counted two ways</h2></div>
+<p class="note" style="margin-bottom:26px">The index and the method are the same for every country in the table above. What follows takes India specifically as the worked example of what that method actually surfaces.</p>
+<div class="duo">
+<div><div class="eyebrow">One country, one vote</div><div class="big">35.5</div>
+<div class="cap">India ranks 81st of 125 countries. Denmark, with 600,000 teenagers, counts the same as India with 253 million.</div></div>
+<div class="sel"><div class="eyebrow">One teenager, one vote</div><div class="big">42.9</div>
+<div class="cap">Weight every country by its 10&ndash;19 population and India rises seven points, because the countries it outranks are demographically enormous.</div></div>
+</div>
+<p class="note" style="margin-top:26px">Both numbers are correct. The first answers <strong>&ldquo;how does India compare to other states?&rdquo;</strong> The second answers <strong>&ldquo;how does an Indian teenager compare to other teenagers?&rdquo;</strong> Most published country rankings quietly answer the first while being read as the second.</p>
+</div></section>
+<section id="india"><div class="wrap">
+<div class="sechead"><span class="eyebrow">07 / The case</span><h2>Five dimensions at the median. Two in freefall.</h2></div>
+<div class="two">
+<div>
+<div class="eyebrow" style="margin-bottom:14px">India by dimension &mdash; bar is India, hairline is the sample median</div>
+<div class="bars" id="dimbars"></div>
+</div>
+<div>
+<p class="note">India&rsquo;s Living, Safety, Health, Education and Digital scores sit between the 42nd and 50th percentile &mdash; unremarkable for its income level, and improving. Mental &amp; social wellbeing ranks 113th of 125. Economic future ranks 122nd.</p>
+<blockquote>Remove those two dimensions and India is a median country. They are the entire deficit.</blockquote>
+<p class="note" style="margin-top:22px">Youth NEET of 39% sits at the winsorisation ceiling. The 32-point gap between female and male NEET exceeds the clipping bound, so India scores a literal zero on it. Together those two indicators forfeit 22 of 22.5 available points. The index cannot represent India as worse than this &mdash; the floor is holding the score up.</p>
+</div>
+</div>
+<div style="margin-top:52px">
+<div class="eyebrow" style="margin-bottom:14px">Where the Future Score goes &mdash; points earned of points available</div>
+<div class="bars" id="futbars"></div>
+<p class="note" style="margin-top:18px">Completion earns 85% of its available credit; learning outcome earns 33%. India moves adolescents through lower secondary at above-median rates and gets below-median cognitive output. Separating the two is what the framework exists to do.</p>
+</div>
+</div></section>
+<section id="ledger"><div class="wrap">
+<div class="sechead"><span class="eyebrow">08 / The ledger</span><h2>404 million below, 581 million above</h2></div>
+<div class="ledger">
+<div class="lg-b" style="width:32.6%">32.6%</div><div class="lg-i" style="width:20.4%">India 20.4%</div><div class="lg-a" style="width:46.9%">46.9%</div>
+</div>
+<div class="lgkey">
+<span><b>404.3m</b> in 44 countries scoring below</span><span><b>253.0m</b> in India</span><span><b>581.3m</b> in 80 countries scoring above</span>
+</div>
+<div class="two" style="margin-top:44px">
+<div><div class="eyebrow" style="margin-bottom:12px">What India clears</div><table class="kv" id="tblBelow"></table>
+<p class="note" style="margin-top:14px;font-size:15px">Nigeria and Pakistan alone supply a quarter of it. Africa contributes 21.3 of the 32.6 points.</p></div>
+<div><div class="eyebrow" style="margin-bottom:12px">What clears India</div><table class="kv" id="tblAbove"></table>
+<p class="note" style="margin-top:14px;font-size:15px">China alone is 12.9 of the 46.9 points. Only six African countries and one South Asian country score above India.</p></div>
+</div>
+<blockquote style="margin-top:40px">Only 120 of the 581 million above India live in rich countries. The rest are in China and in middle-income peers &mdash; Indonesia, the Philippines, Brazil, Mexico, Egypt, Vietnam, Iran, Uzbekistan. India is not being outranked by wealth. It is being outranked at its own income level.</blockquote>
+</div></section>
+<section id="within"><div class="wrap">
+<div class="sechead"><span class="eyebrow">09 / Disaggregation</span><h2>Where the top of India actually lands</h2></div>
+<p class="note" style="margin-bottom:30px">Split India by household wealth using domestic survey gradients, score each stratum on the same global scale, and drop the strata back into the world distribution. A claim like &ldquo;Indian teenagers do better than 70% of the world&rdquo; can then be tested rather than asserted.</p>
+<div class="two">
+<div><div class="eyebrow" style="margin-bottom:14px">India by wealth decile &mdash; world percentile reached</div><div class="bars" id="decbars"></div></div>
+<div><div class="eyebrow" style="margin-bottom:14px">What is true, and for how many</div><table class="kv" id="tblClaim"></table>
+<p class="note" style="margin-top:18px">No Indian wealth stratum clears the 75th world percentile. Wealth buys health, connectivity, schooling and safety; it does not buy out the Economic Future constraint, and youth unemployment actually <em>rises</em> with wealth and education in India. The richest decile still scores 79.1 on Life against 67.6 on Future.</p></div>
+</div>
+<div style="margin-top:52px">
+<div class="eyebrow" style="margin-bottom:14px">India by state &mdash; world percentile reached</div>
+<div class="bars" id="stbars"></div>
+<p class="note" style="margin-top:18px">State spread runs 48 to 68; wealth spread runs 35 to 73. A state average pools all classes, so geography understates the real dispersion. No Indian state reaches the world&rsquo;s 62nd percentile.</p>
+</div>
 </div></section>
 <section id="contribute"><div class="wrap">
 <div class="sechead"><span class="eyebrow">10 / Contribute</span><h2>Fix a number, argue a weight, add a country</h2></div>
@@ -311,9 +319,9 @@ table.grid th{position:static}
 <p style="max-width:46ch">Teenager Outcomes Index &mdash; 125 countries, 18 indicators, 7 dimensions, 1.239 billion adolescents. Every figure traces to a sourced, editable row.</p>
 </div>
 <div><h4>This index</h4><ul>
-<li><a href="#build">How it&rsquo;s built</a></li><li><a href="#table">All 125 countries</a></li>
-<li><a href="#method">Method</a></li><li><a href="#contested">Contested</a></li>
-<li><a href="#sources">Sources &amp; limits</a></li><li><a href="#contribute">Contribute</a></li></ul></div>
+<li><a href="#build">How it&rsquo;s built</a></li><li><a href="#method">Method</a></li>
+<li><a href="#sources">Sources &amp; limits</a></li><li><a href="#table">All 125 countries</a></li>
+<li><a href="#contribute">Contribute</a></li></ul></div>
 <div><h4>Denominator</h4><ul>
 <li><a href="/">Home</a></li><li><a href="/#principles">Principles</a></li>
 <li><a href="/#method">Method</a></li><li><a href="/#catalogue">Published</a></li>
@@ -392,12 +400,16 @@ tb.innerHTML=r.map(c=>`<tr class="row${c.country==='India'?' ind':''}"><td><span
 <tr class="detail" hidden><td colspan="9">
 <div class="rowdetail">
 <div class="aggline">
+<div><span class="rl">Region</span><span class="rv">${c.region}</span></div>
+<div><span class="rl">Teens (m)</span><span class="rv">${c.pop1019_m.toFixed(1)}</span></div>
 <div><span class="rl">Life score</span><span class="rv">${c.LifeScore.toFixed(1)}</span></div>
 <div><span class="rl">Future score</span><span class="rv">${c.FutureScore.toFixed(1)}</span></div>
+<div><span class="rl">Country pct</span><span class="rv">${c.Percentile.toFixed(1)}</span></div>
+<div><span class="rl">Population pct</span><span class="rv">${c.pop_pct.toFixed(1)}</span></div>
 <div><span class="rl">Aggregate score</span><span class="rv">${c.TOI.toFixed(1)}${c.toiLow!=null?` <b>[${c.toiLow.toFixed(1)}&ndash;${c.toiHigh.toFixed(1)}]</b>`:''}</span></div>
 </div>
 ${renderObs(c)}
-<p class="rowdetail-formula">Index = 0.5 &times; Life Score + 0.5 &times; Future Score, each built from the seven weighted dimensions above.${c.toiLow!=null?' The bracketed range is the published band across every indicator&rsquo;s sourced low/high value':''} &mdash; see &sect;07 Method. Tier A = counted/undisputed &middot; B = measured with comparability limits &middot; C = perceptual or modelled &mdash; see &sect;09 Sources &amp; limits.</p>
+<p class="rowdetail-formula">Index = 0.5 &times; Life Score + 0.5 &times; Future Score, each built from the seven weighted dimensions above.${c.toiLow!=null?' The bracketed range is the published band across every indicator&rsquo;s sourced low/high value':''} &mdash; see &sect;02 Method. Tier A = counted/undisputed &middot; B = measured with comparability limits &middot; C = perceptual or modelled &mdash; see &sect;03 Sources &amp; limits.</p>
 </div>
 </td></tr>`).join('');
 }

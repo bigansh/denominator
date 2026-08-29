@@ -1,129 +1,91 @@
 # Contributing
 
-Most of this repository is data, and most of the data can be improved. You do
-not need to write code to contribute anything useful here.
+Most of what lives in this repository is data, and most of it can be
+improved. You do not need to write code to contribute anything useful here.
+There are two lines of work — see the root [README](README.md) — and they're
+contributed to differently.
 
-## The four kinds of contribution
+## Contributing to the Teenager Outcomes Index
 
-### 1. Fix a number (most valuable)
+The published index. Its data, schema and review standard are documented in
+full in [`indexes/teenager-outcomes/README.md`](indexes/teenager-outcomes/README.md)
+and [`indexes/teenager-outcomes/docs/`](indexes/teenager-outcomes/docs) — read
+those before opening a PR. In short:
 
-The great majority of values in `indexes/teenager-outcomes/data/observations.csv` were compiled by a model
-and are right in level and ordering but were not pulled cell-by-cell from
-primary sources. Replacing one with a cited value from the actual source is the
-highest-value thing you can do.
+- **Fix a number** (the highest-value thing you can do): find the row in
+  `indexes/teenager-outcomes/data/observations.csv`, replace `value`,
+  `value_low`, `value_high`, `year` and `source` with a cited figure from the
+  actual source. "World Bank" is not a source; "World Bank WDI series
+  SH.STA.STNT.ZS, accessed 2026-03-01" is.
+- **Add a country** — every one of the 18 indicators, or CI rejects the row.
+- **Argue about the framework** (weights, dimensions, indicator choice) — open
+  an *issue*, not a PR, with the before/after table from
+  `python indexes/teenager-outcomes/build.py`. Changes motivated by the rank
+  they produce for a specific country are rejected on sight, in either
+  direction.
+- **Improve a tier or a caveat** in `indicators.csv`, with the reasoning in the
+  PR.
 
-Find the row, change `value`, `value_low`, `value_high`, `year` and `source`.
-One indicator per pull request keeps the diff readable — you may change it for
-every country at once.
-
-```csv
-iso3,country,indicator_id,value,value_low,value_high,year,confidence_tier,source,note
-IND,India,stunting,35.5,33.9,37.1,2021,A,"NFHS-5 (2019-21), IIPS, table 10.1",95% CI from survey report
-```
-
-Rules:
-
-- `source` must be specific enough for someone else to find the number. "World
-  Bank" is not a source. "World Bank WDI series SH.STA.STNT.ZS, accessed
-  2026-03-01" is.
-- `value_low <= value <= value_high`. If the source publishes a confidence
-  interval, use it. If the dispute is between two credible sources, span them
-  and say so in `note`.
-- `year` is the reference year of the measurement, not the publication year.
-- Never invent a number to fill a gap. If a country cannot be completed, it does
-  not enter the sample.
-
-### 2. Add a country
-
-You need all 18 indicators. A partial row fails CI, by design. Add a line to
-`indexes/teenager-outcomes/data/countries.csv` including an adolescent population, then 18 lines to
-`indexes/teenager-outcomes/data/observations.csv`.
-
-### 3. Argue about the framework
-
-Weights, dimensions and indicator selection are all judgement calls, and yours
-may be better than ours. Open an **issue**, not a pull request, and say:
-
-- what you would change and to what,
-- the reasoning,
-- which countries move and by how much (run `indexes/teenager-outcomes/build.py` before and after —
-  a proposal without the before/after table is hard to evaluate).
-
-We do not accept weight changes that are motivated by the ranking they produce
-for a particular country. Argue from the construct, not the result.
-
-### 4. Improve a tier or a caveat
-
-If an indicator is more contested than `indexes/teenager-outcomes/data/indicators.csv` admits, or less, change
-the `confidence_tier` and the `caveat` column and explain in the PR. Tier C
-indicators are capped in the validator; if your change pushes perceptual weight
-above 12 of 100 points, you will get a warning to address.
-
-## Adding a dataset that isn't an index
-
-Every index lives self-contained under `indexes/<slug>/` — its own `data/`,
-its own build and validate scripts, its own `docs/` — so a second index never
-inherits the first one's schema or build pipeline. A new, India-specific
-dataset that doesn't reduce to a score at all (street measurements, urban
-density, and similar) doesn't need a build pipeline, but does need the same
-discipline: its own top-level folder, every value sourced, a schema documented
-the way `indexes/teenager-outcomes/docs/DATA_DICTIONARY.md` documents this
-one, and nothing merged without a citation. Open an issue first to agree the
-shape before sending a large PR.
-
-## Before you open a pull request
+Before opening a PR:
 
 ```bash
 pip install pandas
 python indexes/teenager-outcomes/validate.py     # must exit 0
-python indexes/teenager-outcomes/build.py        # must run clean
+python indexes/teenager-outcomes/build.py        # must run clean; commit the regenerated toi.json
 ```
 
-CI runs exactly these two commands. If validation fails, the PR cannot merge.
+CI runs exactly these two commands and fails the PR if `site/indexes/teenager-outcomes/toi.json`
+doesn't match what `build.py` produces from the data in the same commit.
 
-Include in the PR description:
+## Adding a dataset that isn't an index
 
-- **what changed** — indicator, countries affected
-- **the source** — link or full citation
-- **the effect** — the before/after line for any country that moves more than
-  one rank. `build.py` prints India's line by default; paste more if relevant.
+The India ground-truth line of work — see the README for what it's for.
+Nothing in it needs to reduce to a score, and it doesn't need a build
+pipeline the way the index does, but it needs the same discipline:
 
-## What validation enforces
+- Its own top-level folder, named for what it measures (e.g.
+  `footpath-adequacy/`), not nested inside `indexes/`.
+- A `data/` folder of plain, editable files — CSV unless there's a real reason
+  otherwise.
+- A README documenting what's measured, the geography it's measured at (ward,
+  city, state — be specific), and a schema for each file, the way
+  `indexes/teenager-outcomes/docs/DATA_DICTIONARY.md` documents that index's
+  files.
+- A `source` on every row specific enough for someone else to locate the
+  number, and a confidence tier or equivalent flag distinguishing a direct
+  measurement from a modelled or extrapolated one.
 
-- Dimension weights sum to 100; each block sums to 50; sub-weights within each
-  dimension sum to 1.0
-- Every country has every indicator, exactly once
-- `countries.csv` and `observations.csv` cover the same country set
-- `value_low <= value <= value_high`; percentages within 0–100; ladder within 0–10
-- Every observation has a non-empty source and a valid tier
-- Warnings (not blocking) for far outliers and for excessive Tier C weight
+Open an **issue** first to agree the shape — the geography unit, the schema,
+what "sourced" means for this particular kind of observation — before sending
+a large PR. This section will grow into something closer to the Teenager
+Outcomes Index's contribution guide once a first dataset exists to write it
+against.
 
 ## Review standard
 
-A pull request is merged when the number is better sourced than the one it
-replaces. Not when it is more flattering to a country, and not when it is less.
-Both directions of motivated editing are equally unwelcome, and the fastest way
-to have a change rejected is to argue for it on the basis of the rank it
-produces.
-
-If a value is genuinely disputed between credible sources, the answer is a wider
-band in `value_low`/`value_high` and a note explaining the dispute — not a
-choice between them.
+Applies to both lines of work. A contribution is merged when the number is
+better sourced than the one it replaces or fills a genuine gap — not when it
+is more flattering to a place, and not when it is less. Both directions of
+motivated editing are equally unwelcome. If a value is genuinely disputed
+between credible sources, the answer is a wider range and a note explaining
+the dispute, not a choice between them.
 
 ## Contributing code
 
 The site is plain HTML/CSS/JS with no client-side build step, sharing one
-stylesheet (`site/assets/brand.css`) across pages, and reading its data from the
-generated `site/indexes/teenager-outcomes/toi.json`. Match the existing style of whichever file you're
-editing rather than introducing a new pattern. Small, focused PRs preferred.
+stylesheet (`site/assets/brand.css`) across pages. Each index's page reads
+its own generated JSON, co-located under `site/indexes/<slug>/`. Match the
+existing style of whichever file you're editing rather than introducing a new
+pattern. Small, focused PRs preferred.
 
 ## Reporting a problem with an existing number
 
-Open an issue with a link to the row in `indexes/teenager-outcomes/data/observations.csv` and the source
-that contradicts it. If you can, propose the fix as a PR directly.
+Open an issue with a link to the row and the source that contradicts it. If
+you can, propose the fix as a PR directly.
 
 ## Governance
 
 Issues are open to anyone. Data corrections with a real citation are merged on
-sight once CI passes. Framework changes need a maintainer to agree, and a
-sensitivity run showing what moves.
+sight once CI passes (where CI applies). Framework or schema changes need a
+maintainer to agree, and — for the index — a sensitivity run showing what
+moves.
