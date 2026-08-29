@@ -26,7 +26,6 @@ height:clamp(180px,26vw,320px)}
 @media(max-width:420px){.home-hero h1{font-size:clamp(32px,10.5vw,42px)}.mosaic{grid-template-columns:repeat(16,1fr)}}
 .principles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
 .principle{background:var(--paper);padding:28px 26px 30px}
-.principle .num{font-family:var(--fm);font-size:10.5px;letter-spacing:.16em;color:var(--ink-3);display:block;margin-bottom:16px}
 .principle h3{font-size:23px;margin-bottom:12px;max-width:16ch}
 .principle p{font-size:15.5px;color:var(--ink-2);line-height:1.55}
 @media(max-width:900px){.principles{grid-template-columns:1fr}}
@@ -69,7 +68,6 @@ height:clamp(220px,30vw,380px)}
 <nav>
 <a href="#catalogue">Published</a>
 <a href="#principles">Principles</a>
-<a href="#method">Method</a>
 <a href="https://github.com/bigansh/denominator">GitHub&nbsp;↗</a>
 </nav>
 </div></header>
@@ -86,17 +84,14 @@ height:clamp(220px,30vw,380px)}
 </div>
 <div class="principles">
 <div class="principle">
-<span class="num">RULE 01</span>
 <h3>Compute it, don&rsquo;t assert it</h3>
 <p>No score is published until the full country-by-indicator matrix exists and the arithmetic runs end to end. Where the data cannot support a number, we say so and leave the cell empty rather than filling it with something plausible.</p>
 </div>
 <div class="principle">
-<span class="num">RULE 02</span>
 <h3>State the denominator</h3>
 <p>A country percentile and a population percentile answer different questions. We compute both, print both, and name which one a given claim rests on. A composite that hides this is a composite you cannot check.</p>
 </div>
 <div class="principle">
-<span class="num">RULE 03</span>
 <h3>Ship the workings</h3>
 <p>Everything comes with the live data behind it &mdash; inputs editable, sources attached, results recalculating from the file itself. Provenance is stated per value, including which are published data and which are modelled.</p>
 </div>
@@ -134,54 +129,11 @@ height:clamp(220px,30vw,380px)}
 </div>
 </div>
 </div></section>
-<section id="method"><div class="wrap">
-<div class="sechead">
-<span class="eyebrow">Shared method</span>
-<h2>How a Denominator score gets built</h2>
-<p class="sub">The same six steps run behind every composite score, so results are comparable across the catalogue and any one of them can be re-derived from the published data. A dataset that isn&rsquo;t a score still follows the three rules above &mdash; sourced, checkable, nothing asserted &mdash; without necessarily this exact pipeline.</p>
-</div>
-<div class="two-wide">
-<div class="steps">
-<div class="step"><span class="n">01</span><div>
-<h4>Assemble the matrix first</h4>
-<p>Partial coverage means exclusion, not imputation, unless the imputation is modelled and flagged explicitly.</p></div></div>
-<div class="step"><span class="n">02</span><div>
-<h4>Normalise against winsorised bounds</h4>
-<p>Clipped at the 5th and 95th percentile so one extreme country can't compress everyone else.</p></div></div>
-<div class="step"><span class="n">03</span><div>
-<h4>Aggregate through named dimensions</h4>
-<p>Every weight is stated and editable &mdash; nothing enters the total except through a dimension someone can argue with.</p></div></div>
-<div class="step"><span class="n">04</span><div>
-<h4>Rank twice</h4>
-<p>Once per unit counted, once per person it's about. Both percentiles published side by side.</p></div></div>
-<div class="step"><span class="n">05</span><div>
-<h4>Test the weights</h4>
-<p>Re-run under equal weighting, dimension swaps, unclipped normalisation. A headline that moves is reported as a range.</p></div></div>
-<div class="step"><span class="n">06</span><div>
-<h4>Publish the limits with the result</h4>
-<p>Proxies, coverage gaps, reconstructions &mdash; in the same document as the number, not an appendix nobody opens.</p></div></div>
-</div>
-<div>
-<div class="eyebrow" style="margin-bottom:16px">The colour scale</div>
-<p class="note" style="margin-bottom:20px">One ramp carries score across every chart, table and map in the catalogue. Low is plum, high is deep teal. It never means anything else.</p>
-<div class="strip" style="height:56px" id="stripRamp"></div>
-<div class="mono" style="display:flex;justify-content:space-between;font-size:10.5px;color:var(--ink-2);margin-top:8px;letter-spacing:.06em">
-<span>0</span><span>50</span><span>100</span>
-</div>
-<div class="eyebrow" style="margin:36px 0 16px">Two scores, always</div>
-<p class="note">Where an index measures both a present state and a future one, they are kept apart and weighted evenly, so a country with a comfortable present and a poor launchpad cannot hide behind a single average.</p>
-<table class="kv" style="margin-top:18px">
-<tr><td>Life Score</td><td>conditions now</td><td>50%</td></tr>
-<tr><td>Future Score</td><td>prospects next</td><td>50%</td></tr>
-</table>
-</div>
-</div>
-</div></section>
 <section id="india"><div class="wrap">
 <div class="sechead">
 <span class="eyebrow">Also underway</span>
 <h2>A ground-truth commons for India</h2>
-<p class="sub">Sourced street and infrastructure data, measured from the ward up instead of an imported code. Nothing published yet &mdash; see <a href="https://github.com/bigansh/denominator#two-lines-of-work">the README</a>.</p>
+<p class="sub">Sourced street and infrastructure data, measured from the ward up instead of an imported code. Nothing published yet &mdash; see <a href="https://github.com/bigansh/denominator#what-this-is-about">the README</a>.</p>
 </div>
 <div class="imgsplit">
 <div class="a"><span>Imported standard</span></div>
@@ -201,7 +153,6 @@ height:clamp(220px,30vw,380px)}
 <h4>Denominator</h4>
 <ul>
 <li><a href="#principles">Principles</a></li>
-<li><a href="#method">Method</a></li>
 <li><a href="#catalogue">Published</a></li>
 <li><a href="https://github.com/bigansh/denominator">GitHub</a></li>
 </ul>
@@ -217,7 +168,5 @@ const mosaic=document.getElementById('heroMosaic');
 const MW=32,MH=6;let cells='';
 for(let i=0;i<MW*MH;i++){const v=(Math.sin(i*0.31)+Math.sin(i*0.11+2)*0.6+1.6)/3.2;cells+=`<div style="background:${col(v*100)}"></div>`}
 mosaic.innerHTML=cells;
-document.getElementById('stripRamp').innerHTML=
-Array.from({length:120},(_,i)=>`<span style="width:${100/120}%;background:${col(i/119*100)}"></span>`).join('');
 </script>
 </body></html>
