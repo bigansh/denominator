@@ -43,23 +43,8 @@ a.entry:hover h3{-webkit-text-decoration:underline 2px var(--s2);text-decoration
 .status{display:inline-block;font-family:var(--fm);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
 padding:3px 8px;border:1px solid var(--ink-2);color:var(--ink-2);margin-bottom:14px}
 .status.live{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.entry.draft{opacity:.62}
 @media(max-width:900px){.entry{grid-template-columns:1fr;gap:16px}.entry .stats{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:560px){.entry .stats{grid-template-columns:1fr 1fr}}
-.steps{display:grid;gap:0;border-top:1px solid var(--rule)}
-.step{display:grid;grid-template-columns:56px 1fr;gap:24px;padding:22px 0;border-bottom:1px solid var(--rule)}
-.step .n{font-family:var(--fm);font-size:12px;color:var(--ink-3);padding-top:4px}
-.step h4{font-family:var(--fb);font-weight:500;font-size:18.5px;letter-spacing:0;margin-bottom:6px}
-.step p{font-size:15.5px;color:var(--ink-2);max-width:70ch}
-@media(max-width:560px){.step{grid-template-columns:34px 1fr;gap:14px}}
-.imgsplit{margin-top:var(--stack-3);border:1px solid var(--ink);display:grid;grid-template-columns:1fr 1fr;
-height:clamp(220px,30vw,380px)}
-.imgsplit>div{display:flex;align-items:flex-end;padding:24px}
-.imgsplit .a{background:var(--ink);color:var(--paper-2)}
-.imgsplit .b{background:linear-gradient(115deg,#8E3536,#C9A94E,#2A6C63)}
-.imgsplit span{font-family:var(--fm);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
-.imgsplit .b span{color:#0d1310}
-@media(max-width:640px){.imgsplit{grid-template-columns:1fr;height:auto}.imgsplit>div{min-height:150px}}
 </style>
 </head>
 <body>
@@ -101,7 +86,7 @@ height:clamp(220px,30vw,380px)}
 <div class="sechead">
 <span class="eyebrow">The catalogue</span>
 <h2>What&rsquo;s published</h2>
-<p class="sub">One thing published so far. The programme is deliberately slow: nothing goes out until the data will carry it, whatever form that data takes &mdash; a composite score today, a sourced dataset with no score at all when one is ready.</p>
+<p class="sub">Every score published here is computed from the data behind it, not asserted.</p>
 </div>
 <div class="cat">
 <a class="entry" href="/indexes/teenager-outcomes/">
@@ -118,26 +103,6 @@ height:clamp(220px,30vw,380px)}
 <div class="stat"><span class="v">7</span><span class="k">Dimensions</span></div>
 </div>
 </a>
-<div class="entry draft">
-<span class="code">&mdash;<br>&mdash;</span>
-<div>
-<span class="status">Not started</span>
-<h3>What&rsquo;s next</h3>
-<p class="desc">Subject and shape both undecided &mdash; the next thing published here doesn&rsquo;t have to be a composite score. The constraint is the same either way: nothing goes out until enough of it can be sourced and checked.</p>
-</div>
-<div class="stats"></div>
-</div>
-</div>
-</div></section>
-<section id="india"><div class="wrap">
-<div class="sechead">
-<span class="eyebrow">Also underway</span>
-<h2>A ground-truth commons for India</h2>
-<p class="sub">Sourced street and infrastructure data, measured from the ward up instead of an imported code. Nothing published yet &mdash; see <a href="https://github.com/bigansh/denominator#what-this-is-about">the README</a>.</p>
-</div>
-<div class="imgsplit">
-<div class="a"><span>Imported standard</span></div>
-<div class="b"><span>Local ground truth</span></div>
 </div>
 </div></section>
 <footer class="site-foot"><div class="wrap cols">

@@ -10,14 +10,11 @@ asserted that wasn't computed.
 
 We publish data on human outcomes, sourced and checkable, counted per unit
 and per person, because those two counts usually disagree and the
-disagreement is the finding worth having. India is a particular focus of
-ongoing work — measuring conditions on the ground rather than relying on
-numbers or standards imported from somewhere else.
+disagreement is the finding worth having.
 
 ## What's published
 
-See the live site for what's currently up. Everything published here
-follows the same rule regardless of what form it takes.
+See the live site for what's currently up.
 
 ## Repository layout
 
