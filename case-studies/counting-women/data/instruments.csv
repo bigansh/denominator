@@ -1,0 +1,20 @@
+iso3,country,cvs_name,cvs_since,vaw_name,vaw_agency,vaw_cadence_yrs,vaw_latest,vaw_n,dedicated_vaw,cadence_5yr_or_less,latest_within_5yr,covers_nonpartner,act_type_disaggregated,reporting_rate_published,statutory,verified,source
+USA,United States,National Crime Victimization Survey,1972,National Intimate Partner and Sexual Violence Survey,CDC / BJS,1,2024,109341,1,1,1,1,0,1,0,1,"BJS NCVS methodology 2024; CDC NISVS"
+GBR,United Kingdom (E&W),Crime Survey for England and Wales,1982,CSEW self-completion module,ONS,1,2025,38000,1,1,1,1,1,1,0,1,"ONS Crime in England and Wales YE Mar 2025"
+MEX,Mexico,,,Encuesta Nacional sobre la Dinamica de las Relaciones en los Hogares (ENDIREH),INEGI,5,2021,110127,1,1,1,1,1,1,1,1,"INEGI ENDIREH 2021 national results"
+CAN,Canada,,,Survey of Safety in Public and Private Spaces,Statistics Canada,6,2025,0,1,0,1,1,1,1,0,1,"StatCan SSPPS 2024/2025 survey record 5256"
+AUS,Australia,,,Personal Safety Survey,ABS,5,2022,0,1,1,1,1,1,1,0,1,"ABS Personal Safety Australia 2021-22 methodology"
+KOR,South Korea,,,Sexual Violence Survey / Domestic Violence Survey,MOGEF,3,2025,10151,1,1,1,1,1,1,1,1,"MOGEF 2025 sexual violence survey; Framework Act on Prevention of Violence Against Women"
+JPN,Japan,,,Survey on Violence between Men and Women,Cabinet Office Gender Equality Bureau,3,2023,5000,1,1,1,1,0,0,1,1,"Cabinet Office GEB; 7th round since FY1999"
+FRA,France,,,EU gender-based violence survey,Eurostat / FRA / EIGE,10,2024,0,1,0,1,1,0,1,0,1,"EU-GBV 2024, 114023 women across EU-27"
+DEU,Germany,,,EU gender-based violence survey,Eurostat / FRA / EIGE,10,2024,0,1,0,1,1,0,1,0,1,"EU-GBV 2024, 114023 women across EU-27"
+ITA,Italy,,,EU gender-based violence survey (national instrument),ISTAT / Eurostat,10,2024,0,1,0,1,1,0,1,0,1,"EU-GBV 2024; Italy supplied comparable data from its national survey"
+IND,India,,,NFHS domestic violence module,MoHFW / IIPS,5,2024,716397,0,1,1,1,0,0,0,1,"NFHS-6 2023-24 fact sheets, released 29 May 2026; NCRB Crime in India 2024; no national CVS (ORF 2026, EPW 2019)"
+CHN,China,,,All-China Women's Federation social status survey,ACWF,10,0,0,0,0,0,0,0,0,0,1,"No current public population-based instrument identified"
+ARG,Argentina,,,,,0,0,0,0,0,0,0,0,0,0,0,unverified
+BRA,Brazil,,,,,0,0,0,0,0,0,0,0,0,0,0,unverified
+IDN,Indonesia,,,,,0,0,0,0,0,0,0,0,0,0,0,unverified
+RUS,Russia,,,,,0,0,0,0,0,0,0,0,0,0,0,unverified
+SAU,Saudi Arabia,,,,,0,0,0,0,0,0,0,0,0,0,0,unverified
+ZAF,South Africa,,,,,0,0,0,0,0,0,0,0,0,0,0,unverified
+TUR,Turkiye,,,,,0,0,0,0,0,0,0,0,0,0,0,unverified

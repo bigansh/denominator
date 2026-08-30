@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Counting Women — Denominator</title>
+<meta name="description" content="India records 2.10 rapes per 100,000 population and England and Wales records 55.9 times more. Neither number measures safety, and both series just broke. A case study in what the statistical system can and cannot see.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/brand.css">
+<style>
+.cs-hero{padding-top:clamp(48px,8vw,96px);padding-bottom:var(--stack-4)}
+.cs-hero h1{font-size:clamp(36px,6.4vw,80px);max-width:15ch}
+.cs-hero h1 em{font-style:normal;-webkit-text-decoration:underline 3px var(--s2);
+text-decoration:underline 3px var(--s2);text-underline-offset:10px}
+.cs-hero .lede{font-size:clamp(18px,2.1vw,23px);max-width:60ch;margin-top:var(--stack-2);
+color:var(--ink-2);font-weight:300;line-height:1.5}
+.jumpnav{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:22px}
+.jumpnav a{font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+color:var(--ink-2);text-decoration:none;border-bottom:1px solid transparent}
+.jumpnav a:hover{color:var(--ink);border-color:var(--ink)}
+.kicker{display:flex;gap:10px;align-items:center;margin-bottom:var(--stack-2)}
+.chip{font-family:var(--fm);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+border:1px solid var(--ink);padding:4px 9px}
+.chip.dark{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.duo{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--ink);margin-top:var(--stack-3)}
+.duo>div{padding:26px 24px 28px}
+.duo>div+div{border-left:1px solid var(--ink)}
+.duo .inv{background:var(--ink);color:var(--paper)}
+.duo .inv .eyebrow,.duo .inv .cap{color:var(--paper-3)}
+.duo .big{font-family:var(--fd);font-weight:800;font-size:clamp(38px,6vw,64px);
+letter-spacing:-.03em;line-height:1;margin:12px 0 10px;font-variant-numeric:tabular-nums}
+.duo .cap{font-size:14.5px;color:var(--ink-2);line-height:1.45;max-width:34ch}
+.tbl{width:100%;border-collapse:collapse;font-family:var(--fm);font-size:12.5px;
+font-variant-numeric:tabular-nums}
+.tbl th{font-weight:500;font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+color:var(--ink-3);text-align:right;padding:0 10px 10px;border-bottom:1px solid var(--ink);white-space:nowrap}
+.tbl th:first-child,.tbl td:first-child{text-align:left}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--paper-2);text-align:right}
+.tbl td:first-child{font-family:var(--fb);font-size:15.5px}
+.tbl tr.hl td{background:var(--ink);color:var(--paper)}
+.tbl tr.dim td{color:var(--ink-3)}
+.scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ladder{border:1px solid var(--ink);margin-top:var(--stack-2)}
+.ladder .row{display:grid;grid-template-columns:1fr 128px 128px;align-items:stretch;
+border-bottom:1px solid var(--paper-2)}
+.ladder .row:last-child{border-bottom:0}
+.ladder .row.head{border-bottom:1px solid var(--ink)}
+.ladder .row.head>*{font-family:var(--fm);font-size:10px;letter-spacing:.13em;
+text-transform:uppercase;color:var(--ink-3);padding:12px 14px}
+.ladder .harm{padding:13px 14px;font-size:15.5px;display:flex;align-items:center;gap:12px}
+.ladder .n{font-family:var(--fm);font-size:11px;color:var(--ink-3)}
+.ladder .cell{padding:13px 14px;border-left:1px solid var(--paper-2);
+font-family:var(--fm);font-size:12px;display:flex;align-items:center;justify-content:center}
+.ladder .yes{background:var(--s5);color:var(--paper)}
+.ladder .part{background:var(--s3);color:var(--ink)}
+.ladder .no{color:var(--ink-3)}
+.capbar{display:grid;grid-template-columns:minmax(120px,180px) 1fr 64px;
+align-items:center;gap:14px;margin-bottom:9px}
+.capbar .lab{font-family:var(--fm);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+.capbar .track{height:22px;background:var(--paper-2);position:relative}
+.capbar .fill{height:100%;display:block}
+.capbar .val{font-family:var(--fm);font-size:13px;text-align:right;font-variant-numeric:tabular-nums}
+.capbar.subj .lab{font-weight:600}
+.capbar.subj .track{outline:2px solid var(--paper);outline-offset:-2px;
+box-shadow:0 3px 0 -1px var(--ink)}
+.cant{border:1px solid var(--ink);padding:26px 26px 28px;margin-top:var(--stack-3)}
+.cant ul{list-style:none;margin:14px 0 0;padding:0}
+.cant li{padding:9px 0 9px 22px;border-bottom:1px solid var(--paper-2);position:relative;
+font-size:16px;color:var(--ink-2);max-width:72ch}
+.cant li:last-child{border-bottom:0}
+.cant li::before{content:"—";position:absolute;left:0;color:var(--s1);font-family:var(--fm)}
+.cant li strong{color:var(--ink);font-weight:500}
+.ledger{display:flex;height:60px;border:1px solid var(--ink);margin-top:var(--stack-2);overflow:hidden}
+.ledger span{display:flex;align-items:center;justify-content:center;
+font-family:var(--fm);font-size:11.5px;letter-spacing:.05em;white-space:nowrap;overflow:hidden}
+.lgkey{display:flex;gap:22px;flex-wrap:wrap;margin-top:14px;font-family:var(--fm);
+font-size:11.5px;color:var(--ink-2)}
+.lgkey b{color:var(--ink);font-weight:600}
+.lgkey .sw{display:inline-block;width:9px;height:9px;margin-right:6px;vertical-align:middle}
+.srcnote{font-family:var(--fm);font-size:11px;color:var(--ink-3);margin-top:14px;
+letter-spacing:.02em;max-width:76ch;line-height:1.6}
+@media(max-width:900px){.duo{grid-template-columns:1fr}
+.duo>div+div{border-left:0;border-top:1px solid var(--ink)}
+.ladder .row{grid-template-columns:1fr 84px 84px}
+.ladder .cell{font-size:10.5px;padding:11px 6px}}
+@media(max-width:420px){.cs-hero h1{font-size:clamp(29px,9vw,36px)}}
+</style>
+</head>
+<body>
+
+<header class="site-head"><div class="wrap mast">
+<a class="brand" href="/"><span class="rule-bar"></span><span class="wordmark">Denominator</span></a>
+<nav>
+<a href="/#catalogue">Published</a>
+<a href="/#principles">Principles</a>
+<a href="https://github.com/bigansh/denominator">GitHub&nbsp;↗</a>
+</nav>
+</div></header>
+
+<main>
+
+<div class="wrap cs-hero">
+<div class="kicker">
+<span class="chip dark">Case study</span>
+<span class="chip">Not an index</span>
+</div>
+<h1>India records the fewest rapes and asks the <em>fewest questions</em>.</h1>
+<p class="lede">England and Wales records 55.9 times more rape per head of population than
+India. Correcting for reporting does not close the gap, and the gap still says
+nothing about safety. This is a study of what the statistical system can see,
+and of the one ranking the evidence actually supports.</p>
+
+<div class="duo">
+  <div>
+    <span class="eyebrow">Recorded rape, per 100,000 population</span>
+    <div class="big">2.10</div>
+    <p class="cap">India, 29,536 cases, NCRB 2024. Computed against NCRB's own
+    implied population of 1,406m.</p>
+  </div>
+  <div class="inv">
+    <span class="eyebrow">Recorded rape, per 100,000 population</span>
+    <div class="big">117.5</div>
+    <p class="cap">England and Wales, 71,667 offences, year ending March 2025.
+    Computed against a population of 61.0m.</p>
+  </div>
+</div>
+<p class="srcnote">Both rates computed here. India's denominators are derived from
+NCRB's own published rates — 441,534 crimes against women at 64.6 per lakh women
+implies 683.5m women; 5.89m cognizable cases at 418.9 per lakh implies 1,406m
+people. The E&amp;W denominator is ONS mid-2023. The ratio is 55.9×. The two
+numbers are not the same offence and the comparison is not interpretable in either
+direction. <a href="#headline">The section below</a> sets out why.</p>
+
+<div class="cant">
+<span class="eyebrow">What this page does not claim</span>
+<ul>
+<li><strong>No statement of the form "India is safer or less safe than X."</strong>
+Not one, anywhere below.</li>
+<li><strong>No harassment rate for India.</strong> No national instrument
+measures it.</li>
+<li><strong>No reporting rate for India.</strong> The figure of roughly 1% is
+inferred from help-seeking, never measured.</li>
+<li><strong>No current level of partner violence for India.</strong> NFHS-6 is
+discontinuous and its full report is still pending.</li>
+<li><strong>No trend.</strong> Two rounds with a break between them is not a
+trend.</li>
+<li><strong>Nothing about China.</strong> No current public instrument was
+identified, and that absence is itself a result.</li>
+</ul>
+</div>
+
+<div class="jumpnav">
+<a href="#headline">The headline number</a><a href="#inversion">The inversion</a>
+<a href="#nfhs">The two breaks</a><a href="#ladder">What the harm is</a>
+<a href="#price">The price</a><a href="#clean">One clean comparison</a>
+<a href="#instruments">What everyone else runs</a><a href="#gap">What would close it</a>
+</div>
+</div>
+
+<section id="headline"><div class="wrap">
+<div class="sechead">
+<span class="eyebrow">The headline number</span>
+<h2>Four reasons the 55.9× gap is not a fact about the world</h2>
+<p class="sub">Each of these breaks the comparison on its own. Together they make
+the recorded rape rate uninterpretable between these two jurisdictions.</p>
+</div>
+<div class="two">
+<div class="note">
+<p><strong>Legal truncation.</strong> Section 63 of the BNS retains the marital
+rape exception. In England and Wales, 43.2% of victims of rape or assault by
+penetration were victimised by a partner or ex-partner, rising to 44.5% among
+females. India's count structurally cannot contain the category that supplies
+close to half of England's. Meanwhile NCRB records 96.8% of rape accused in 2024 as
+known to the survivor: the one relationship carved out is the most common one.</p>
+<p style="margin-top:18px"><strong>Counting rules.</strong> Home Office rules
+changed in July 2016 to record rape per incident. India records one case per FIR.
+Repeat victimisation multiplies one side and not the other.</p>
+</div>
+<div class="note">
+<p><strong>Exposure.</strong> Per-capita divides by all women, including those
+who are not in public. NFHS-5 finds 42% of women are allowed to go alone to all
+three of market, health facility and outside the village. A rate computed over a
+partly confined population is not comparable to one computed over a population
+that is not.</p>
+<p style="margin-top:18px"><strong>Instrument.</strong> CSEW is a victimisation
+survey with a self-completion module. NFHS is a household interview with a
+married-women-only spousal module administered to a subsample. Indirect
+elicitation raises measured partner violence by up to 39% in Nigeria and 100% in
+Rwanda against direct face-to-face questioning.</p>
+</div>
+</div>
+
+<div style="margin-top:var(--stack-4)">
+<span class="eyebrow">Correcting for reporting, and what survives</span>
+<div class="scroller"><table class="tbl" style="margin-top:16px;max-width:760px">
+<thead><tr><th>Jurisdiction</th><th>Recorded</th><th>Reporting rate</th><th>Implied multiplier</th><th>Adjusted</th></tr></thead>
+<tbody>
+<tr><td>England &amp; Wales</td><td>117.5</td><td>14.7%</td><td>6.8×</td><td>~799</td></tr>
+<tr class="hl"><td>India</td><td>2.10</td><td>~1.1% (inferred)</td><td>91×</td><td>~191</td></tr>
+<tr class="dim"><td>Residual ratio after correction</td><td colspan="4">4.2×</td></tr>
+</tbody></table></div>
+<p class="srcnote">Reported against ourselves: the reporting correction does not
+close the gap. Doubling India's reporting rate would double India's recorded
+number, not leave it unchanged. But the residual 4.2× is not evidence that England
+is more dangerous, because the definitional and counting defects above remain
+uncorrected and both run the same way. The conclusion is that the indicator does
+not work, not that one country wins.</p>
+</div>
+</div></section>
+
+<section id="inversion"><div class="wrap">
+<div class="sechead">
+<span class="eyebrow">The inversion</span>
+<h2>The recorded rate inverts prevalence inside one legal system</h2>
+<p class="sub">One penal code, one police manual, one survey instrument. If the
+comparison fails here, it carries nothing across a border.</p>
+</div>
+<div class="two-wide">
+<div class="note">
+<p>Kerala's recorded rate of crime against women runs at roughly twice Bihar's,
+and its recorded rate for cruelty by a husband at almost four times Bihar's.
+NFHS-5 reports the opposite ordering in measured prevalence. Kerala also reports
+among the lowest sexual violence prevalence in the country, at 1%, alongside the
+lowest freedom of movement in India, at 15%.</p>
+<p style="margin-top:18px">A recorded crime rate is a measure of the propensity
+to report and the willingness to register. Where reporting is easier, the number
+is higher. That is the whole finding, and it is visible without leaving India.</p>
+</div>
+<div>
+<span class="eyebrow">Same country, opposite signals</span>
+<table class="kv" style="margin-top:16px">
+<tr><td>Kerala, recorded crime against women</td><td>≈ 2× Bihar</td></tr>
+<tr><td>Kerala, recorded cruelty by husband</td><td>≈ 4× Bihar</td></tr>
+<tr class="hl"><td>Kerala, measured sexual violence</td><td>1%</td></tr>
+<tr class="hl"><td>Kerala, freedom of movement</td><td>15%</td></tr>
+</table>
+</div>
+</div>
+</div></section>
+
+<section id="nfhs"><div class="wrap">
+<div class="sechead">
+<span class="eyebrow">What just happened to India's own numbers</span>
+<h2>Both of India's instruments broke in the same reporting year</h2>
+<p class="sub">The survey and the police series each moved sharply, and in each
+case the movement is attributable to the instrument rather than to the world. One
+break would be a caveat. Two, in one year, is the reason this page is not an
+index.</p>
+</div>
+<div class="scroller"><table class="tbl" style="max-width:820px">
+<thead><tr><th>Measure</th><th>NFHS-5 (2019–21)</th><th>NFHS-6 (2023–24)</th><th>Change</th></tr></thead>
+<tbody>
+<tr><td>India, spousal violence, ever-married 18–49</td><td>29.3%</td><td>≈ 25%</td><td>−4.3pp</td></tr>
+<tr class="hl"><td>Karnataka, spousal violence</td><td>44.4%</td><td>14.1%</td><td>−30.3pp</td></tr>
+<tr><td>Kerala, spousal violence</td><td>9.8%</td><td>17.7%</td><td>+7.9pp</td></tr>
+<tr class="hl"><td>Karnataka, sexual violence before 18 (women 18–29)</td><td>2.1%</td><td>0.2%</td><td>−1.9pp</td></tr>
+</tbody></table></div>
+<div class="two" style="margin-top:var(--stack-3)">
+<div class="note">
+<p>A 30-point fall in four years has no precedent in any country's violence
+series. Zero urban respondents in Karnataka disclosed childhood sexual abuse.
+That is not a finding about Karnataka; it is a finding about the interview.</p>
+<p style="margin-top:18px">Researchers comparing the two rounds report that the
+question structure and routing logic were identical, which removes the benign
+explanation. If the instrument did not change and the number halved, what changed
+is the condition of disclosure. Fieldworker effects account for around 32% of
+total variation in measured partner violence.</p>
+</div>
+<div class="note">
+<p>The fact sheet carries 101 indicators against NFHS-5's 131. Among those
+dropped: sex ratio at birth, all three child mortality rates, all seven anaemia
+breakdowns. The sheets were reportedly ready for roughly a year before release,
+which came after the 2024 general election and the April 2026 state elections.
+The ministry describes the publication as interim.</p>
+<p style="margin-top:18px"><strong>WHO's 2023 prevalence estimates draw on data
+published to November 2024, so they still rest on NFHS-5.</strong> India's global
+anchor and India's own newest survey now disagree, and every population-weighted
+number built on WHO inherits that.</p>
+</div>
+</div>
+
+<div style="margin-top:var(--stack-4)">
+<span class="eyebrow">The second break — NCRB 2024, first year of the Bharatiya Nyaya Sanhita</span>
+<div class="scroller"><table class="tbl" style="margin-top:16px;max-width:820px">
+<thead><tr><th>Measure</th><th>2023 (IPC)</th><th>2024 (BNS)</th><th>Change</th></tr></thead>
+<tbody>
+<tr><td>Cognizable crime, all heads</td><td>6.24m</td><td>5.89m</td><td>−6.0%</td></tr>
+<tr><td>Crime rate, per lakh population</td><td>448.3</td><td>418.9</td><td>−29.4</td></tr>
+<tr><td>Crimes against women</td><td>448,211</td><td>441,534</td><td>−1.5%</td></tr>
+<tr><td>Crime rate against women, per lakh women</td><td>66.2</td><td>64.6</td><td>−1.6</td></tr>
+<tr class="hl"><td>Rape</td><td>32,032</td><td>29,536</td><td>−7.8%</td></tr>
+</tbody></table></div>
+<p class="note" style="margin-top:var(--stack-2);max-width:72ch">The Bharatiya
+Nyaya Sanhita replaced the Indian Penal Code during 2024. The transition
+renumbered offences and changed some definitions and scope, and <strong>NCRB
+itself advises caution in comparing 2024 with earlier years</strong>. The headline
+that crime fell 6% is therefore not a finding about crime. Rape recorded fell 7.8%
+in the same year that the survey instrument recorded a national fall in partner
+violence and a 30-point fall in one state. Neither movement can be read as
+progress, and the two cannot be used to corroborate each other.</p>
+<p class="srcnote">Composition, 2024: cruelty by husband or relatives 120,227
+(27.2%), kidnapping and abduction 67,829 (15.4%), POCSO 67,809 (15.4%), assault
+with intent to outrage modesty 48,303 (10.9%), rape 29,536 (6.7%). Cybercrime rose
+17.9%. Note that the widely reported "rape = 10.4%" figure uses a different
+denominator — offences against women <em>and children</em>, 284,530 cases — not
+crimes against women.</p>
+</div>
+</div></section>
+
+<section id="ladder"><div class="wrap">
+<div class="sechead">
+<span class="eyebrow">What the harm is</span>
+<h2>The four most frequent harms have no offence code and no instrument</h2>
+<p class="sub">Ordered by frequency, not severity. The two right-hand columns are
+the argument.</p>
+</div>
+<div class="ladder">
+  <div class="row head"><div>Harm</div><div style="text-align:center">Indian national instrument</div><div style="text-align:center">Offence code</div></div>
+  <div class="row"><div class="harm">Staring and ogling <span class="n">63% of Delhi students</span></div><div class="cell no">none</div><div class="cell no">none</div></div>
+  <div class="row"><div class="harm">Sexual comments <span class="n">largest category, NCR</span></div><div class="cell no">none</div><div class="cell part">partial</div></div>
+  <div class="row"><div class="harm">Catcalling and whistling</div><div class="cell no">none</div><div class="cell part">partial</div></div>
+  <div class="row"><div class="harm">Unwanted photography and filming</div><div class="cell no">none</div><div class="cell no">none</div></div>
+  <div class="row"><div class="harm">Indecent exposure and public masturbation</div><div class="cell no">none</div><div class="cell no">none</div></div>
+  <div class="row"><div class="harm">Following</div><div class="cell no">none</div><div class="cell yes">354D</div></div>
+  <div class="row"><div class="harm">Touching and groping <span class="n">largest category outside metros</span></div><div class="cell no">none</div><div class="cell yes">outrage of modesty</div></div>
+  <div class="row"><div class="harm">Online sexual harassment</div><div class="cell no">none</div><div class="cell part">IT Act</div></div>
+  <div class="row"><div class="harm">Non-partner sexual violence</div><div class="cell part">NFHS module</div><div class="cell yes">BNS 63</div></div>
+  <div class="row"><div class="harm">Intimate partner violence</div><div class="cell part">NFHS module</div><div class="cell part">498A, not rape</div></div>
+</div>
+<p class="srcnote">Voyeurism under BNS 77 requires a "private act", so photographing
+a woman's body on a train is not covered. India has no dedicated exhibitionism
+offence; it falls under obscene acts and is not separately tabulated. Frequency
+ranking from Safecity's crowdsourced report categories: in NCR, commenting exceeds
+a quarter of reports, then touching and groping at 16%, catcalls at 14%, ogling
+and staring at 14%. In cities outside the metros, touching and groping is the
+single largest category at over a fifth. Where an offence code does exist, the
+count is small enough to make the point on its own: Delhi, a city of over twenty
+million, registered 316 cases of sexual harassment and 279 of assault with intent
+to disrobe in 2024 — both the highest of any of the 19 metropolitan cities.</p>
+</div></section>
+
+<section id="price"><div class="wrap">
+<div class="sechead">
+<span class="eyebrow">The price</span>
+<h2>Delhi women pay double the annual tuition for a safer route, and no statistic records it</h2>
+<p class="sub">Borker, World Bank Policy Research Working Paper 9731. 4,000
+students across eight Delhi colleges, every feasible route mapped, merged with
+Safetipin and Safecity route-level safety data.</p>
+</div>
+<div class="scroller"><table class="tbl" style="max-width:720px">
+<thead><tr><th>Willingness to pay for a route one SD safer</th><th>Women</th><th>Men</th><th>Difference</th></tr></thead>
+<tbody>
+<tr class="hl"><td>College quality forgone</td><td>13.04pp (8.5 ranks)</td><td>1.37pp (0.9 ranks)</td><td>11.67pp</td></tr>
+<tr><td>Annual travel spend</td><td>₹18,800</td><td>₹1,200</td><td>₹17,600</td></tr>
+<tr><td>Extra travel time</td><td>40 min</td><td>4 min</td><td>36 min</td></tr>
+</tbody></table></div>
+<p class="note" style="margin-top:var(--stack-2)">89% of the women had faced
+harassment while travelling; 63% unwanted staring. Women accept a college in the
+bottom half of the quality distribution over one in the top quintile to travel a
+safer route. The premium is roughly double Delhi University's average annual
+tuition and about 7% of Delhi per-capita income. Not one rupee of it appears in
+any crime statistic. Borker names the obvious downstream: it is a candidate
+explanation for India's female labour force participation.</p>
+</div></section>
+
+<section id="clean"><div class="wrap">
+<div class="sechead">
+<span class="eyebrow">The one clean comparison</span>
+<h2>Identical method, two jurisdictions, 13.8 against 7.1</h2>
+</div>
+<div class="two-wide">
+<div>
+<div class="capbar subj"><span class="lab">India</span><span class="track"><span class="fill" style="width:69%;background:var(--s1)"></span></span><span class="val">13.8%</span></div>
+<div class="capbar"><span class="lab">UK + USA</span><span class="track"><span class="fill" style="width:35.5%;background:var(--s3)"></span></span><span class="val">7.1%</span></div>
+<p class="srcnote">Share of tweets mentioning women politicians rated problematic
+or abusive. Amnesty Troll Patrol: 114,716 tweets to 95 Indian women politicians,
+March–May 2019; 778 women in the UK and USA, 2017. Crowdsourced decoding plus
+machine learning, same protocol both times.</p>
+</div>
+<div class="note">
+<p>This is the only like-for-like cross-national measurement in the entire case
+study, and it is not a government statistic. One in five of the abusive Indian
+tweets was sexist or misogynistic. Muslim women politicians received 94.1% more
+religious slurs; women from marginalised castes 59% more casteist slurs.</p>
+<p style="margin-top:18px">The recording gap alongside it: those 95 women alone
+attract on the order of 10,000 abusive mentions a day. India's entire national
+record of cybercrime with a sexual-exploitation motive is 4,199 cases for 2023.
+The units differ, so read it as an order of magnitude rather than a ratio. It
+still holds.</p>
+</div>
+</div>
+</div></section>
+
+<section id="instruments"><div class="wrap">
+<div class="sechead">
+<span class="eyebrow">What everyone else runs</span>
+<h2>India interviews more women than the rest of the G20 combined, through a health survey</h2>
+<p class="sub">Measurement capacity, 100 points. Six components, every one a
+published fact about whether an instrument exists. This is the only ranking the
+evidence supports, and it is a ranking of statistical systems, not of countries.</p>
+</div>
+
+<div class="scroller"><table class="tbl" id="capTable">
+<thead><tr><th>Country</th><th>Instrument</th><th>Agency</th><th>Cadence</th><th>Latest</th><th>n</th><th>Capacity</th></tr></thead>
+<tbody><tr><td colspan="7">Loading&hellip;</td></tr></tbody>
+</table></div>
+<p class="srcnote" id="capNote">12 of 19 G20 members verified. Argentina, Brazil, Indonesia,
+Russia, Saudi Arabia, South Africa and Türkiye are not yet checked and are excluded
+rather than assumed.</p>
+
+<div style="margin-top:var(--stack-4)">
+<span class="eyebrow">What India has, and what it does not</span>
+<div class="two" style="margin-top:16px">
+<div>
+<table class="kv" id="haslacksTable"></table>
+</div>
+<div class="note">
+<p>Ten of the twelve verified members run a dedicated violence-against-women
+survey. India does not. Its only population-based measure of violence against
+women is a module inside a health survey, administered to ever-married women,
+about their husbands. There is no national crime victimisation survey; the ORF
+and EPW pieces arguing for one are how you know it does not exist.</p>
+<p style="margin-top:18px">Korea's survey is statutory, mandated by the Sexual
+Violence Prevention and Victims Protection Act, and Korea separately compiles
+Women's Violence Statistics every three years across Justice, the Supreme
+Prosecutors' Office and the National Police Agency. Mexico's ENDIREH measures
+violence in five settings including the community, at 110,127 completed
+interviews, and added image-based abuse in 2021.</p>
+</div>
+</div>
+</div>
+
+<div style="margin-top:var(--stack-4)">
+<span class="eyebrow">Respondents interviewed, where the sample is published</span>
+<div id="sampleBars" style="margin-top:16px"></div>
+<p class="srcnote" id="sampleNote"></p>
+</div>
+
+<div style="margin-top:var(--stack-4)">
+<span class="eyebrow">Where the reporting rate is measured rather than guessed</span>
+<div class="scroller"><table class="tbl" style="margin-top:16px;max-width:720px">
+<thead><tr><th>Jurisdiction</th><th>Share of victims reaching police</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>England &amp; Wales</td><td>14.7%</td><td>measured, published annually</td></tr>
+<tr><td>South Korea</td><td>2.8%</td><td>measured, published triennially</td></tr>
+<tr class="hl"><td>India</td><td>~1%</td><td>inferred from help-seeking, never measured</td></tr>
+</tbody></table></div>
+<p class="srcnote">The ordering is stable and this is one of the few places a
+cross-national comparison holds. Note what it is not: England's higher figure
+means more victims reach the police, not that England has less violence.</p>
+</div>
+</div></section>
+
+<section id="gap"><div class="wrap">
+<div class="sechead">
+<span class="eyebrow">What would close it</span>
+<h2>One questionnaire module on a survey already in the field</h2>
+</div>
+<div class="two-wide">
+<div class="note">
+<p>NFHS-6 reached 716,397 women. EU-GBV reached 114,023 across 27 countries and
+is the only harmonised multi-country instrument in existence. Adding a
+past-12-month public-space harassment module by act type — comments, following,
+staring, groping, filming, exposure — to the next NFHS round, using EU-GBV
+wording, would make India the first non-EU country with a comparable measure of
+the harms that determine whether women occupy public space.</p>
+<p style="margin-top:18px">Three further things would move India's capacity score
+without new fieldwork: publish the victim reporting rate as an official statistic,
+as Korea does; disaggregate the existing sexual violence question by act; and
+separate the violence module from the health survey so that unmarried women are
+in scope.</p>
+</div>
+<div>
+<span class="eyebrow">Of 25 benchmark rows in this study</span>
+<div class="ledger" id="ledger" style="margin-top:16px"></div>
+<div class="lgkey" id="ledgerKey"></div>
+<p class="srcnote">Comparable, partially comparable, not comparable, and
+single-country rows with no comparator. Six rows out of twenty-five support a
+cross-national statement. That proportion, not any number inside it, is the
+finding of this page.</p>
+</div>
+</div>
+</div></section>
+
+</main>
+
+<footer class="site-foot"><div class="wrap cols">
+<div>
+<a class="brand" href="/" style="margin-bottom:14px"><span class="rule-bar"></span><span class="wordmark">Denominator</span></a>
+<p style="max-width:44ch">A case study, not an index. The composite that would
+answer "how safe is India for women" cannot be built to this project's own
+completeness standard, because roughly 42 of its 100 points have no instrument in
+16 of 19 G20 members.</p>
+</div>
+<div><h4>This case study</h4><ul>
+<li><a href="#headline">The headline number</a></li>
+<li><a href="#nfhs">The two breaks</a></li>
+<li><a href="#instruments">What everyone else runs</a></li>
+<li><a href="https://github.com/bigansh/denominator/blob/master/case-studies/counting-women/README.md">Full writeup&nbsp;↗</a></li>
+<li><a href="https://github.com/bigansh/denominator/tree/master/case-studies/counting-women/data">Source data&nbsp;↗</a></li>
+</ul></div>
+<div><h4>Denominator</h4><ul>
+<li><a href="/">Home</a></li><li><a href="/#principles">Principles</a></li>
+<li><a href="/#catalogue">Published</a></li>
+<li><a href="https://github.com/bigansh/denominator">GitHub</a></li></ul></div>
+</div></footer>
+
+<script>
+const RAMP=['#4B1D3F','#8E3536','#C06A34','#C9A94E','#6F9A6B','#2A6C63','#134B4C'];
+function hx(h){return[1,3,5].map(i=>parseInt(h.slice(i,i+2),16))}
+function col(t){const x=Math.max(0,Math.min(1,t/100))*(RAMP.length-1);
+const i=Math.floor(x),f=x-i,a=hx(RAMP[i]),b=hx(RAMP[Math.min(i+1,RAMP.length-1)]);
+return`rgb(${a.map((v,k)=>Math.round(v+(b[k]-v)*f)).join(',')})`}
+const nf=n=>n?n.toLocaleString('en-US'):'—';
+
+fetch('counting-women.json').then(r=>r.json()).then(D=>{
+
+// capacity table
+const rows=D.table.map(r=>{
+  const isChina=r.capacity===0;
+  const cls=r.iso3==='IND'?' class="hl"':'';
+  return `<tr${cls}><td>${r.country}</td><td>${isChina?'none identified':r.vaw_name}</td>`+
+  `<td>${isChina?'—':r.vaw_agency}</td><td>${isChina||!r.vaw_cadence_yrs?'—':r.vaw_cadence_yrs+' yr'}</td>`+
+  `<td>${isChina?'—':r.vaw_latest}</td><td>${r.vaw_n?nf(r.vaw_n):'—'}</td><td>${r.capacity}</td></tr>`;
+}).join('');
+document.querySelector('#capTable tbody').innerHTML=rows;
+document.getElementById('capNote').textContent=
+`${D.verified} of ${D.verified+D.unverified} G20 members verified. Argentina, Brazil, `+
+`Indonesia, Russia, Saudi Arabia, South Africa and Türkiye are not yet checked and are `+
+`excluded rather than assumed. India ranks ${D.india.rank} of ${D.india.of} verified, at `+
+`the ${D.india.percentile}${D.india.percentile.toString().endsWith('1')?'st':'th'} percentile. `+
+`Percentiles on a sample this small are coarse; the band matters more than the position.`;
+
+// what India has / lacks
+const compByLabel={};
+D.components.forEach(c=>compByLabel[c.label]=c.points);
+const hlRows=D.india.has.map(l=>`<tr><td>${l}</td><td>yes · ${compByLabel[l]}</td></tr>`).join('');
+const lkRows=D.india.lacks.map(l=>`<tr class="hl"><td>${l}</td><td>no · 0</td></tr>`).join('');
+document.getElementById('haslacksTable').innerHTML=hlRows+lkRows;
+
+// sample bars — only where a real n is published
+const withN=D.table.filter(r=>r.vaw_n>0).sort((a,b)=>b.vaw_n-a.vaw_n);
+const max=withN[0].vaw_n;
+document.getElementById('sampleBars').innerHTML=withN.map(r=>{
+  const pct=Math.max(r.vaw_n/max*100,0.6);
+  const t=r.iso3==='IND'?95:Math.max(20,r.vaw_n/max*90);
+  return `<div class="capbar${r.iso3==='IND'?' subj':''}"><span class="lab">${r.country}</span>`+
+  `<span class="track"><span class="fill" style="width:${pct}%;background:${col(t)}"></span></span>`+
+  `<span class="val">${nf(r.vaw_n)}</span></div>`;
+}).join('');
+document.getElementById('sampleNote').textContent=
+`India's sample is ${D.india.sample_multiple_of_rest}× every other published G20 sample `+
+`combined. Sample size is not the constraint. The questionnaire is.`;
+
+// comparability ledger
+const bc=D.benchmark_comparability, total=bc.yes+bc.no+bc.partial+bc['n/a'];
+const segs=[
+  {n:bc.yes,label:'comparable',bg:'var(--s5)',fg:'var(--paper)'},
+  {n:bc.partial,label:'partial',bg:'var(--s3)',fg:'inherit'},
+  {n:bc.no,label:'not comparable',bg:'var(--s1)',fg:'var(--paper)'},
+  {n:bc['n/a'],label:'no comparator',bg:'var(--paper-2)',fg:'inherit'},
+];
+document.getElementById('ledger').innerHTML=segs.map(s=>
+  `<span style="width:${s.n/total*100}%;background:${s.bg};color:${s.fg}">${s.n}</span>`).join('');
+document.getElementById('ledgerKey').innerHTML=segs.map(s=>
+  `<span><span class="sw" style="background:${s.bg==='inherit'?s.bg:s.bg}"></span><b>${s.n}</b> ${s.label}</span>`).join('');
+
+});
+</script>
+
+</body>
+</html>

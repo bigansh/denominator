@@ -96,6 +96,39 @@ locate the number, and a confidence flag distinguishing a direct
 measurement from a modelled or extrapolated one. Agree the shape in an
 issue before building it.
 
+### Case studies
+
+A case study is the other non-index shape: an analysis that deliberately
+does **not** produce a cross-unit score, usually because coverage is too
+incomplete to meet the completeness bar a real index needs (see
+`case-studies/counting-women/` — the reference implementation). It gets the
+same self-contained treatment as an index, under `case-studies/<slug>/`
+rather than `indexes/<slug>/`:
+
+```
+case-studies/<slug>/
+  data/*.csv        source rows, same sourcing discipline as an index
+  build.py          computes every arithmetic claim the page makes and
+                     writes the generated JSON
+  dist/<slug>.json  generated, committed
+site/case-studies/<slug>/
+  index.html        the page, co-located <slug>.json fetched at runtime
+  README.md         the case study's own full writeup, same as an index's
+```
+
+What's different from an index: there's no score, no ranking, no
+`validate.py`-enforced weight/band schema — `build.py`'s job is to compute
+and print the specific numeric claims the page makes (ratios, denominators,
+tallies) so they stay reproducible, not to produce a comparable metric per
+unit. A repeating structure inside the case study (a comparison table across
+countries, a tally of tag values) should still be JSON-driven and fetched at
+runtime, the same as an index's table; one-off narrative facts sourced from
+`data/*.csv` rows can stay as prose in the page, checked against `build.py`'s
+printed output rather than templated, since there's no per-row structure to
+drive there. On the homepage catalogue, a case study gets a bare `.status`
+chip reading "Case study" (not `.status.live`) to distinguish it from a
+published index.
+
 ## Hard rules
 
 Each of these was a real correction, not a style preference.

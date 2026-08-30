@@ -23,8 +23,10 @@ data, its own docs, its own README — so nothing has to share a schema or a
 pipeline with anything else published here:
 
 ```
-indexes/<slug>/     one folder per published index
-site/               the published site
+indexes/<slug>/         one folder per published index
+case-studies/<slug>/    one folder per published case study — an analysis
+                        that doesn't reduce to a cross-unit score
+site/                   the published site
 ```
 
 ## Contributing

@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pip install --break-system-packages pandas && python indexes/teenager-outcomes/build.py",
+  "buildCommand": "pip install --break-system-packages pandas && python indexes/teenager-outcomes/build.py && python case-studies/counting-women/build.py",
   "outputDirectory": "site",
   "cleanUrls": true,
   "framework": null,
