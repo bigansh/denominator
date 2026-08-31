@@ -35,6 +35,10 @@ html {
   scroll-behavior: smooth;
 }
 
+[id] {
+  scroll-margin-top: 28px;
+}
+
 body {
   background: var(--color-paper);
   color: var(--color-ink);

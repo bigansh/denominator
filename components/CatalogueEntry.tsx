@@ -22,7 +22,7 @@ export function CatalogueEntry({
   return (
     <Link
       href={href}
-      className="grid grid-cols-1 items-start gap-4 border-b border-rule py-9 no-underline text-inherit hover:bg-paper-2 md:grid-cols-[118px_1fr_300px] md:gap-8"
+      className="-mx-5 grid grid-cols-1 items-start gap-4 border-b border-rule px-5 py-9 no-underline text-inherit transition-colors duration-200 hover:bg-paper-2 md:grid-cols-[118px_1fr_300px] md:gap-8"
     >
       <span className="pt-1 font-mono text-[11px] leading-relaxed tracking-[.12em] text-ink-2">
         {code}

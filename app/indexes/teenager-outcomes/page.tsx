@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SectionHead, Jumpnav } from "@/components/SectionHead";
-import { Duo } from "@/components/Callouts";
+import { Duo, SrcNote } from "@/components/Callouts";
 import { Kv } from "@/components/Tables";
 import { Bar } from "@/components/Bars";
 import { RibbonChart } from "@/components/RibbonChart";
@@ -256,42 +256,34 @@ export default function TeenagerOutcomes() {
                 </div>
               ))}
             </div>
-            <p className="mt-5 max-w-[72ch] text-[14.5px] text-ink-2">
-              Sources are organisation-level today — UN IGME, UNICEF/WHO/World
-              Bank JME, WHO Global Health Estimates and NCRB for India,
-              UNODC, ILO/UNICEF, WHO/UNICEF JMP, World Bank/IEA, UNESCO UIS,
+            <p className="mt-5 max-w-[68ch] text-[15px] text-ink-2">
+              <strong className="font-medium text-ink">Weakest dimension:</strong>{" "}
+              mental &amp; social wellbeing — both indicators are proxies,
+              and no adolescent-specific series has global coverage.{" "}
+              <strong className="font-medium text-ink">Coverage:</strong>{" "}
+              {(totalPop / 1000).toFixed(2)}bn adolescents,{" "}
+              {raw.meta.countries} of 194 countries. A complete row is
+              required — partial data means exclusion, not imputation.
+            </p>
+            <SrcNote>
+              Sources, organisation-level: UN IGME, UNICEF/WHO/World Bank
+              JME, WHO Global Health Estimates and NCRB for India, UNODC,
+              ILO/UNICEF, WHO/UNICEF JMP, World Bank/IEA, UNESCO UIS,
               Altinok, Angrist &amp; Patrinos via World Bank HLO, ILOSTAT,
-              ITU, and the World Happiness Report — correctly attributed
-              but not yet a specific series ID and access date on every
-              row. See{" "}
-              <a href="#contribute" className="border-b border-rule hover:border-ink">
+              ITU, the World Happiness Report. Not yet a specific series ID
+              and access date on every row — see{" "}
+              <a href="#contribute" className="border-b border-ink-3 hover:border-ink">
                 Contribute
               </a>
-              .
-            </p>
-            <p className="mt-3.5 max-w-[72ch] text-[14.5px] text-ink-2">
-              Mental &amp; social wellbeing is the weakest dimension —
-              suicide mortality and adult life evaluation are both proxies,
-              and no adolescent-specific mental-health series has global
-              coverage. Internet and electricity access are population-level
-              proxies, not adolescent-specific. Within-India gradients,
-              further down, are encoded from published NFHS-5 and PLFS
-              patterns, not a microdata reanalysis.
-            </p>
-            <p className="mt-3.5 max-w-[72ch] text-[14.5px] text-ink-2">
-              Sample covers {(totalPop / 1000).toFixed(2)}bn adolescents,
-              about 95% of the world&rsquo;s 10–19 population, in{" "}
-              {raw.meta.countries} of 194 countries — a complete row is
-              required, so partial coverage means exclusion, not
-              imputation. Full schema in{" "}
+              . Full schema in{" "}
               <a
                 href="https://github.com/bigansh/denominator/blob/master/indexes/teenager-outcomes/docs/DATA_DICTIONARY.md"
-                className="border-b border-rule hover:border-ink"
+                className="border-b border-ink-3 hover:border-ink"
               >
                 the data dictionary ↗
               </a>
               .
-            </p>
+            </SrcNote>
           </div>
         </section>
 

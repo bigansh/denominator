@@ -1,3 +1,9 @@
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 export function SectionHead({
   eyebrow,
   title,
@@ -7,8 +13,15 @@ export function SectionHead({
   title: string;
   sub?: string;
 }) {
+  const reduced = useReducedMotion();
   return (
-    <div className="mb-9">
+    <motion.div
+      className="mb-9"
+      initial={reduced ? undefined : { opacity: 0, y: 18 }}
+      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.55, ease: EASE }}
+    >
       <span className="mb-3.5 block font-mono text-[11px] tracking-[.18em] text-ink-2 uppercase">
         {eyebrow}
       </span>
@@ -16,7 +29,7 @@ export function SectionHead({
         {title}
       </h2>
       {sub && <p className="mt-3.5 max-w-[62ch] text-[16.5px] text-ink-2">{sub}</p>}
-    </div>
+    </motion.div>
   );
 }
 

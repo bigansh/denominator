@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Mosaic } from "@/components/Mosaic";
 import { CatalogueEntry } from "@/components/CatalogueEntry";
+import { Reveal } from "@/components/Reveal";
 import { getTOIData, getCountingWomenData } from "@/lib/data";
 
 export default function Home() {
@@ -17,21 +18,23 @@ export default function Home() {
       <Header />
       <main>
         <div className="mx-auto max-w-[1180px] px-gut pt-[clamp(48px,8vw,88px)] pb-sec">
-          <h1 className="max-w-[15ch] font-display text-[clamp(38px,6.6vw,80px)] font-semibold leading-[1.02] tracking-[-.025em]">
-            Every ranking has a{" "}
-            <span className="underline decoration-s2 decoration-[3px] underline-offset-[8px]">
-              denominator
-            </span>
-            . Most don&rsquo;t tell you theirs.
-          </h1>
-          <p className="mt-6 max-w-[54ch] text-[clamp(18px,2.1vw,22px)] font-light text-ink-2">
-            We publish sourced, computed data on human outcomes. Nothing
-            goes out until the numbers behind it are in a file you can
-            open.
-          </p>
-          <div className="mt-9">
+          <Reveal>
+            <h1 className="max-w-[15ch] font-display text-[clamp(38px,6.6vw,80px)] font-semibold leading-[1.02] tracking-[-.025em]">
+              Every ranking has a{" "}
+              <span className="underline decoration-s2 decoration-[3px] underline-offset-[8px]">
+                denominator
+              </span>
+              . Most don&rsquo;t tell you theirs.
+            </h1>
+            <p className="mt-6 max-w-[54ch] text-[clamp(18px,2.1vw,22px)] font-light text-ink-2">
+              We publish sourced, computed data on human outcomes. Nothing
+              goes out until the numbers behind it are in a file you can
+              open.
+            </p>
+          </Reveal>
+          <Reveal delay={0.1} className="mt-9">
             <Mosaic />
-          </div>
+          </Reveal>
           <p className="mt-3 max-w-[70ch] font-mono text-[11.5px] tracking-[.02em] text-ink-2">
             One colour ramp, one rule: sourced, computed, checkable.
           </p>
@@ -51,6 +54,7 @@ export default function Home() {
               </p>
             </div>
             <div className="border-t border-rule">
+              <Reveal>
               <CatalogueEntry
                 href="/indexes/teenager-outcomes/"
                 code={
@@ -79,6 +83,8 @@ export default function Home() {
                   { value: Object.keys(toi.dimensions).length, label: "Dimensions" },
                 ]}
               />
+              </Reveal>
+              <Reveal delay={0.08}>
               <CatalogueEntry
                 href="/case-studies/counting-women/"
                 code={
@@ -106,6 +112,7 @@ export default function Home() {
                   { value: benchmarkRows, label: "Benchmark rows" },
                 ]}
               />
+              </Reveal>
             </div>
           </div>
         </section>

@@ -1,3 +1,5 @@
+import { Reveal } from "./Reveal";
+
 /** "What this page does not claim" — a bordered list, each item a hard boundary. */
 export function ClaimBoundary({
   title,
@@ -7,7 +9,7 @@ export function ClaimBoundary({
   items: { strong: string; rest: string }[];
 }) {
   return (
-    <div className="mt-8 border border-ink p-6">
+    <Reveal className="mt-8 border border-ink p-6">
       <span className="font-mono text-[11px] tracking-[.18em] text-ink-2 uppercase">
         {title}
       </span>
@@ -22,7 +24,7 @@ export function ClaimBoundary({
           </li>
         ))}
       </ul>
-    </div>
+    </Reveal>
   );
 }
 
@@ -35,7 +37,7 @@ export function Duo({
   right: { eyebrow: string; big: React.ReactNode; cap: string };
 }) {
   return (
-    <div className="mt-6 grid grid-cols-1 border border-ink md:grid-cols-2">
+    <Reveal className="mt-6 grid grid-cols-1 border border-ink md:grid-cols-2">
       <div className="border-b border-ink p-6 md:border-b-0 md:border-r">
         <span className="font-mono text-[11px] tracking-[.18em] text-ink-2 uppercase">
           {left.eyebrow}
@@ -54,7 +56,7 @@ export function Duo({
         </div>
         <p className="max-w-[34ch] text-[14.5px] text-paper-3">{right.cap}</p>
       </div>
-    </div>
+    </Reveal>
   );
 }
 

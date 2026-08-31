@@ -87,15 +87,15 @@ export function CountryTable({ countries, raw }: { countries: Country[]; raw: TO
       </div>
 
       <div className="overflow-x-auto border-t border-ink">
-        <table className="w-full min-w-max border-collapse font-mono text-[13px]">
+        <table className="w-full border-collapse font-mono text-[13px]">
           <thead>
             <tr>
               {HEAD.map((h) => (
                 <th
                   key={h.k}
                   onClick={() => toggleSort(h.k)}
-                  className={`cursor-pointer border-b border-rule py-3 px-2.5 text-right text-[10px] font-medium tracking-[.1em] text-ink-2 uppercase whitespace-nowrap ${
-                    h.k === "country" || h.k === "Rank" ? "text-left" : ""
+                  className={`cursor-pointer border-b border-rule py-3 px-2.5 text-right text-[10px] font-medium tracking-[.1em] whitespace-nowrap text-ink-2 uppercase ${
+                    h.k === "Rank" ? "pl-3 text-left" : h.k === "country" ? "text-left" : h.k === "pop_pct" ? "pr-3" : ""
                   } ${HIDE_ON_MOBILE.has(h.k) ? "max-md:hidden" : ""}`}
                 >
                   {h.label}
@@ -114,7 +114,7 @@ export function CountryTable({ countries, raw }: { countries: Country[]; raw: TO
                     onClick={() => setOpenRow(isOpen ? null : c.country)}
                     className={`cursor-pointer ${isIndia ? "bg-ink font-semibold text-paper" : "hover:bg-paper-2"}`}
                   >
-                    <td className="border-b border-paper-2 py-2.5 px-2.5 text-left whitespace-nowrap">
+                    <td className="border-b border-paper-2 py-2.5 pr-2.5 pl-3 text-left whitespace-nowrap">
                       <span
                         className={`mr-1.5 inline-block w-2.5 text-[9px] text-ink-3 transition-transform ${isOpen ? "rotate-90" : ""}`}
                       >
@@ -122,14 +122,14 @@ export function CountryTable({ countries, raw }: { countries: Country[]; raw: TO
                       </span>
                       {c.Rank}
                     </td>
-                    <td className="border-b border-paper-2 py-2.5 px-2.5 text-left font-body text-[15px] whitespace-nowrap">
+                    <td className="border-b border-paper-2 py-2.5 px-2.5 text-left font-body text-[15px]">
                       <span
                         className="mr-1.5 inline-block h-[11px] w-[34px] align-[-1px]"
                         style={{ background: rampColor(c.TOI) }}
                       />
                       {c.country}
                     </td>
-                    <td className={`border-b border-paper-2 py-2.5 px-2.5 text-right whitespace-nowrap max-md:hidden`}>
+                    <td className={`border-b border-paper-2 py-2.5 px-2.5 text-right max-md:hidden`}>
                       {c.region}
                     </td>
                     <td className={`border-b border-paper-2 py-2.5 px-2.5 text-right whitespace-nowrap max-md:hidden`}>
@@ -147,7 +147,7 @@ export function CountryTable({ countries, raw }: { countries: Country[]; raw: TO
                     <td className={`border-b border-paper-2 py-2.5 px-2.5 text-right whitespace-nowrap max-md:hidden`}>
                       {c.Percentile.toFixed(1)}
                     </td>
-                    <td className="border-b border-paper-2 py-2.5 px-2.5 text-right whitespace-nowrap">
+                    <td className="border-b border-paper-2 py-2.5 pr-3 pl-2.5 text-right whitespace-nowrap">
                       {c.pop_pct.toFixed(1)}
                     </td>
                   </tr>
@@ -222,7 +222,7 @@ function RowDetail({ c, raw }: { c: Country; raw: TOIRaw }) {
               return (
                 <div
                   key={id}
-                  className="grid grid-cols-[minmax(140px,1.4fr)_minmax(120px,1fr)_30px_minmax(140px,1.3fr)] items-baseline gap-3 border-b border-rule py-1.5 text-[12px] max-md:grid-cols-[1fr_90px_24px]"
+                  className="grid grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_28px_minmax(0,1.3fr)] items-baseline gap-3 border-b border-rule py-1.5 text-[12px] max-md:grid-cols-[1fr_88px_24px] max-md:gap-2"
                 >
                   <span>{m.label}</span>
                   <span className="text-right font-mono tabular-nums">
