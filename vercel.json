@@ -1,8 +1,6 @@
 {
-  "buildCommand": "pip install --break-system-packages pandas && python indexes/teenager-outcomes/build.py && python case-studies/counting-women/build.py",
-  "outputDirectory": "site",
-  "cleanUrls": true,
-  "framework": null,
+  "buildCommand": "pip install --break-system-packages pandas && python indexes/teenager-outcomes/build.py && python case-studies/counting-women/build.py && next build",
+  "framework": "nextjs",
   "redirects": [
     { "source": "/teenager-outcomes-index/", "destination": "/indexes/teenager-outcomes/", "permanent": true },
     { "source": "/teenager-outcomes-index", "destination": "/indexes/teenager-outcomes/", "permanent": true },

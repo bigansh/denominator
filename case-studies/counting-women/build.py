@@ -177,12 +177,17 @@ def main():
     out.update(build_instruments())
     out.update(build_benchmarks())
 
+    PUBLIC_DATA = ROOT.parent.parent / "public" / "data"
     DIST.mkdir(parents=True, exist_ok=True)
     SITE.mkdir(parents=True, exist_ok=True)
+    PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
 
     text = json.dumps(out, indent=2)
     (DIST / "counting-women.json").write_text(text + "\n")
     (SITE / "counting-women.json").write_text(text + "\n")
+    # also written for the Next.js app, which reads generated JSON at build
+    # time from a single well-known public/data/ location.
+    (PUBLIC_DATA / "counting-women.json").write_text(text + "\n")
 
     d = out["denominators"]
     print(

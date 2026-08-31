@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/*
+  Design tokens, carried over verbatim from the previous static site's
+  brand.css: the paper/ink interface palette and the plum -> teal 7-stop
+  data ramp are unchanged. Only typography and component design changed
+  in the Next.js rebuild.
+*/
+@theme {
+  --color-paper: #E3E7E1;
+  --color-paper-2: #D7DCD4;
+  --color-paper-3: #CBD2C9;
+  --color-ink: #141B17;
+  --color-ink-2: #4A5751;
+  --color-ink-3: #6D7A73;
+  --color-rule: #B4BCB4;
+
+  --color-s0: #4B1D3F;
+  --color-s1: #8E3536;
+  --color-s2: #C06A34;
+  --color-s3: #C9A94E;
+  --color-s4: #6F9A6B;
+  --color-s5: #2A6C63;
+  --color-s6: #134B4C;
+
+  --font-display: var(--font-space-grotesk), system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", monospace;
+
+  --spacing-gut: 32px;
+  --spacing-sec: 88px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-s3);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-s2);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

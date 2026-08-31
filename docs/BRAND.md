@@ -86,27 +86,42 @@ Reuse this function rather than re-deriving the interpolation each time.
 
 ## 3. Typography
 
+**Mid-migration note:** the display face changed from Bricolage Grotesque to
+**Space Grotesk** as part of the Next.js rebuild (`redesign/nextjs` branch)
+— Bricolage read as too heavy/generic; Space Grotesk carries the same
+"technical, not decorative" job with more mechanical character and less
+weight. Pages already rebuilt under `app/` use Space Grotesk, loaded via
+`next/font/google` in `app/layout.tsx` (self-hosted at build, not a
+`<link>`). Pages still under `site/` are unchanged (Bricolage Grotesque, the
+old `<link>` tag) until their turn to be rebuilt. Newsreader and IBM Plex
+Mono are unchanged in both.
+
 Three families, three distinct jobs. Never use one for another's job.
 
 | Token | Family | Job |
 |---|---|---|
-| `--fd` | Bricolage Grotesque | Display — every heading (h1–h4), big numbers, wordmark |
-| `--fb` | Newsreader | Body prose — paragraphs, `.note`, blockquotes, table first-column labels |
-| `--fm` | IBM Plex Mono | Data and metadata — eyebrows, nav links, labels, table numbers, tier badges, footer headings |
+| `--fd` / `font-display` | Space Grotesk | Display — every heading (h1–h4), big numbers, wordmark |
+| `--fb` / `font-body` | Newsreader | Body prose — paragraphs, `.note`, blockquotes, table first-column labels |
+| `--fm` / `font-mono` | IBM Plex Mono | Data and metadata — eyebrows, nav links, labels, table numbers, tier badges, footer headings |
 
-Loaded once, at the top of every page's `<head>`:
+On a page under `site/`, loaded once at the top of `<head>`:
 
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 ```
 
-**Headings** (`h1`–`h4`): Bricolage Grotesque, weight 800 (h3 is 700),
-letter-spacing -0.028em (h3: -0.02em), line-height 1.0, no default margin.
-`h2` inside a `.sechead` is `clamp(27px, 3.5vw, 42px)`. A hero `h1` runs
-much larger — `clamp(40px, 7.2vw, 92px)` on an index page,
-`clamp(42px, 7.4vw, 96px)` on the homepage — with a smaller floor below
-420px (`clamp(32px, 10.5vw, 40–42px)`) so it doesn't hit the same fixed
-minimum on a narrow phone.
+On a page under `app/`, all three are set up once in `app/layout.tsx` via
+`next/font/google` and exposed as CSS variables consumed by the
+`font-display`/`font-body`/`font-mono` Tailwind utilities (see
+`app/globals.css`'s `@theme` block) — no per-page setup needed.
+
+**Headings** (`h1`–`h4`): Space Grotesk, weight 600–700 (Space Grotesk has
+no 800 cut — its 700 is already less heavy than Bricolage's 800, which is
+the point), letter-spacing -0.02 to -0.025em, line-height ~1.0–1.02, no
+default margin. `h2` inside a `.sechead` is `clamp(27px, 3.5vw, 42px)`. A
+hero `h1` runs much larger — `clamp(40px, 7.2vw, 92px)` on an index page,
+`clamp(38px, 6.6vw, 80px)` on the homepage — with a smaller floor below
+420px so it doesn't hit the same fixed minimum on a narrow phone.
 
 **Body** (`body`, `.note`, `p`): Newsreader, 17px, line-height 1.58
 (16.5px below 820px). `.note` caps its own measure at `max-width: 66ch`.

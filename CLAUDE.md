@@ -18,10 +18,20 @@ of this.
 
 ## Repository architecture
 
+**In progress:** the presentation layer is mid-migration from static
+HTML/CSS to Next.js + Tailwind, on the `redesign/nextjs` branch, not yet
+merged to `master`. The homepage (`app/page.tsx`) is rebuilt under the new
+system; `indexes/teenager-outcomes/` and `case-studies/counting-women/`'s
+pages are not yet, and still live as static HTML under `site/` until their
+turn comes. Don't assume the whole site is on one stack until this note is
+gone — check which of `app/` or `site/<path>/index.html` actually serves a
+given page before editing it.
+
 ```
 indexes/<slug>/
   data/            source CSVs — the actual editable inputs
-  build.py         data/ -> dist/ + site/indexes/<slug>/<slug>.json
+  build.py         data/ -> dist/ + public/data/<slug>.json (+, while a
+                   page still lives under site/, a copy co-located there)
   validate.py      schema and sanity checks, run in CI on every PR
   dist/            generated output, committed (CI fails if it's stale)
   docs/            this index's own methodology / contested-indicators /
@@ -29,13 +39,22 @@ indexes/<slug>/
   README.md        this index's own full writeup — data schema, run
                    instructions, method, tiers, known limitations
 
-site/
-  index.html       the homepage / catalogue
-  assets/          brand.css, favicon.svg — shared by every page
-  indexes/<slug>/
-    index.html      the published page for this index
-    <slug>.json      generated, co-located with the page that reads it —
-                     never loose at the site root
+app/               Next.js App Router pages. A page reads its generated
+                   JSON at build time from public/data/<slug>.json via
+                   lib/data.ts (fs.readFileSync in a Server Component) —
+                   never a client-side fetch()
+components/        shared React components — Header/Footer (identical on
+                   every page, see Hard rules), Brand, and per-page pieces
+lib/               data loaders (lib/data.ts) and the shared colour-ramp
+                   interpolation (lib/ramp.ts) — the one ramp, reused
+                   wherever a score needs a colour, same as before
+public/data/       generated JSON, one well-known location every page
+                   reads from — the Next.js equivalent of the old
+                   co-located <slug>.json
+
+site/              the old static site — still live for any page not yet
+                   rebuilt under app/. Being phased out page by page, not
+                   deleted until nothing depends on it.
 
 docs/              repository-wide docs (this file's companion pieces —
                    BRAND.md and anything else that applies to every index,
@@ -47,7 +66,7 @@ self-contained. A second index never has to share a schema, a build
 pipeline, or a JSON file with the first one. When in doubt about where
 something goes, ask "does this belong to one index, or to the whole
 platform?" — one index's specifics go under `indexes/<slug>/`, platform-wide
-things go at the root or in `docs/`.
+things go at the root, in `app/`+`components/`+`lib/`, or in `docs/`.
 
 ## Adding a new index
 
@@ -183,9 +202,18 @@ Each of these was a real correction, not a style preference.
 ## Deployment
 
 Vercel, connected to `github.com/bigansh/denominator`, production branch
-`master`. `vercel.json`'s `buildCommand` runs each index's `build.py` (pip
-install needs `--break-system-packages` — Vercel's Python is
-`uv`-managed and rejects a plain `pip install`). `outputDirectory` is
-`site`. Live at `denominator.fyi`, aliased through Vercel; changing a
+`master`. Live at `denominator.fyi`, aliased through Vercel; changing a
 published index's URL slug needs a matching entry in `vercel.json`'s
 `redirects` so old links don't 404.
+
+On `master` (the still-static site): `vercel.json`'s `buildCommand` runs
+each index's `build.py` (pip install needs `--break-system-packages` —
+Vercel's Python is `uv`-managed and rejects a plain `pip install`).
+`outputDirectory` is `site`.
+
+On `redesign/nextjs` (mid-migration, not yet merged): `buildCommand` runs
+the same `build.py` scripts — now writing into `public/data/` — followed by
+`next build`; `framework` is `"nextjs"` and `outputDirectory` is unset
+(Next.js manages its own build output). Once every page is rebuilt under
+`app/` and this branch merges to `master`, this becomes the only
+deployment path and this section's "on master" half goes away.

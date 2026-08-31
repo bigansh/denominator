@@ -188,6 +188,11 @@ def main() -> int:
     # co-located with the page that fetches it, not loose at the site root —
     # so a second index's generated JSON never collides with this one's.
     (SITE_PAGE / "toi.json").write_text(blob)
+    # also written for the Next.js app, which reads generated JSON at build
+    # time from a single well-known public/data/ location.
+    PUBLIC_DATA = REPO_ROOT / "public" / "data"
+    PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
+    (PUBLIC_DATA / "toi.json").write_text(blob)
 
     print(f"built {len(res)} countries, {len(ind)} indicators -> "
           f"{DIST.relative_to(REPO_ROOT)}/")
