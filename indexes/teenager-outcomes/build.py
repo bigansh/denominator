@@ -22,7 +22,7 @@ import pandas as pd
 ROOT = pathlib.Path(__file__).resolve().parent
 REPO_ROOT = ROOT.parent.parent
 DATA, DIST = ROOT / "data", ROOT / "dist"
-SITE_PAGE = REPO_ROOT / "site" / "indexes" / "teenager-outcomes"
+PUBLIC_DATA = REPO_ROOT / "public" / "data"
 WINSOR_LOW, WINSOR_HIGH = 0.05, 0.95
 
 
@@ -185,12 +185,8 @@ def main() -> int:
     }
     blob = json.dumps(payload, separators=(",", ":"))
     (DIST / "toi.json").write_text(blob)
-    # co-located with the page that fetches it, not loose at the site root —
-    # so a second index's generated JSON never collides with this one's.
-    (SITE_PAGE / "toi.json").write_text(blob)
-    # also written for the Next.js app, which reads generated JSON at build
-    # time from a single well-known public/data/ location.
-    PUBLIC_DATA = REPO_ROOT / "public" / "data"
+    # the Next.js app reads generated JSON at build time from this single
+    # well-known location — never a client-side fetch.
     PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
     (PUBLIC_DATA / "toi.json").write_text(blob)
 

@@ -1,10 +1,15 @@
 # Denominator — brand book
 
-The design system behind every page in this repository, extracted from the
-actual stylesheet (`site/assets/brand.css`) and the page-specific styles
-built on top of it. If a new page needs a component that isn't described
-here, build it to match what's here rather than inventing a new pattern —
-and then add it to this document.
+The design system behind every page in this repository: design tokens in
+`app/globals.css`'s `@theme` block, consumed as Tailwind utilities, and
+implemented as the shared components in `components/`
+(`Header`/`Footer`/`Brand`, `Tables`, `Bars`, `Callouts`, `Ladder`,
+`SectionHead`, `CatalogueEntry`, `Mosaic`, `RibbonChart`, `CountryTable`).
+The class names below describe the visual system, not literal CSS classes
+— the actual implementation is Tailwind utilities on these components. If a
+new page needs something that isn't described here, build it to match what's
+here rather than inventing a new pattern, reusing an existing component
+where one already fits — and then add it to this document.
 
 ---
 
@@ -14,15 +19,15 @@ and then add it to this document.
 text. Every ranking has a denominator; most don't tell you theirs — that's
 the whole premise, and the name is meant to be read literally.
 
-**Mark:** a 26×9px horizontal bar (`.rule-bar`), filled with a 7-stop
-linear gradient running through the full data ramp (below), placed
-immediately to the left of the wordmark. It is not a logo separate from
-the colour system — it *is* the colour system, shown as a swatch. This is
-also the favicon (`site/assets/favicon.svg`): the same bar, centred on a
-rounded paper-coloured square.
+**Mark:** a 26×9px horizontal bar (`<RuleBar>` in `components/Brand.tsx`),
+filled with a 7-stop linear gradient running through the full data ramp
+(below), placed immediately to the left of the wordmark. It is not a logo
+separate from the colour system — it *is* the colour system, shown as a
+swatch. This is also the favicon (`app/icon.svg`): the same bar, centred on
+a rounded paper-coloured square.
 
-**Wordmark:** "Denominator" set in Bricolage Grotesque, weight 800, 19px,
-letter-spacing -0.045em.
+**Wordmark:** "Denominator" set in Space Grotesk, weight 600, 19px,
+letter-spacing -0.02em.
 
 ---
 
@@ -86,15 +91,9 @@ Reuse this function rather than re-deriving the interpolation each time.
 
 ## 3. Typography
 
-**Mid-migration note:** the display face changed from Bricolage Grotesque to
-**Space Grotesk** as part of the Next.js rebuild (`redesign/nextjs` branch)
-— Bricolage read as too heavy/generic; Space Grotesk carries the same
-"technical, not decorative" job with more mechanical character and less
-weight. Pages already rebuilt under `app/` use Space Grotesk, loaded via
-`next/font/google` in `app/layout.tsx` (self-hosted at build, not a
-`<link>`). Pages still under `site/` are unchanged (Bricolage Grotesque, the
-old `<link>` tag) until their turn to be rebuilt. Newsreader and IBM Plex
-Mono are unchanged in both.
+The display face is **Space Grotesk**, not Bricolage Grotesque — Bricolage
+read as too heavy/generic; Space Grotesk carries the same "technical, not
+decorative" job with more mechanical character and less weight.
 
 Three families, three distinct jobs. Never use one for another's job.
 
@@ -104,16 +103,10 @@ Three families, three distinct jobs. Never use one for another's job.
 | `--fb` / `font-body` | Newsreader | Body prose — paragraphs, `.note`, blockquotes, table first-column labels |
 | `--fm` / `font-mono` | IBM Plex Mono | Data and metadata — eyebrows, nav links, labels, table numbers, tier badges, footer headings |
 
-On a page under `site/`, loaded once at the top of `<head>`:
-
-```html
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-```
-
-On a page under `app/`, all three are set up once in `app/layout.tsx` via
-`next/font/google` and exposed as CSS variables consumed by the
-`font-display`/`font-body`/`font-mono` Tailwind utilities (see
-`app/globals.css`'s `@theme` block) — no per-page setup needed.
+All three are set up once, in `app/layout.tsx`, via `next/font/google`
+(self-hosted at build, no external request) and exposed as CSS variables
+consumed by the `font-display`/`font-body`/`font-mono` Tailwind utilities
+(see `app/globals.css`'s `@theme` block) — no per-page setup needed.
 
 **Headings** (`h1`–`h4`): Space Grotesk, weight 600–700 (Space Grotesk has
 no 800 cut — its 700 is already less heavy than Bricolage's 800, which is
@@ -170,22 +163,23 @@ separates them. The very first section on a page has no top border
 
 ## 5. Components
 
-**Header** (`.site-head` / `.mast`): not sticky (deliberately — see
-`CLAUDE.md`). Brand mark + wordmark on the left, nav on the right, same on
-every page: `Published`, `Principles`, `GitHub ↗`. An index page's own
-in-page navigation is a separate `.jumpnav` row inside its hero, not part
-of the header.
+**Header** (`.site-head` / `.mast`; `components/Header.tsx` on a page under
+`app/`): not sticky (deliberately — see `CLAUDE.md`). Brand mark + wordmark
+on the left, nav on the right, same on every page: `Published`,
+`GitHub ↗`. An index page's own in-page navigation is a separate
+`.jumpnav` row inside its hero, not part of the header.
 
-**Footer** (`.site-foot`): 3-column grid (`1.4fr 1fr 1fr`, collapsing to
-one column below 900px), top border in `--ink` (heavier than the
-`--rule` hairlines used elsewhere). Column headings are `.site-foot h4` —
-mono, 10.5px, uppercase, `--ink-3`. Links have a `--rule` underline that
-darkens to `--ink` on hover.
+**Footer** (`.site-foot`; `components/Footer.tsx`): 3-column grid
+(`1.4fr 1fr 1fr`, collapsing to one column below 900px), top border in
+`--ink` (heavier than the `--rule` hairlines used elsewhere). Column
+headings are `.site-foot h4` — mono, 10.5px, uppercase, `--ink-3`. Links
+have a `--rule` underline that darkens to `--ink` on hover.
 
-**Principle / rule cards** (`.principles` / `.principle`): equal-width
-grid, 1px `--rule` gaps forming hairlines between cards via
-`background: var(--rule)` behind `--paper`-filled cells. No numbering on
-the label — a card is titled by its `h3` alone.
+**Retired: principle / rule cards.** The homepage no longer states its
+principles as their own section — the copy was noise beside the
+catalogue's own numbers. Don't reintroduce a "why we do this" section on a
+landing page; the platform's ethos lives in `CLAUDE.md` and each index's
+own README, not repeated on every page that links to them.
 
 **Catalogue entries** (`.cat` / `.entry`): a 3-column row
 (`118px 1fr 300px` — code/date, description, stats), full-row link,

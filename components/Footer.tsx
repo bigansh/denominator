@@ -25,7 +25,6 @@ export function Footer({
           title="Denominator"
           links={[
             { href: "/", label: "Home" },
-            { href: "/#principles", label: "Principles" },
             { href: "/#catalogue", label: "Published" },
             { href: "https://github.com/bigansh/denominator", label: "GitHub" },
           ]}

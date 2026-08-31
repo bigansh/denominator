@@ -20,7 +20,7 @@ import pathlib
 ROOT = pathlib.Path(__file__).resolve().parent
 DATA = ROOT / "data"
 DIST = ROOT / "dist"
-SITE = ROOT.parent.parent / "site" / "case-studies" / "counting-women"
+PUBLIC_DATA = ROOT.parent.parent / "public" / "data"
 
 COMPONENTS = [
     ("dedicated_vaw", 25, "Runs a dedicated violence-against-women survey"),
@@ -177,16 +177,13 @@ def main():
     out.update(build_instruments())
     out.update(build_benchmarks())
 
-    PUBLIC_DATA = ROOT.parent.parent / "public" / "data"
     DIST.mkdir(parents=True, exist_ok=True)
-    SITE.mkdir(parents=True, exist_ok=True)
     PUBLIC_DATA.mkdir(parents=True, exist_ok=True)
 
     text = json.dumps(out, indent=2)
     (DIST / "counting-women.json").write_text(text + "\n")
-    (SITE / "counting-women.json").write_text(text + "\n")
-    # also written for the Next.js app, which reads generated JSON at build
-    # time from a single well-known public/data/ location.
+    # the Next.js app reads generated JSON at build time from this single
+    # well-known location — never a client-side fetch.
     (PUBLIC_DATA / "counting-women.json").write_text(text + "\n")
 
     d = out["denominators"]

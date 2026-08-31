@@ -25,10 +25,10 @@ kind of observation — before sending a large PR.
 
 ## Contributing code
 
-The site is plain HTML/CSS/JS with no client-side build step, sharing one
-stylesheet (`site/assets/brand.css`) across pages. Match the existing style
-of whichever file you're editing rather than introducing a new pattern.
-Small, focused PRs preferred.
+The site is Next.js + Tailwind, sharing one design system
+(`app/globals.css`'s tokens and the components in `components/`) across
+pages. Match the existing style of whichever file you're editing rather
+than introducing a new pattern. Small, focused PRs preferred.
 
 ## Reporting a problem with an existing number
 

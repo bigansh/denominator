@@ -26,7 +26,7 @@ pipeline with anything else published here:
 indexes/<slug>/         one folder per published index
 case-studies/<slug>/    one folder per published case study — an analysis
                         that doesn't reduce to a cross-unit score
-site/                   the published site
+app/                    the published site (Next.js)
 ```
 
 ## Contributing

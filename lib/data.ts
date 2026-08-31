@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import type { TOIRaw } from "./toi";
 
 /**
  * Reads generated JSON from public/data/ at build time. This is the one
@@ -12,20 +13,6 @@ function readJSON<T>(file: string): T {
   const p = path.join(process.cwd(), "public", "data", file);
   return JSON.parse(fs.readFileSync(p, "utf8")) as T;
 }
-
-export type TOIData = {
-  meta: {
-    index: string;
-    version: string;
-    countries: number;
-    indicators: number;
-    adolescents_millions: number;
-    winsor: [number, number];
-  };
-  columns: string[];
-  rows: [string, string, number, number, number, number, number, number, number][];
-  dimensions: Record<string, unknown>;
-};
 
 export type CountingWomenData = {
   verified: number;
@@ -55,8 +42,8 @@ export type CountingWomenData = {
   denominators: Record<string, number>;
 };
 
-export function getTOIData(): TOIData {
-  return readJSON<TOIData>("toi.json");
+export function getTOIData(): TOIRaw {
+  return readJSON<TOIRaw>("toi.json");
 }
 
 export function getCountingWomenData(): CountingWomenData {

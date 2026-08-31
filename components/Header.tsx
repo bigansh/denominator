@@ -2,16 +2,15 @@ import { BrandLink } from "./Brand";
 
 const NAV = [
   { href: "/#catalogue", label: "Published" },
-  { href: "/#principles", label: "Principles" },
   { href: "https://github.com/bigansh/denominator", label: "GitHub ↗" },
 ];
 
 export function Header() {
   return (
     <header className="border-b border-rule">
-      <div className="mx-auto flex max-w-[1180px] items-center justify-between gap-6 px-gut py-4">
+      <div className="mx-auto flex max-w-[1180px] flex-wrap items-center justify-between gap-3 px-gut py-4">
         <BrandLink />
-        <nav className="flex flex-wrap justify-end gap-5">
+        <nav className="flex gap-5">
           {NAV.map((item) => (
             <a
               key={item.label}

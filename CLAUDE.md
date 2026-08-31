@@ -18,20 +18,16 @@ of this.
 
 ## Repository architecture
 
-**In progress:** the presentation layer is mid-migration from static
-HTML/CSS to Next.js + Tailwind, on the `redesign/nextjs` branch, not yet
-merged to `master`. The homepage (`app/page.tsx`) is rebuilt under the new
-system; `indexes/teenager-outcomes/` and `case-studies/counting-women/`'s
-pages are not yet, and still live as static HTML under `site/` until their
-turn comes. Don't assume the whole site is on one stack until this note is
-gone — check which of `app/` or `site/<path>/index.html` actually serves a
-given page before editing it.
+The presentation layer is Next.js (App Router) + Tailwind, not static
+HTML/CSS — the site was rebuilt on the `redesign/nextjs` branch (see git
+history if you need the old static version for reference). `indexes/` and
+`case-studies/` are unaffected: they're Python data pipelines, and stay the
+same regardless of what renders their output.
 
 ```
 indexes/<slug>/
   data/            source CSVs — the actual editable inputs
-  build.py         data/ -> dist/ + public/data/<slug>.json (+, while a
-                   page still lives under site/, a copy co-located there)
+  build.py         data/ -> dist/ + public/data/<slug>.json
   validate.py      schema and sanity checks, run in CI on every PR
   dist/            generated output, committed (CI fails if it's stale)
   docs/            this index's own methodology / contested-indicators /
@@ -44,17 +40,13 @@ app/               Next.js App Router pages. A page reads its generated
                    lib/data.ts (fs.readFileSync in a Server Component) —
                    never a client-side fetch()
 components/        shared React components — Header/Footer (identical on
-                   every page, see Hard rules), Brand, and per-page pieces
-lib/               data loaders (lib/data.ts) and the shared colour-ramp
-                   interpolation (lib/ramp.ts) — the one ramp, reused
-                   wherever a score needs a colour, same as before
-public/data/       generated JSON, one well-known location every page
-                   reads from — the Next.js equivalent of the old
-                   co-located <slug>.json
-
-site/              the old static site — still live for any page not yet
-                   rebuilt under app/. Being phased out page by page, not
-                   deleted until nothing depends on it.
+                   every page, see Hard rules), Brand, and reusable
+                   building blocks (Tables, Bars, Callouts, Ladder, ...)
+lib/               data loaders (lib/data.ts, lib/toi.ts) and the shared
+                   colour-ramp interpolation (lib/ramp.ts) — the one ramp,
+                   reused wherever a score needs a colour
+public/data/       generated JSON, the one well-known location every page
+                   reads from at build time
 
 docs/              repository-wide docs (this file's companion pieces —
                    BRAND.md and anything else that applies to every index,
@@ -86,13 +78,13 @@ reference implementation. In order:
    build script, not after.
 3. **`build.py`** reads `data/`, computes the score (or whatever the
    output is), runs the whole thing again at every unit's best and worst
-   defensible value to produce a band, and writes the generated JSON
-   straight into `site/indexes/<slug>/`. The published page always reads a
+   defensible value to produce a band, and writes the generated JSON into
+   `dist/` and `public/data/<slug>.json`. The published page always reads a
    band, e.g. `55.6 [52.4–59.0]`, never a bare point estimate.
-4. **The page** (`site/indexes/<slug>/index.html`) reads the generated
-   JSON at runtime (`fetch('<slug>.json')`, relative, co-located — never an
-   absolute `/toi.json`-style path at the site root). Section order:
-   construction/method/sources-and-limits/contested-indicators come
+4. **The page** (`app/indexes/<slug>/page.tsx`) reads the generated JSON at
+   build time (`lib/data.ts`, `fs.readFileSync` against
+   `public/data/<slug>.json` — never a client-side `fetch()`). Section
+   order: construction/method/sources-and-limits/contested-indicators come
    **before** any specific worked example (see Hard rules, below, for why).
    A per-row or per-unit toggle should show the actual underlying
    indicator-level detail — not a re-statement of columns already visible
@@ -100,9 +92,9 @@ reference implementation. In order:
 5. **`indexes/<slug>/README.md`** gets the full writeup: data schema, run
    instructions, method in one paragraph, tier table, known limitations.
    This is where the detail lives — not the root README.
-6. **Register it** in `site/index.html`'s catalogue section (one `.entry`
-   card) and nowhere else at the root level. The root README and
-   CONTRIBUTING.md do not name or detail any specific index — see Hard
+6. **Register it** in `app/page.tsx`'s catalogue section (a
+   `<CatalogueEntry>`) and nowhere else at the root level. The root README
+   and CONTRIBUTING.md do not name or detail any specific index — see Hard
    rules.
 
 ## Adding something that isn't an index
@@ -128,11 +120,11 @@ rather than `indexes/<slug>/`:
 case-studies/<slug>/
   data/*.csv        source rows, same sourcing discipline as an index
   build.py          computes every arithmetic claim the page makes and
-                     writes the generated JSON
+                     writes the generated JSON to dist/ + public/data/
   dist/<slug>.json  generated, committed
-site/case-studies/<slug>/
-  index.html        the page, co-located <slug>.json fetched at runtime
   README.md         the case study's own full writeup, same as an index's
+app/case-studies/<slug>/page.tsx   the page, reads public/data/<slug>.json
+                                   at build time
 ```
 
 What's different from an index: there's no score, no ranking, no
@@ -172,17 +164,20 @@ Each of these was a real correction, not a style preference.
    not a paragraph of exposition. This applies to the homepage hero and to
    each index page's hero.
 5. **Nav and footer are identical across every page** — same links, same
-   order, same wording. If a page needs page-specific navigation (jumping
-   to its own sections), that's a separate in-page element (see
-   `.jumpnav` in the TOI page), never a variation on the shared header or
-   footer.
-6. **Never use a 3-value `padding` shorthand** (`padding: Xpx 0 Ypx`) on
-   an element that also needs `.wrap`'s horizontal gutter. The middle `0`
-   silently zeroes left/right padding and overrides the gutter, because
-   both rules have equal specificity and the later one in the cascade
-   wins. This exact bug shipped twice (`.toi-hero`, `.home-hero`) before
-   being caught by measuring computed styles, not by looking at it. Use
-   `padding-top` / `padding-bottom` as separate properties instead.
+   order, same wording. `components/Header.tsx` and `components/Footer.tsx`
+   are shared; don't fork them per page. If a page needs page-specific
+   navigation (jumping to its own sections), that's a separate in-page
+   element (see `Jumpnav` in `components/SectionHead.tsx`), never a
+   variation on the shared header or footer.
+6. **Never let a horizontal-padding utility get silently zeroed by a
+   combined shorthand.** The historical version of this bug was CSS: a
+   3-value `padding` shorthand (`padding: Xpx 0 Ypx`) whose middle `0`
+   overrode `.wrap`'s gutter through equal-specificity cascade order —
+   shipped twice before being caught by measuring computed styles, not by
+   looking at it. In Tailwind, apply horizontal and vertical padding as
+   separate utilities (`px-gut` / `pt-… pb-…`, as `app/page.tsx`'s hero
+   does), never one arbitrary multi-value class or an inline `style`
+   shorthand that could collide with a wrapper's own padding.
 7. **Testing mobile widths in headless Chrome:** `--window-size` silently
    floors around 500px in this environment and will not reproduce anything
    below that — it *looks* like it's rendering a narrow viewport but isn't.
@@ -190,14 +185,15 @@ Each of these was a real correction, not a style preference.
    (`Emulation.setDeviceMetricsOverride` with `mobile: true`, driven over
    the remote-debugging websocket) to get a real sub-500px render before
    concluding a mobile layout bug does or doesn't exist.
-8. **Data-first, always.** No number is hardcoded into an HTML or JS file.
-   If a value can change, it lives in a CSV under `data/` and gets read by
-   `build.py`. This is the entire reason the repository is structured the
-   way it is — it's not a style preference, it's the point.
+8. **Data-first, always.** No number is hardcoded into a page component.
+   If a value can change, it lives in a CSV under `data/`, gets read by
+   `build.py`, and reaches the page via `public/data/<slug>.json` and
+   `lib/data.ts`. This is the entire reason the repository is structured
+   the way it is — it's not a style preference, it's the point.
 9. **Tables that would need horizontal scroll on mobile don't get one.**
-   Hide secondary columns below the relevant breakpoint and recover that
-   information in an expandable per-row detail panel instead (see
-   `table.grid` in the TOI page for the pattern).
+   Hide secondary columns below the relevant breakpoint (`max-md:hidden`)
+   and recover that information in an expandable per-row detail panel
+   instead — see `components/CountryTable.tsx`.
 
 ## Deployment
 
@@ -206,14 +202,8 @@ Vercel, connected to `github.com/bigansh/denominator`, production branch
 published index's URL slug needs a matching entry in `vercel.json`'s
 `redirects` so old links don't 404.
 
-On `master` (the still-static site): `vercel.json`'s `buildCommand` runs
-each index's `build.py` (pip install needs `--break-system-packages` —
-Vercel's Python is `uv`-managed and rejects a plain `pip install`).
-`outputDirectory` is `site`.
-
-On `redesign/nextjs` (mid-migration, not yet merged): `buildCommand` runs
-the same `build.py` scripts — now writing into `public/data/` — followed by
-`next build`; `framework` is `"nextjs"` and `outputDirectory` is unset
-(Next.js manages its own build output). Once every page is rebuilt under
-`app/` and this branch merges to `master`, this becomes the only
-deployment path and this section's "on master" half goes away.
+`vercel.json`'s `buildCommand` runs every index/case-study's `build.py`
+(writing into `public/data/`) followed by `next build` (pip install needs
+`--break-system-packages` — Vercel's Python is `uv`-managed and rejects a
+plain `pip install`). `framework` is `"nextjs"`; there's no
+`outputDirectory` — Next.js manages its own build output.

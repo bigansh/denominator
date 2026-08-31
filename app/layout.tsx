@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Newsreader, IBM_Plex_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -21,10 +22,31 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
+const description =
+  "Sourced, computed data on human outcomes. Every number traces to a file you can open and check.";
+
 export const metadata: Metadata = {
-  title: "Denominator",
-  description:
-    "Denominator publishes sourced, computed data on human outcomes and lets anyone check where a number came from.",
+  metadataBase: new URL("https://denominator.fyi"),
+  title: {
+    default: "Denominator",
+    template: "%s — Denominator",
+  },
+  description,
+  openGraph: {
+    title: "Denominator",
+    description,
+    url: "https://denominator.fyi",
+    siteName: "Denominator",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Denominator",
+    description,
+  },
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -35,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="font-body text-[17px] leading-[1.58] text-ink bg-paper antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   );
